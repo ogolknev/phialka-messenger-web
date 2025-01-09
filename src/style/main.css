@@ -1,0 +1,12 @@
+@import './base.css';
+
+* {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+}
+
+#app {
+  height: 100vh;
+}
