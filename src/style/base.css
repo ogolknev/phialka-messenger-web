@@ -1,4 +1,21 @@
 /* sizes */
 :root {
   --tile-size: 5rem;
+  --gap: 1.5rem;
+  --text-xl: 2rem;
+  --text-l: 1.8rem;
+  --text-m: 1.5rem;
+}
+
+/* colors */
+:root {
+  --bg-0: #030303;
+  --bg-1: #131313;
+  --border-0: #333333;
+  --icon-0: #808080;
+  --accent-0: #670dff;
+  --success: #cde923;
+  --warning: #ffc20d;
+  --danger: #de2e6c;
+  --text: #f2f2f2;
 }

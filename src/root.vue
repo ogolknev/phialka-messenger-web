@@ -1,20 +1,25 @@
-<script setup></script>
+<script setup>
+
+import MainHeaderComponent from './components/MainHeaderComponent.vue';
+
+</script>
 
 <template>
-  <header></header>
+  <main-header-component></main-header-component>
   <main>
     <router-view></router-view>
   </main>
 </template>
 
+<style>
+#app {
+  box-sizing: border-box;
+  padding: var(--gap);
+  display: grid;
+  grid-template-rows: var(--tile-size) 1fr;
+  gap: var(--gap);
+}
+</style>
+
 <style scoped>
-header {
-  position: absolute;
-  height: var(--tile-size);
-  width: 100%;
-}
-main {
-  height: 100%;
-  padding-top: var(--tile-size);
-}
 </style>
