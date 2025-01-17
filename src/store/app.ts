@@ -1,8 +1,10 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useProfileStore } from "./profile";
 
 export const useAppStore = defineStore('app', () => {
-  const isAuth = ref(false)
+  const isAuth = computed(() => useProfileStore().profile != null)
+  const toasts = ref<string[]>([])
 
-  return { isAuth }
+  return { isAuth, toasts }
 })

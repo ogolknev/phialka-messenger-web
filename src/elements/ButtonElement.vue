@@ -1,9 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import TileElement from './TileElement.vue';
 </script>
 
 <template>
-  <tile-element class="button button-element">
+  <tile-element tabindex="0" class="button button-element">
     <slot>Button</slot>
   </tile-element>
 </template>
@@ -11,19 +11,19 @@ import TileElement from './TileElement.vue';
 <style scoped>
 
   .button-element {
-    --accent: var(--accent-0);
+    --accent-btn: var(--accent);
   }
 
   .button-element.success {
-    --accent: var(--success);
+    --accent-btn: var(--success);
   }
 
   .button-element.warning {
-    --accent: var(--warning);
+    --accent-btn: var(--warning);
   }
 
   .button-element.danger {
-    --accent: var(--danger);
+    --accent-btn: var(--danger);
   }
 
   .button-element {
@@ -31,7 +31,8 @@ import TileElement from './TileElement.vue';
     align-items: center;
     justify-content: center;
     padding-inline: var(--gap);
-    padding-block: 12px;
+    padding-block: calc(var(--gap) / 2);
+    color: var(--text);
     cursor: pointer;
     user-select: none;
     transition:
@@ -39,8 +40,9 @@ import TileElement from './TileElement.vue';
       border-color 200ms ease-out;
   }
 
-  .button-element:hover {
-    color: var(--accent);
-    border-color: var(--accent);
+  .button-element:hover,
+  .button-element:focus {
+    color: var(--accent-btn);
+    border-color: var(--accent-btn);
   }
 </style>

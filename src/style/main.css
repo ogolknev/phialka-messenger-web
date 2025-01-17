@@ -16,14 +16,14 @@ body {
 
 #app {
   height: 100vh;
-  background-color: var(--bg-0);
+  background-color: var(--bg-darker);
 }
 
 .tile {
   box-sizing: border-box;
   width: var(--tile-size);
   height: var(--tile-size);
-  background-color: var(--bg-1);
+  background-color: var(--bg);
   border: var(--border-0) solid 1px;
   border-radius: 1.5rem;
 }

@@ -1,14 +1,21 @@
-<script setup>
+<script setup lang="ts">
 import TileElement from '@/elements/TileElement.vue';
 import ButtonElement from '@/elements/ButtonElement.vue';
+import { useProfileStore } from '@/store/profile';
+import { useAuthStore } from '@/store/auth';
+
+const profileStore = useProfileStore()
+const authStore = useAuthStore()
+
+const { active = false } = defineProps<{ active?: boolean }>()
 </script>
 
 <template>
-  <tile-element class="profile-side-menu">
-    <span class="name">Name</span>
+  <tile-element class="profile-side-menu" :class="{ active: active }">
+    <span class="name">{{ profileStore.profile?.name }}</span>
     <div class="button-container">
-      <button-element class="danger">Sign Out</button-element>
-      <button-element class="warning">Edit</button-element>
+      <button-element class="danger" @click="authStore.signOut" @keydown.enter="authStore.signOut" :tabindex="active ? 0 : -1">Sign Out</button-element>
+      <button-element class="warning" :tabindex="active ? 0 : -1">Edit</button-element>
     </div>
   </tile-element>
 </template>

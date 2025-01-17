@@ -2,20 +2,32 @@
 :root {
   --tile-size: 5rem;
   --gap: 1.5rem;
-  --text-xl: 2rem;
-  --text-l: 1.8rem;
-  --text-m: 1.5rem;
+  --text-xl: 1.9rem;
+  --text-l: 1.5rem;
+  --text-m: 1.3rem;
+  --text-s: 1rem;
+}
+
+/* color kit */
+:root {
+  --black: #030303;
+  --grey-dark-1: #131313;
+  --grey-dark-0: #333333;
+  --grey: #666666;
+  --grey-light-0: #808080;
+  --white: #f2f2f2;
+  --accent: #670dff;
+  --success: #cde923;
+  --warning: #ffc20d;
+  --danger: #de2e6c;
 }
 
 /* colors */
 :root {
-  --bg-0: #030303;
-  --bg-1: #131313;
-  --border-0: #333333;
-  --icon-0: #808080;
-  --accent-0: #670dff;
-  --success: #cde923;
-  --warning: #ffc20d;
-  --danger: #de2e6c;
-  --text: #f2f2f2;
+  --bg-darker: var(--black);
+  --bg: var(--grey-dark-1);
+  --border-0: var(--grey-dark-0);
+  --icon: var(--grey);
+  --text: var(--white);
+  --text-dark-0: var(--grey-light-0)
 }

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import TileElement from './TileElement.vue';
 </script>
 
@@ -24,10 +24,10 @@ import TileElement from './TileElement.vue';
 }
 
 .burger-button:hover {
-  border-color: var(--accent-0);
+  border-color: var(--accent);
 
   .line {
-    background-color: var(--accent-0);
+    background-color: var(--accent);
   }
 }
 
@@ -49,7 +49,7 @@ import TileElement from './TileElement.vue';
 .line {
   width: 50%;
   height: 2px;
-  background-color: var(--icon-0);
+  background-color: var(--icon);
   border-radius: 1px;
   transition:
     background-color 200ms ease-out,

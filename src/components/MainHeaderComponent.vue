@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAppStore } from '@/store/app';
@@ -46,7 +46,7 @@ function toggleProfileSideMenu() {
     <tile-element class="header-spacer"></tile-element>
     <profile-photo-element v-if="appStore.isAuth" @click="toggleProfileSideMenu"></profile-photo-element>
     <sign-in-button-element v-else @click="router.push('/auth')"></sign-in-button-element>
-    <profile-side-menu-component :class="{ active: isProfileSideMenuActive }"></profile-side-menu-component>
+    <profile-side-menu-component :active="isProfileSideMenuActive && appStore.isAuth"></profile-side-menu-component>
   </header>
 </template>
 
@@ -55,6 +55,7 @@ header {
   display: grid;
   grid-template-columns: auto auto 1fr auto;
   gap: var(--gap);
+  z-index: 99;
 }
 
 .header-spacer {
@@ -67,8 +68,8 @@ header {
   justify-content: center;
   padding-inline: var(--gap);
   width: fit-content;
-  color: var(--accent-0);
-  border-color: var(--accent-0);
+  color: var(--accent);
+  border-color: var(--accent);
   font-size: var(--text-xl);
   cursor: pointer;
   user-select: none;

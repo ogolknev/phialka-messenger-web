@@ -1,14 +1,16 @@
-<script setup>
+<script setup lang="ts">
+import { useProfileStore } from '@/store/profile';
 import TileElement from './TileElement.vue';
+
+const profileStore = useProfileStore()
+const baseAPIUrl = import.meta.env.VITE_API_BASE_URL
 </script>
 
 <template>
   <tile-element class="profile-photo-element">
     <div class="thumbnail">
-      <img
-        src="https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg"
-        alt="Profile photo"
-      >
+      <img v-if="profileStore.profile?.photo" :src="baseAPIUrl + 'files/download/' + profileStore.profile?.photo.download_id">
+      <img v-else src="../assets/user.svg">
     </div>
   </tile-element>
 </template>
@@ -24,7 +26,7 @@ import TileElement from './TileElement.vue';
 }
 
 .profile-photo-element:hover {
-  border-color: var(--accent-0);
+  border-color: var(--accent);
 }
 
 .thumbnail {

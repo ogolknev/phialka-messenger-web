@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import TileElement from '@/elements/TileElement.vue';
 import ButtonElement from '@/elements/ButtonElement.vue';
 </script>

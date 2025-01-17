@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import TileElement from './TileElement.vue';
 </script>
 
@@ -20,14 +20,12 @@ import TileElement from './TileElement.vue';
       </mask>
       <path
         d="M2.92656 14.8027C2.43019 14.6414 2.15652 14.1073 2.33995 13.6187C3.98011 9.24986 7.03331 5.54222 11.0275 3.09456C15.2909 0.481978 20.3465 -0.523653 25.2851 0.258545C30.2237 1.04074 34.7212 3.55943 37.9685 7.36159C41.2159 11.1637 43 15.9998 43 21C43 26.0002 41.2159 30.8363 37.9685 34.6384C34.7212 38.4406 30.2237 40.9593 25.2851 41.7415C20.3465 42.5237 15.2909 41.518 11.0275 38.9054C7.03331 36.4578 3.98011 32.7501 2.33995 28.3813C2.15652 27.8927 2.4302 27.3586 2.92656 27.1973C3.42293 27.0361 3.95384 27.3088 4.13945 27.7966C5.63906 31.7377 8.40459 35.0815 12.0151 37.294C15.8947 39.6714 20.4953 40.5865 24.9895 39.8747C29.4836 39.1629 33.5763 36.8709 36.5314 33.4109C39.4864 29.951 41.11 25.5501 41.11 21C41.11 16.4498 39.4864 12.049 36.5314 8.58905C33.5763 5.12908 29.4836 2.83707 24.9895 2.12527C20.4953 1.41347 15.8947 2.3286 12.0151 4.70605C8.40459 6.91854 5.63906 10.2623 4.13944 14.2034C3.95383 14.6912 3.42292 14.9639 2.92656 14.8027Z"
-        fill="#808080"
       />
       <rect
         y="20.2"
         width="28"
         height="2"
         rx="1"
-        fill="#808080"
         class="arrow-tail"
       />
       <rect
@@ -37,7 +35,6 @@ import TileElement from './TileElement.vue';
         height="2"
         rx="1"
         transform="rotate(45 19.4141 12)"
-        fill="#808080"
         class="arrow-head-top"
       />
       <rect
@@ -47,7 +44,6 @@ import TileElement from './TileElement.vue';
         height="2"
         rx="1"
         transform="rotate(-45 18 29)"
-        fill="#808080"
         class="arrow-head-bottom"
       />
     </svg>
@@ -61,6 +57,10 @@ import TileElement from './TileElement.vue';
   justify-content: center;
   transition: border-color 200ms ease-out;
   cursor: pointer;
+
+  svg * {
+    fill: var(--icon);
+  }
 
   rect {
     transition:
@@ -77,11 +77,11 @@ import TileElement from './TileElement.vue';
 }
 
 .sign-in-button:hover {
-  border-color: var(--accent-0);
+  border-color: var(--accent);
 
   path,
   rect {
-    fill: var(--accent-0);
+    fill: var(--accent);
   }
 }
 
