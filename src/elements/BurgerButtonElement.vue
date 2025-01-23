@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import TileElement from './TileElement.vue';
+const { active = false } = defineProps<{ active: boolean }>()
 </script>
 
 <template>
-  <tile-element class="burger-button">
+  <div
+    class="tile burger-button"
+    :class="{ active }"
+  >
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
-  </tile-element>
+  </div>
 </template>
 
 <style scoped>
@@ -18,9 +21,9 @@ import TileElement from './TileElement.vue';
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: calc(var(--tile-size) * 0.12);
   cursor: pointer;
-  transition: border-color 200ms ease-out;
+  transition: border-color var(--animation-focus-duration) var(--animation-focus-function);
 }
 
 .burger-button:hover {
@@ -32,6 +35,7 @@ import TileElement from './TileElement.vue';
 }
 
 .burger-button.active {
+
   .line:nth-child(1),
   .line:nth-child(4) {
     transform: scaleX(0);
@@ -48,17 +52,15 @@ import TileElement from './TileElement.vue';
 
 .line {
   width: 50%;
-  height: 2px;
+  height: var(--icon-width);
   background-color: var(--icon);
-  border-radius: 1px;
+  border-radius: calc(var(--icon-width) * 0.5);
   transition:
-    background-color 200ms ease-out,
-    transform 200ms ease-out;
+    background-color var(--animation-focus-duration) var(--animation-focus-function),
+    transform var(--animation-focus-duration) var(--animation-focus-function)
 }
 
 .line:nth-child(3) {
   position: absolute;
 }
-
-
 </style>

@@ -1,19 +1,21 @@
 <script setup lang='ts'>
-import TileElement from './TileElement.vue';
 </script>
 
 <template>
-  <tile-element class="toast-element"><slot></slot></tile-element>
+  <div class="tile toast-element"><slot></slot></div>
 </template>
 
 <style scoped>
 .toast-element {
   width: fit-content;
+  max-width: calc(var(--tile-size) * 8);
   height: fit-content;
   min-height: var(--tile-size);
   display: grid;
   place-content: center;
   padding-inline: var(--gap);
   padding-block: calc(var(--gap) / 2);
+  text-align: center;
+  white-space: pre-line;
 }
 </style>

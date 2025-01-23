@@ -1,11 +1,16 @@
 /* sizes */
 :root {
-  --tile-size: 5rem;
-  --gap: 1.5rem;
-  --text-xl: 1.9rem;
-  --text-l: 1.5rem;
-  --text-m: 1.3rem;
-  --text-s: 1rem;
+  --tile-size: 4rem;
+  --icon-width: 2px;
+  --main-menu-width: 30rem;
+  --main-content-width: 40rem;
+  --modal-width: 40rem;
+  --toast-area-height: 8rem;
+  --gap: 1rem;
+  --text-xl: calc(var(--tile-size) * 0.4);
+  --text-l: calc(var(--tile-size) * 0.35);
+  --text-m: calc(var(--tile-size) * 0.3);
+  --text-s: calc(var(--tile-size) * 0.25);
 }
 
 /* color kit */
@@ -29,5 +34,19 @@
   --border-0: var(--grey-dark-0);
   --icon: var(--grey);
   --text: var(--white);
-  --text-dark-0: var(--grey-light-0)
+  --text-dark-0: var(--grey-light-0);
+
+  --cropper-border: var(--white);
+  --cropper-grid: var(--white);
+  --cropper-modal: var(--black);
+}
+
+/* animations */
+:root {
+  --animation-focus-duration: 200ms;
+  --animation-focus-function: ease-out;
+  --animation-submit-duration: 200ms;
+  --animation-submit-function: ease-out;
+  --animation-appear-from-side-duration: 300ms;
+  --animation-appear-from-side-function: ease-out;
 }

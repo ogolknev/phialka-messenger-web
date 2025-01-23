@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import TileElement from '@/elements/TileElement.vue';
 import ButtonElement from '@/elements/ButtonElement.vue';
 </script>
 
 <template>
-  <tile-element class="side-menu">
+  <div class="tile side-menu">
     <span class="title">Menu</span>
     <button-element class="settings-button">Settings</button-element>
-  </tile-element>
+  </div>
 </template>
 
 <style scoped>
@@ -15,14 +14,15 @@ import ButtonElement from '@/elements/ButtonElement.vue';
   position: absolute;
   bottom: var(--gap);
   padding: var(--gap);
-  width: 30rem;
+  width: var(--main-menu-width);
   height: calc(100vh - (3 * var(--gap) + var(--tile-size)));
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: start;
   gap: var(--gap);
   transform: translateX(calc(-100% - var(--gap)));
-  transition: transform 200ms ease-out;
+  transition: transform var(--animation-appear-from-side-duration) var(--animation-appear-from-side-function);
 }
 
 .side-menu.active {

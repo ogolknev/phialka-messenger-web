@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import TileElement from './TileElement.vue';
 </script>
 
 <template>
-  <tile-element class="close-button-element">
+  <div class="tile close-button-element">
     <div class="line"></div>
     <div class="line"></div>
-  </tile-element>
+  </div>
 </template>
 
 <style scoped>
@@ -15,7 +14,7 @@ import TileElement from './TileElement.vue';
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: border-color 200ms ease-out;
+  transition: border-color var(--animation-focus-duration) var(--animation-focus-function);
 }
 
 .close-button-element:hover {
@@ -28,10 +27,10 @@ import TileElement from './TileElement.vue';
 
 .line {
   position: absolute;
-  height: 2px;
-  width: 2.5rem;
+  height: var(--icon-width);
+  width: calc(var(--tile-size) * 0.5);
   background-color: var(--icon);
-  transition: background-color 200ms ease-out;
+  transition: background-color var(--animation-focus-duration) var(--animation-focus-function);
 }
 
 .line:nth-child(1) {

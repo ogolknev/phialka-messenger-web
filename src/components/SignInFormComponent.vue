@@ -1,83 +1,121 @@
 <script setup lang='ts'>
 import TextInputElement from '@/elements/TextInputElement.vue';
 import ButtonElement from '@/elements/ButtonElement.vue';
-import { ref } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { useValidation } from '@/composables/validation';
 import { useAppStore } from '@/store/app';
 
 
-const appStore = useAppStore()
-const isLoginInputInvalid = ref(false)
-const isPasswordInputInvalid = ref(false)
-
-const model = defineModel<{
-  username: string,
-  password: string
-}>({ required: true })
+const username = defineModel<string>('username', { required: true })
+const password = defineModel<string>('password', { required: true })
 const emit = defineEmits(['sign-in'])
 
-function loginValidate() {
-  isLoginInputInvalid.value = !useValidation(model.value.username, {
-    minLength: {
-      value: 5,
-      callback(minLength: number) {
-        if (!isLoginInputInvalid.value) {
-          appStore.toasts.push(`Minimum ${minLength} characters in login.`)
-        }
-      },
-    },
-    maxLength: {
-      value: 20,
-      callback(maxLength: number) {
-        if (!isLoginInputInvalid.value) {
-          appStore.toasts.push(`Maximum ${maxLength} characters in login.`)
-        }
-      },
-    }
-  })
-}
+const appStore = useAppStore()
 
-function passwordValidate() {
-  isPasswordInputInvalid.value = !useValidation(model.value.password, {
+const validation = {
+  username: useValidation(username, {
     minLength: {
-      value: 8,
-      callback(minLength: number) {
-        if (!isPasswordInputInvalid.value) {
-          appStore.toasts.push(`Minimum ${minLength} characters in password.`)
-        }
+      value: 4,
+      callback(value) {
+        appStore.toasts.push(`Minimum ${value} chars in login`)
       }
     },
     maxLength: {
-      value: 32,
-      callback(maxLength: number) {
-        if (!isPasswordInputInvalid.value) {
-          appStore.toasts.push(`Maximum ${maxLength} characters in password.`)
-        }
+      value: 15,
+      callback(value) {
+        appStore.toasts.push(`Maximum ${value} chars in login`)
+      }
+    },
+    alphaNumeric: {
+      callback() {
+        appStore.toasts.push(`Login must be alphanumeric`)
+      }
+    }
+  }),
+  password: useValidation(password, {
+    minLength: {
+      value: 8,
+      callback(value) {
+        appStore.toasts.push(`Minimum ${value} chars in password`)
+      }
+    },
+    maxLength: {
+      value: 30,
+      callback(value) {
+        appStore.toasts.push(`Maximum ${value} chars in password`)
+      }
+    },
+    hasCapital: {
+      callback() {
+        appStore.toasts.push(`Password must contain at least one\nuppercase letter`)
+      }
+    },
+    hasLowercase: {
+      callback() {
+        appStore.toasts.push(`Password must contain at least one\nlowercase letter`)
+      }
+    },
+    hasSpecial: {
+      callback() {
+        appStore.toasts.push(`Password must contain at least one\nof symbols !@#$%^&*(),.?":{}|<>`)
       }
     }
   })
 }
 
 function onSubmit() {
-  loginValidate()
-  passwordValidate()
-  if (isLoginInputInvalid.value || isPasswordInputInvalid.value) {
-    return
+  validation.username.validate()
+  validation.password.validate()
+  if (
+    validation.username.silenseIsValid.value &&
+    validation.password.silenseIsValid.value
+  ) {
+    emit('sign-in')
   }
-  emit('sign-in')
 }
+
+function onKeydown(event: KeyboardEvent) {
+  if (event.key === 'Enter') {
+    onSubmit()
+  }
+}
+
+onMounted(() => {
+  addEventListener('keydown', onKeydown)
+})
+
+onUnmounted(() => {
+  removeEventListener('keydown', onKeydown)
+})
 </script>
 
 <template>
-  <div class="sign-in-form form" @keydown.enter="onSubmit">
-    <text-input-element class="login-input" :class="{ invalid: isLoginInputInvalid }" v-model="model.username"
-      placeholder="Login..." maxlength="47" @input="loginValidate"></text-input-element>
-    <text-input-element class="password-input" :class="{ invalid: isPasswordInputInvalid }" v-model="model.password"
-      placeholder="Password..." maxlength="47" @input="passwordValidate" password></text-input-element>
+  <form class="sign-in-form form">
+    <text-input-element
+      class="login-input"
+      :invalid="!validation.username.isValid.value"
+      type='text'
+      v-model="username"
+      placeholder="Login..."
+      autocomplete="username"
+      maxlength="47"
+    ></text-input-element>
+    <text-input-element
+      v-model="password"
+      class="password-input"
+      :invalid="!validation.password.isValid.value"
+      type='password'
+      placeholder="Password..."
+      maxlength="47"
+      autocomplete="current-password"
+    ></text-input-element>
     <div class="button-container">
-      <button-element tabindex="0" @click="onSubmit">Sign In</button-element>
+      <button-element
+        tabindex="0"
+        @click="onSubmit"
+      >Sign In</button-element>
     </div>
-  </div>
+  </form>
 </template>
 
 <style scoped>

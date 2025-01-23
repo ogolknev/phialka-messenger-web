@@ -1,76 +1,155 @@
 <script setup lang='ts'>
-import { useValidation } from '@/composables/validation';
 import TextInputElement from '@/elements/TextInputElement.vue';
 import ButtonElement from '@/elements/ButtonElement.vue';
-import { ref } from 'vue';
+import { useValidation } from '@/composables/validation';
+import { onMounted, onUnmounted } from 'vue';
+import { useAppStore } from '@/store/app';
 
-const isNameInputInvalid = ref(false)
-const isLoginInputInvalid = ref(false)
-const isPasswordInputInvalid = ref(false)
 
-const model = defineModel<{
-  name: string,
-  username: string,
-  password: string
-}>({ required: true })
+const name = defineModel<string>('name', { required: true })
+const username = defineModel<string>('username', { required: true })
+const password = defineModel<string>('password', { required: true })
 const emit = defineEmits(['sign-up'])
 
-function nameValidate() {
-  isNameInputInvalid.value = !useValidation(model.value.name, {
+const appStore = useAppStore()
+
+const validation = {
+  name: useValidation(name, {
     minLength: {
-      value: 3
+      value: 4,
+      callback(value) {
+        appStore.toasts.push(`Minimum ${value} chars in name`)
+      }
     },
     maxLength: {
-      value: 20
+      value: 20,
+      callback(value) {
+        appStore.toasts.push(`Maximum ${value} chars in name`)
+      }
+    },
+    alphaNumeric: {
+      callback() {
+        appStore.toasts.push(`Name must be alphanumeric`)
+      }
+    }
+  }),
+  username: useValidation(username, {
+    minLength: {
+      value: 4,
+      callback(value) {
+        appStore.toasts.push(`Minimum ${value} chars in login`)
+      }
+    },
+    maxLength: {
+      value: 15,
+      callback(value) {
+        appStore.toasts.push(`Maximum ${value} chars in login`)
+      }
+    },
+    alphaNumeric: {
+      callback() {
+        appStore.toasts.push(`Login must be alphanumeric`)
+      }
+    }
+  }),
+  password: useValidation(password, {
+    minLength: {
+      value: 8,
+      callback(value) {
+        appStore.toasts.push(`Minimum ${value} chars in password`)
+      }
+    },
+    maxLength: {
+      value: 30,
+      callback(value) {
+        appStore.toasts.push(`Maximum ${value} chars in password`)
+      }
+    },
+    hasCapital: {
+      callback() {
+        appStore.toasts.push(`Password must contain at least one uppercase letter`)
+      }
+    },
+    hasLowercase: {
+      callback() {
+        appStore.toasts.push(`Password must contain at least one lowercase letter`)
+      }
+    },
+    hasSpecial: {
+      callback() {
+        appStore.toasts.push(`Password must contain at least one of symbols !@#$%^&*(),.?":{}|<>`)
+      }
     }
   })
 }
-
-function loginValidate() {
-  isLoginInputInvalid.value = !useValidation(model.value.username, {
-    minLength: {
-      value: 5
-    },
-    maxLength: {
-      value: 20
-    }
-  })
-}
-
-function passwordValidate() {
-  isPasswordInputInvalid.value = !useValidation(model.value.password, {
-    minLength: {
-      value: 8
-    },
-    maxLength: {
-      value: 32
-    }
-  })
-}
-
 function onSubmit() {
-  nameValidate()
-  loginValidate()
-  passwordValidate()
-  if (isNameInputInvalid.value || isLoginInputInvalid.value || isPasswordInputInvalid.value) {
-    return
+  validation.name.validate()
+  validation.username.validate()
+  validation.password.validate()
+  if (
+    validation.password.silenseIsValid.value &&
+    validation.username.silenseIsValid.value &&
+    validation.name.silenseIsValid.value
+  ) {
+    emit('sign-up')
   }
-  emit('sign-up')
 }
 
+function onKeydown(event: KeyboardEvent) {
+  if (event.key === 'Enter') {
+    onSubmit()
+  }
+}
+
+onMounted(() => {
+  addEventListener('keydown', onKeydown)
+})
+
+onUnmounted(() => {
+  removeEventListener('keydown', onKeydown)
+})
 </script>
 
 <template>
-  <div class="sign-up-form form" @keydown.enter="onSubmit">
-    <text-input-element class="name-input success" :class="{ invalid: isNameInputInvalid }" v-model="model.name"
-      placeholder="Name..." autocomplete="name" maxlength="47" @input="nameValidate"></text-input-element>
-    <text-input-element class="login-input success" :class="{ invalid: isLoginInputInvalid }" v-model="model.username"
-      placeholder="Login..." autocomplete="login username" maxlength="47" @input="loginValidate"></text-input-element>
-    <text-input-element class="password-input success" :class="{ invalid: isPasswordInputInvalid }"
-      v-model="model.password" placeholder="Password..." autocomplete="new-password password" maxlength="47"
-      @input="passwordValidate" password></text-input-element>
+  <div
+    class="sign-up-form form"
+    @keydown.enter="onSubmit"
+  >
+    <text-input-element
+      v-model="name"
+      class="name-input"
+      type='text'
+      placeholder="Name..."
+      :invalid="!validation.name.isValid.value"
+      autocomplete="name"
+      maxlength="47"
+      color='success'
+    ></text-input-element>
+    <text-input-element
+      v-model="username"
+      class="login-input"
+      type='text'
+      placeholder="Login..."
+      :invalid="!validation.username.isValid.value"
+      autocomplete="username"
+      maxlength="47"
+      color='success'
+    ></text-input-element>
+    <text-input-element
+      v-model="password"
+      class="password-input"
+      type='password'
+      placeholder="Password..."
+      :invalid="!validation.password.isValid.value"
+      autocomplete="new-password"
+      maxlength="47"
+      color='success'
+    ></text-input-element>
     <div class="button-container">
-      <button-element class="success" @click="onSubmit">Sign Up</button-element>
+      <button-element
+        color="success"
+        @click="onSubmit"
+      >Sign Up</button-element>
     </div>
   </div>
 </template>

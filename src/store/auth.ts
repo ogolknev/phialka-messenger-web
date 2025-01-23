@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { HTTPError } from "./errors";
-import { useProfileStore } from "./profile";
 
 export const useAuthStore = defineStore('auth', () => {
 
@@ -29,8 +28,6 @@ export const useAuthStore = defineStore('auth', () => {
     if (!response.ok) {
       throw new HTTPError(response)
     }
-    const profileStore = useProfileStore()
-    profileStore.unsetProfile()
   }
 
   async function signUp(signUpForm: { name: string, username: string, password: string }) {

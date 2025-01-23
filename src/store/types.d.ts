@@ -14,4 +14,10 @@ declare namespace API {
       upload_at: string
     }
   }
+  type ProfileEdit = {
+    name: string,
+    description?: string,
+    tag?: string,
+    birthdate?: string
+  }
 }

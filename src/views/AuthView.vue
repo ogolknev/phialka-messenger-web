@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import TileElement from '@/elements/TileElement.vue';
 import CloseButtonElement from '@/elements/CloseButtonElement.vue';
 import SignUpFormComponent from '@/components/SignUpFormComponent.vue';
 import SignInFormComponent from '@/components/SignInFormComponent.vue';
@@ -9,7 +8,7 @@ import { useAuthStore } from '@/store/auth';
 import { useProfileStore } from '@/store/profile';
 import { useRouter } from 'vue-router';
 
-const isSignUpForm = ref(false)
+const mode = ref<'sign-in' | 'sign-up'>('sign-in')
 const router = useRouter()
 const authStore = useAuthStore()
 const profileStore = useProfileStore()
@@ -27,7 +26,7 @@ const signUpFormInitial = {
 }
 const signUpForm = ref({ ...signUpFormInitial })
 
-async function signIn(authData=signInForm.value) {
+async function signIn(authData = signInForm.value) {
   await authStore.signIn(authData)
   signInForm.value = { ...signInFormInitial }
   profileStore.getProfile()
@@ -40,19 +39,40 @@ async function signUp() {
   signUpForm.value = { ...signUpFormInitial }
 }
 
+function onClose() {
+  router.push("/")
+}
+
 </script>
 
 <template>
   <div class="auth-view">
     <div class="navbar">
-      <tile-element class="to-sign-in-form nav-entry" :class="{ active: !isSignUpForm }"
-        @click="isSignUpForm = false">Sign In</tile-element>
-      <tile-element class="to-sign-up-form nav-entry" :class="{ active: isSignUpForm }"
-        @click="isSignUpForm = true">Sign Up</tile-element>
-      <close-button-element></close-button-element>
+      <div
+        class="tile to-sign-in-form nav-entry"
+        :class="{ active: mode === 'sign-in' }"
+        @click="mode = 'sign-in'"
+      >Sign In</div>
+      <div
+        class="tile to-sign-up-form nav-entry"
+        :class="{ active: mode === 'sign-up' }"
+        @click="mode = 'sign-up'"
+      >Sign Up</div>
+      <close-button-element @click="onClose"></close-button-element>
     </div>
-    <sign-up-form-component v-if="isSignUpForm" v-model="signUpForm" @sign-up="signUp"></sign-up-form-component>
-    <sign-in-form-component v-else v-model="signInForm" @sign-in="() => signIn()"></sign-in-form-component>
+    <sign-up-form-component
+      v-if="mode === 'sign-up'"
+      v-bind:name="signUpForm.name"
+      v-bind:username="signUpForm.username"
+      v-bind:password="signUpForm.password"
+      @sign-up="signUp"
+    ></sign-up-form-component>
+    <sign-in-form-component
+      v-else
+      v-model:username="signInForm.username"
+      v-model:password="signInForm.password"
+      @sign-in="() => signIn()"
+    ></sign-in-form-component>
   </div>
 </template>
 
@@ -60,7 +80,7 @@ async function signUp() {
 .auth-view {
   margin-top: var(--gap);
   margin-inline: auto;
-  width: 40rem;
+  width: var(--main-content-width);
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
@@ -93,9 +113,9 @@ async function signUp() {
   cursor: pointer;
   user-select: none;
   transition:
-    flex-grow 200ms ease-out,
-    border-color 200ms ease-out,
-    color 200ms ease-out;
+    flex-grow var(--animation-submit-duration) var(--animation-submit-function),
+    border-color var(--animation-focus-duration) var(--animation-focus-function),
+    color var(--animation-focus-duration) var(--animation-focus-function);
 }
 
 .nav-entry.active {

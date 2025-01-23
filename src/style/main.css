@@ -25,7 +25,9 @@ body {
   height: var(--tile-size);
   background-color: var(--bg);
   border: var(--border-0) solid 1px;
-  border-radius: 1.5rem;
+  border-radius: calc(var(--tile-size) * 0.28);
+  display: grid;
+  place-content: center;
 }
 
 .button {
