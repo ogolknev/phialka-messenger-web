@@ -1,16 +1,28 @@
 /* sizes */
 :root {
-  --tile-size: 4rem;
-  --icon-width: 2px;
+  --tile-size: 3rem;
+  --icon-width: calc(var(--tile-size) * 0.03);
   --main-menu-width: 30rem;
   --main-content-width: 40rem;
   --modal-width: 40rem;
   --toast-area-height: 8rem;
-  --gap: 1rem;
+  --gap: calc(var(--tile-size) * 0.2);
   --text-xl: calc(var(--tile-size) * 0.4);
   --text-l: calc(var(--tile-size) * 0.35);
   --text-m: calc(var(--tile-size) * 0.3);
   --text-s: calc(var(--tile-size) * 0.25);
+}
+
+@media (min-width: 600px) {
+  :root {
+    --tile-size: 3.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --tile-size: 4rem;
+  }
 }
 
 /* color kit */

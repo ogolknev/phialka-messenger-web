@@ -151,7 +151,7 @@ function onRemove() {
 
 .first-row-container {
   display: grid;
-  grid-template-columns: calc(var(--tile-size) * 3 + var(--gap) * 2) 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-rows: repeat(3, var(--tile-size));
   gap: var(--gap);
 }
@@ -160,7 +160,7 @@ function onRemove() {
   grid-row: 1 / 4;
   grid-column: 1 / 2;
   height: 100%;
-  width: 100%;
+  width: calc(var(--tile-size) * 3 + var(--gap) * 2);
 }
 
 .name-input {

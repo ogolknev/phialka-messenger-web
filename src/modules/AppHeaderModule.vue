@@ -110,6 +110,21 @@ header {
   user-select: none;
 }
 
+.side-menu-component {
+  position: absolute;
+  top: calc(2 * var(--gap) + var(--tile-size));
+  padding: var(--gap);
+  max-width: var(--main-menu-width);
+  width: calc(100% - (2 * var(--gap)));
+  height: calc(100% - (3 * var(--gap) + var(--tile-size)));
+  transform: translateX(calc(-100% - var(--gap)));
+  transition: transform var(--animation-appear-from-side-duration) var(--animation-appear-from-side-function);
+}
+
+.side-menu-component.active {
+  transform: none;
+}
+
 .profile-photo {
   cursor: pointer;
   transition: border-color var(--animation-focus-duration) var(--animation-focus-function);

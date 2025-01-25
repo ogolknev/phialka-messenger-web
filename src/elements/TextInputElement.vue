@@ -236,6 +236,10 @@ input::placeholder {
   place-content: center;
   fill: var(--icon);
   transition: fill var(--animation-focus-duration) var(--animation-focus-function);
+
+  svg {
+    width: calc(var(--tile-size) * 0.4);
+  }
 }
 
 .toogle-password-btn:hover {

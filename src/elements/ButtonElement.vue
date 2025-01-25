@@ -36,6 +36,8 @@ const { color } = defineProps<{ color?: 'success' | 'warning' | 'danger' }>()
   padding-inline: var(--gap);
   padding-block: calc(var(--gap) / 2);
   color: var(--text);
+  font: inherit;
+  font-size: var(--text-s);
   cursor: pointer;
   user-select: none;
   transition:
