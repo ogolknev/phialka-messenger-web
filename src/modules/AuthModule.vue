@@ -29,7 +29,7 @@ const signUpForm = ref({ ...signUpFormInitial })
 async function signIn(authData = signInForm.value) {
   await authStore.signIn(authData)
   signInForm.value = { ...signInFormInitial }
-  profileStore.getProfile()
+  await profileStore.getProfile()
   router.push("/")
 }
 
@@ -65,9 +65,9 @@ function onClose() {
     </div>
     <sign-up-form-component
       v-if="mode === 'sign-up'"
-      v-bind:name="signUpForm.name"
-      v-bind:username="signUpForm.username"
-      v-bind:password="signUpForm.password"
+      v-model:name="signUpForm.name"
+      v-model:username="signUpForm.username"
+      v-model:password="signUpForm.password"
       @sign-up="signUp"
     ></sign-up-form-component>
     <sign-in-form-component

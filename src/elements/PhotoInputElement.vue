@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 
 const input = ref<HTMLInputElement>()
-const { src } = defineProps<{ src?: string }>()
+const { src, color } = defineProps<{ src?: string, color?: 'success' | 'danger' | 'warning' }>()
 const emit = defineEmits<{ (e: 'change', event: Event): void }>()
 
 function onChange(event: Event) {
@@ -17,6 +17,7 @@ function onClick() {
 <template>
   <div
     class="tile photo-input-element"
+    :class="color"
     @click="onClick"
     tabindex="0"
   >
@@ -47,6 +48,23 @@ function onClick() {
 </template>
 
 <style scoped>
+
+.photo-input-element {
+  --accent-photo-input: var(--accent);
+}
+
+.photo-input-element.success {
+  --accent-photo-input: var(--success);
+}
+
+.photo-input-element.warning {
+  --accent-photo-input: var(--warning);
+}
+
+.photo-input-element.danger {
+  --accent-photo-input: var(--danger);
+}
+
 .photo-input-element {
   position: relative;
   display: grid;
@@ -71,10 +89,10 @@ function onClick() {
 
 .photo-input-element:hover,
 .photo-input-element:focus {
-  border-color: var(--warning);
+  border-color: var(--accent-photo-input);
 
   svg {
-    fill: var(--warning)
+    fill: var(--accent-photo-input)
   }
 }
 </style>

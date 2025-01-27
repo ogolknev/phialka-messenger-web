@@ -4,5 +4,5 @@ import { ref } from "vue";
 export const useAppStore = defineStore('app', () => {
   const toasts = ref<string[]>([])
 
-  return { toasts }
+  return { toasts}
 })

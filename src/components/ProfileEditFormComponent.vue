@@ -85,6 +85,7 @@ function onRemove() {
     <div class="first-row-container">
       <photo-input-element
         :src="imageUrl"
+        color='warning'
         @change="onChange"
       ></photo-input-element>
       <text-input-element

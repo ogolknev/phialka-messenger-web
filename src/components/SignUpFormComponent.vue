@@ -65,21 +65,21 @@ const validation = {
         appStore.toasts.push(`Maximum ${value} chars in password`)
       }
     },
-    hasCapital: {
-      callback() {
-        appStore.toasts.push(`Password must contain at least one uppercase letter`)
-      }
-    },
-    hasLowercase: {
-      callback() {
-        appStore.toasts.push(`Password must contain at least one lowercase letter`)
-      }
-    },
-    hasSpecial: {
-      callback() {
-        appStore.toasts.push(`Password must contain at least one of symbols !@#$%^&*(),.?":{}|<>`)
-      }
-    }
+    // hasCapital: {
+    //   callback() {
+    //     appStore.toasts.push(`Password must contain at least one uppercase letter`)
+    //   }
+    // },
+    // hasLowercase: {
+    //   callback() {
+    //     appStore.toasts.push(`Password must contain at least one lowercase letter`)
+    //   }
+    // },
+    // hasSpecial: {
+    //   callback() {
+    //     appStore.toasts.push(`Password must contain at least one of symbols !@#$%^&*(),.?":{}|<>`)
+    //   }
+    // }
   })
 }
 function onSubmit() {

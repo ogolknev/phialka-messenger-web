@@ -56,11 +56,11 @@ function onCancel() {
     <div class="button-container">
       <button-element
         @click="onCancel"
-        type="danger"
+        color="danger"
       >Cancel</button-element>
       <button-element
         @click="onSubmit"
-        type="warning"
+        color="warning"
       >Crop</button-element>
     </div>
   </div>
@@ -69,6 +69,9 @@ function onCancel() {
 <style scoped>
 .crop-image-component {
   max-width: 80vw;
+  width: fit-content;
+  height: fit-content;
+  padding: var(--gap);
 
   .crop-container {
     width: 100%;

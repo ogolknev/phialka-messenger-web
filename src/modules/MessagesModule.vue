@@ -1,25 +1,72 @@
 <script setup lang='ts'>
+import { useRouter } from 'vue-router';
 import { useProfileStore } from '@/store/profile';
+import { useServersStore } from '@/store/servers';
 
-import ServerListModule from '@/modules/ServerListModule.vue';
+import ServerListComponent from '@/components/ServerListComponent.vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 
+
+const router = useRouter()
 const profileStore = useProfileStore()
+const serversStore = useServersStore()
+
+const getServerInterval = ref<number>()
+const isAuth = computed(() => profileStore.profile !== null)
+
+function onClickServer(serverId: string) {
+  serversStore.selectedServerId = serverId
+  console.log(serversStore.selectedServerId)
+}
+
+function onClickCreateServer() {
+  router.push('/servers/create')
+}
+
+function onClickEditServer(serverId: string) {
+  router.push('/servers/edit/' + serverId)
+}
+
+async function getServers() {
+  if (isAuth.value) await serversStore.getServers()
+}
+
+onMounted(() => {
+  nextTick(async () => {
+    await getServers()
+    getServerInterval.value = setInterval(() => {
+      getServers()
+    }, 5000)
+  })
+})
+
+onBeforeUnmount(() => {
+  clearInterval(getServerInterval.value)
+  console.log('unmount')
+})
 </script>
 
 <template>
+
   <div
-    v-if="profileStore.profile === null"
-    class="not-auth-container"
+    v-if="isAuth"
+    class="main-view"
   >
-    Please, sign in or register
+    <server-list-component
+      :servers="serversStore.servers"
+      :selected-server-id="serversStore.selectedServerId"
+      @click-server="onClickServer"
+      @click-create-server="onClickCreateServer"
+      @click-edit-server="onClickEditServer"
+    ></server-list-component>
+    <div class="chat-list-module"></div>
+    <div class="messages-area-module"></div>
   </div>
   <div
     v-else
-    class="main-view"
+    class="not-auth-container"
   >
-    <server-list-module></server-list-module>
-    <div class="chat-list-module"></div>
-    <div class="messages-area-module"></div>
+    Please, sign in or register
   </div>
 </template>
 

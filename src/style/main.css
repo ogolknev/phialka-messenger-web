@@ -26,7 +26,7 @@ body {
   height: var(--tile-size);
   background-color: var(--bg);
   border: var(--border-0) solid 1px;
-  border-radius: calc(var(--tile-size) * 0.28);
+  border-radius: calc(var(--tile-size) * 0.35);
   display: grid;
   place-content: center;
 }
@@ -34,4 +34,10 @@ body {
 .button {
   width: fit-content;
   height: fit-content;
+}
+
+.main-content {
+  max-width: var(--main-content-width);
+  width: 80%;
+  margin-inline: auto;
 }

@@ -1,0 +1,179 @@
+<script setup lang='ts'>
+import AddButtonElement from '@/elements/AddButtonElement.vue';
+import ThumbnailElement from '@/elements/ThumbnailElement.vue';
+import ButtonElement from '@/elements/ButtonElement.vue';
+
+import { onBeforeUnmount, onMounted, ref } from 'vue';
+
+
+const { servers = [], selectedServerId } = defineProps<{ servers: API.Server[], selectedServerId: string }>()
+const emit = defineEmits<{
+  (ev: 'click-create-server'): void
+  (ev: 'click-edit-server', serverId: string): void
+  (ev: 'click-server', serverId: string): void
+}>()
+
+const serverContextMenu = ref<{
+  left: number,
+  top: number,
+  title: string,
+  id: string
+} | null>(null)
+let longPressTimer: number | undefined
+
+function onClickCreateServer() {
+  emit('click-create-server')
+}
+
+function onClickServer(serverId: string) {
+  emit('click-server', serverId)
+  console.log("works?")
+}
+
+function getIconSrc(downloadId?: string) {
+  if (downloadId) return import.meta.env.VITE_API_BASE_URL + "/files/download/" + downloadId
+  return undefined
+}
+
+function openServerContextMenu(event: MouseEvent | TouchEvent, serverTitle: string, serverId: string) {
+  serverContextMenu.value = {
+    left: 'clientX' in event ? event.clientX : event.touches[0].clientX,
+    top: 'clientY' in event ? event.clientY : event.touches[0].clientY,
+    title: serverTitle,
+    id: serverId
+  }
+}
+
+function closeServerContextMenu(event: MouseEvent | TouchEvent) {
+  if (
+    (event.target as HTMLDivElement).style.left !== (serverContextMenu.value?.left + 'px') ||
+    (event.target as HTMLDivElement).style.top !== (serverContextMenu.value?.top + 'px')
+  ) {
+    serverContextMenu.value = null
+  }
+}
+
+function onClickEditServer() {
+  emit('click-edit-server', serverContextMenu.value!.id)
+}
+
+function startLongPress(event: TouchEvent, serverTitle: string, serverId: string) {
+  if (longPressTimer === undefined) {
+    longPressTimer = setTimeout(() => {
+      navigator.vibrate?.(30)
+      openServerContextMenu(event, serverTitle, serverId)
+      longPressTimer = undefined
+    }, 300)
+  }
+}
+
+function cancelLongPress(event: TouchEvent) {
+  if (longPressTimer !== undefined) {
+    (event.target as HTMLElement).click?.()
+    clearTimeout(longPressTimer)
+    longPressTimer = undefined
+  }
+}
+
+onMounted(() => {
+  addEventListener('click', closeServerContextMenu)
+})
+
+onBeforeUnmount(() => {
+  removeEventListener('click', closeServerContextMenu)
+})
+</script>
+
+<template>
+  <div class="server-list-module">
+    <add-button-element
+      @click="onClickCreateServer"
+      color='success'
+    ></add-button-element>
+    <div class="servers-container">
+      <div
+        v-for="server in servers"
+        :key="server.server_id"
+        class="tile server-list-entry"
+        :class="{ selected: selectedServerId === server.server_id }"
+        @click="() => onClickServer(server.server_id)"
+        @click.right.prevent="(event) => openServerContextMenu(event, server.title, server.server_id)"
+        @touchstart.prevent="(event) => startLongPress(event, server.title, server.server_id)"
+        @touchcancel.prevent="cancelLongPress"
+        @touchend.prevent="cancelLongPress"
+      >
+        <thumbnail-element :src="getIconSrc(server.logo?.download_id)"></thumbnail-element>
+      </div>
+    </div>
+  </div>
+  <teleport
+    v-if="serverContextMenu"
+    to=".app-overlay-module"
+  >
+    <div
+      class="tile server-context-menu"
+      :style="{
+        position: 'absolute',
+        left: serverContextMenu.left + 'px',
+        top: serverContextMenu.top + 'px'
+      }"
+    >
+      <span class="title">{{ serverContextMenu.title }}</span>
+      <button-element
+        color='warning'
+        @click="onClickEditServer"
+      >Edit</button-element>
+    </div>
+  </teleport>
+</template>
+
+<style scoped>
+.server-list-module {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--gap);
+  overflow: hidden;
+
+}
+
+.servers-container {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--gap);
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.server-list-entry {
+  flex-shrink: 0;
+  transition: border-color var(--animation-focus-duration) var(--animation-focus-function);
+  cursor: pointer;
+}
+
+.server-list-entry.selected {
+  border-color: var(--accent);
+}
+
+.server-context-menu {
+  width: calc(var(--tile-size) * 3);
+  height: fit-content;
+  padding: var(--gap);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: var(--gap);
+
+  .title {
+    font-size: var(--text-m);
+    pointer-events: none;
+  }
+
+  .button-element {
+    width: 100%;
+  }
+}
+</style>

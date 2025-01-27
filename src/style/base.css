@@ -3,10 +3,10 @@
   --tile-size: 3rem;
   --icon-width: calc(var(--tile-size) * 0.03);
   --main-menu-width: 30rem;
-  --main-content-width: 40rem;
+  --main-content-width: calc(var(--tile-size) * 8);
   --modal-width: 40rem;
   --toast-area-height: 8rem;
-  --gap: calc(var(--tile-size) * 0.2);
+  --gap: calc(var(--tile-size) * 0.3);
   --text-xl: calc(var(--tile-size) * 0.4);
   --text-l: calc(var(--tile-size) * 0.35);
   --text-m: calc(var(--tile-size) * 0.3);

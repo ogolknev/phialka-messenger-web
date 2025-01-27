@@ -41,8 +41,6 @@ const profilePhoto = computed(() => {
 })
 
 function onNewProfilePhotoLoad(url: string) {
-  console.log('load')
-  console.log(url)
   newProfilePhotoURL.value = url
   addEventListener('keydown', onKeydown)
 }
