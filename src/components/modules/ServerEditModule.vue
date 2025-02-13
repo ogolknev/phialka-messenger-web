@@ -2,9 +2,9 @@
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import ServerEditFormComponent from '@/components/ServerEditFormComponent.vue';
-import CloseButtonElement from '@/elements/CloseButtonElement.vue';
-import CropImageComponent from '@/components/CropImageComponent.vue';
+import ServerEditFormComponent from '@/components/components/ServerEditFormComponent.vue';
+import CloseButtonElement from '../elements/CloseButtonElement.vue';
+import CropImageComponent from '@/components/components/CropImageComponent.vue';
 import { getCanvasBlob } from '@/composables/shared';
 import api from '@/api';
 import { useStore } from '@/store';

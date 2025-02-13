@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import ServerCreateModule from '@/modules/ServerCreateModule.vue';
+import ServerCreateModule from '../modules/ServerCreateModule.vue';
 </script>
 
 <template>

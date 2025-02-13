@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import CloseButtonElement from '@/elements/CloseButtonElement.vue';
-import ProfileEditFormComponent from '@/components/ProfileEditFormComponent.vue';
-import CropImageComponent from '@/components/CropImageComponent.vue';
+import CloseButtonElement from '../elements/CloseButtonElement.vue';
+import ProfileEditFormComponent from '@/components/components/ProfileEditFormComponent.vue';
+import CropImageComponent from '@/components/components/CropImageComponent.vue';
 import { computed, ref } from 'vue';
 import { formatDate, getCanvasBlob } from '@/composables/shared';
 import { useRouter } from 'vue-router';

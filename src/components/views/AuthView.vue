@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import AuthModule from '@/modules/AuthModule.vue';
+import AuthModule from '../modules/AuthModule.vue';
 </script>
 
 <template>

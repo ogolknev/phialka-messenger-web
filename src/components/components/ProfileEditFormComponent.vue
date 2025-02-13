@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import PhotoInputElement from '@/elements/PhotoInputElement.vue';
-import TextInputElement from '@/elements/TextInputElement.vue';
-import ButtonElement from '@/elements/ButtonElement.vue';
+import PhotoInputElement from '../elements/PhotoInputElement.vue';
+import TextInputElement from '../elements/TextInputElement.vue';
+import ButtonElement from '../elements/ButtonElement.vue';
 import { useValidation } from '@/composables/validation';
 import { useStore } from '@/store';
 

@@ -1,18 +1,38 @@
 <script setup lang='ts'>
-import TextInputElement from '@/elements/TextInputElement.vue';
-import ButtonElement from '@/elements/ButtonElement.vue';
-import { onMounted, onUnmounted } from 'vue';
+import TextInputElement from '../elements/TextInputElement.vue';
+import ButtonElement from '../elements/ButtonElement.vue';
 import { useValidation } from '@/composables/validation';
+import { onMounted, onUnmounted } from 'vue';
 import { useStore } from '@/store';
 
 
+const name = defineModel<string>('name', { required: true })
 const username = defineModel<string>('username', { required: true })
 const password = defineModel<string>('password', { required: true })
-const emit = defineEmits(['sign-in'])
+const emit = defineEmits(['sign-up'])
 
 const store = useStore()
 
 const validation = {
+  name: useValidation(name, {
+    minLength: {
+      value: 4,
+      callback(value) {
+        store.toasts.push(`Minimum ${value} chars in name`)
+      }
+    },
+    maxLength: {
+      value: 20,
+      callback(value) {
+        store.toasts.push(`Maximum ${value} chars in name`)
+      }
+    },
+    alphaNumeric: {
+      callback() {
+        store.toasts.push(`Name must be alphanumeric`)
+      }
+    }
+  }),
   username: useValidation(username, {
     minLength: {
       value: 4,
@@ -47,30 +67,31 @@ const validation = {
     },
     // hasCapital: {
     //   callback() {
-    //     store.toasts.push(`Password must contain at least one\nuppercase letter`)
+    //     store.toasts.push(`Password must contain at least one uppercase letter`)
     //   }
     // },
     // hasLowercase: {
     //   callback() {
-    //     store.toasts.push(`Password must contain at least one\nlowercase letter`)
+    //     store.toasts.push(`Password must contain at least one lowercase letter`)
     //   }
     // },
     // hasSpecial: {
     //   callback() {
-    //     store.toasts.push(`Password must contain at least one\nof symbols !@#$%^&*(),.?":{}|<>`)
+    //     store.toasts.push(`Password must contain at least one of symbols !@#$%^&*(),.?":{}|<>`)
     //   }
     // }
   })
 }
-
 function onSubmit() {
+  validation.name.validate()
   validation.username.validate()
   validation.password.validate()
   if (
+    validation.password.silenseIsValid.value &&
     validation.username.silenseIsValid.value &&
-    validation.password.silenseIsValid.value
+    validation.name.silenseIsValid.value
   ) {
-    emit('sign-in')
+    emit('sign-up')
   }
 }
 
@@ -90,36 +111,52 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <form class="sign-in-form form">
+  <div
+    class="sign-up-form form"
+    @keydown.enter="onSubmit"
+  >
     <text-input-element
-      class="login-input"
-      :invalid="!validation.username.isValid.value"
+      v-model="name"
+      class="name-input"
       type='text'
+      placeholder="Name..."
+      :invalid="!validation.name.isValid.value"
+      autocomplete="name"
+      maxlength="47"
+      color='success'
+    ></text-input-element>
+    <text-input-element
       v-model="username"
+      class="login-input"
+      type='text'
       placeholder="Login..."
+      :invalid="!validation.username.isValid.value"
       autocomplete="username"
       maxlength="47"
+      color='success'
     ></text-input-element>
     <text-input-element
       v-model="password"
       class="password-input"
-      :invalid="!validation.password.isValid.value"
       type='password'
       placeholder="Password..."
+      :invalid="!validation.password.isValid.value"
+      autocomplete="new-password"
       maxlength="47"
-      autocomplete="current-password"
+      color='success'
     ></text-input-element>
     <div class="button-container">
       <button-element
-        tabindex="0"
+        color="success"
         @click="onSubmit"
-      >Sign In</button-element>
+      >Sign Up</button-element>
     </div>
-  </form>
+  </div>
 </template>
 
 <style scoped>
 .text-input-element {
+  position: relative;
   width: 100%;
 }
 

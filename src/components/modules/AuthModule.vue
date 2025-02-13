@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import CloseButtonElement from '@/elements/CloseButtonElement.vue';
-import SignUpFormComponent from '@/components/SignUpFormComponent.vue';
-import SignInFormComponent from '@/components/SignInFormComponent.vue';
+import CloseButtonElement from '../elements/CloseButtonElement.vue';
+import SignUpFormComponent from '@/components/components/SignUpFormComponent.vue';
+import SignInFormComponent from '@/components/components/SignInFormComponent.vue';
 import { useRouter } from 'vue-router';
 import api from '@/api';
 import { useStore } from '@/store';

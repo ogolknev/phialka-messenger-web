@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { useRouter } from 'vue-router';
 
-import ServerListComponent from '@/components/ServerListComponent.vue';
+import ServerListComponent from '@/components/components/ServerListComponent.vue';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useStore } from '@/store';
 import api from '@/api';

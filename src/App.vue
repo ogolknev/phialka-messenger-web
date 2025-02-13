@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import AppHeaderModule from './modules/AppHeaderModule.vue';
-import AppOverlayModule from './modules/AppOverlayModule.vue';
+import AppHeaderModule from './components/modules/AppHeaderModule.vue';
+import AppOverlayModule from './components/modules/AppOverlayModule.vue';
 
 
 </script>

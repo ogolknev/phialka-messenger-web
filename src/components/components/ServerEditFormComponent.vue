@@ -1,13 +1,14 @@
 <script setup lang='ts'>
-import PhotoInputElement from '@/elements/PhotoInputElement.vue';
-import TextInputElement from '@/elements/TextInputElement.vue';
-import ButtonElement from '@/elements/ButtonElement.vue';
+import PhotoInputElement from '../elements/PhotoInputElement.vue';
+import TextInputElement from '../elements/TextInputElement.vue';
+import ButtonElement from '../elements/ButtonElement.vue';
 
 const title = defineModel('title', { type: String, required: true })
 const description = defineModel('description', { type: String, required: true })
 const emit = defineEmits<{
   (ev: 'icon-load', url: string): void
-  (ev: 'click-create'): void
+  (ev: 'click-edit'): void
+  (ev: 'click-remove'): void
 }>()
 const { src } = defineProps<{ src?: string }>()
 
@@ -22,41 +23,52 @@ function onPhotoLoad(event: Event) {
   }
 }
 
-function onClickCreate() {
-  emit('click-create')
+function onClickEdit() {
+  emit('click-edit')
+}
+
+function onClickRemove() {
+  emit('click-remove')
 }
 </script>
 
 <template>
-  <div class="server-create-form-component">
+  <div class="server-edit-form-component">
     <photo-input-element
       :src="src"
       @change="onPhotoLoad"
-      color='success'
+      color='warning'
     ></photo-input-element>
     <text-input-element
       class="tite-input"
       v-model="title"
       placeholder="Title..."
-      color='success'
+      color='warning'
     ></text-input-element>
     <text-input-element
       class="description-input"
       v-model="description"
       placeholder="Description..."
-      color='success'
+      color='warning'
       maxrows="5"
       rows="5"
       maxlength="200"
     ></text-input-element>
     <div class="buttons-container">
-      <button-element color='success' @click="onClickCreate">Create</button-element>
+      <button-element
+        color='warning'
+        @click="onClickEdit"
+      >Edit</button-element>
+      <button-element
+        color='danger'
+        @click="onClickRemove"
+      >Remove</button-element>
     </div>
   </div>
 </template>
 
 <style scoped>
-.server-create-form-component {
+.server-edit-form-component {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
@@ -75,5 +87,6 @@ function onClickCreate() {
 .buttons-container {
   display: flex;
   flex-flow: row-reverse;
+  gap: var(--gap);
 }
 </style>

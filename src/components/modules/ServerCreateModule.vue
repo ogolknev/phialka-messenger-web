@@ -2,9 +2,9 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import ServerCreateFormComponent from '@/components/ServerCreateFormComponent.vue';
-import CloseButtonElement from '@/elements/CloseButtonElement.vue';
-import CropImageComponent from '@/components/CropImageComponent.vue';
+import ServerCreateFormComponent from '@/components/components/ServerCreateFormComponent.vue';
+import CloseButtonElement from '../elements/CloseButtonElement.vue';
+import CropImageComponent from '@/components/components/CropImageComponent.vue';
 import api from '@/api';
 
 const title = ref('')

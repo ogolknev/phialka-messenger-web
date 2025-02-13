@@ -2,12 +2,12 @@
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import BurgerButtonElement from '@/elements/BurgerButtonElement.vue';
-import SignInButtonElement from '@/elements/SignInButtonElement.vue';
-import ThumbnailElement from '@/elements/ThumbnailElement.vue';
+import BurgerButtonElement from '../elements/BurgerButtonElement.vue';
+import SignInButtonElement from '../elements/SignInButtonElement.vue';
+import ThumbnailElement from '../elements/ThumbnailElement.vue';
 
-import SideMenuComponent from '@/components/SideMenuComponent.vue';
-import ProfileSideMenuComponent from '@/components/ProfileSideMenuComponent.vue';
+import SideMenuComponent from '@/components/components/SideMenuComponent.vue';
+import ProfileSideMenuComponent from '@/components/components/ProfileSideMenuComponent.vue';
 import { useStore } from '@/store';
 import api from '@/api';
 

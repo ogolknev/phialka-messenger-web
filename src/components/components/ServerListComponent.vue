@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import AddButtonElement from '@/elements/AddButtonElement.vue';
-import ThumbnailElement from '@/elements/ThumbnailElement.vue';
-import ButtonElement from '@/elements/ButtonElement.vue';
+import AddButtonElement from '../elements/AddButtonElement.vue';
+import ThumbnailElement from '../elements/ThumbnailElement.vue';
+import ButtonElement from '../elements/ButtonElement.vue';
 
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 

@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { onMounted, ref, watch } from 'vue';
-import ToastElement from '@/elements/ToastElement.vue';
+import ToastElement from '../elements/ToastElement.vue';
 import { useStore } from '@/store';
 
 const store = useStore()
