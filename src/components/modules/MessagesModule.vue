@@ -88,7 +88,7 @@ onBeforeUnmount(() => {
   transform: translate(-50%, -50%);
   width: fit-content;
   height: fit-content;
-  color: var(--danger);
+  color: var(--danger-0);
   font-size: var(--text-xl);
 
 }

@@ -113,7 +113,7 @@ function onClose() {
 .profile-edit-view {
   position: relative;
   margin-inline: auto;
-  max-width: var(--main-content-width);
+  max-width: var(--max-content-width);
   width: 80%;
   height: 100%;
   display: flex;
@@ -135,8 +135,8 @@ header {
     font-size: var(--text-m);
     display: grid;
     place-content: center;
-    border-color: var(--warning);
-    color: var(--warning);
+    border-color: var(--warning-0);
+    color: var(--warning-0);
   }
 }
 
@@ -145,7 +145,7 @@ header {
 }
 
 .crop-image-component {
-  width: var(--modal-width);
+  width: 40rem;
   height: fit-content;
   padding: var(--gap);
 }

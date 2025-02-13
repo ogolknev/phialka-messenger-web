@@ -11,21 +11,21 @@
 body {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 100;
-  color: var(--text);
+  color: var(--text-clr);
   overflow: hidden;
 }
 
 #app {
   height: 100vh;
-  background-color: var(--bg-darker);
+  background-color: var(--bg-clr-0);
 }
 
 .tile {
   box-sizing: border-box;
   width: var(--tile-size);
   height: var(--tile-size);
-  background-color: var(--bg);
-  border: var(--border-0) solid 1px;
+  background-color: var(--bg-clr-1);
+  border: var(--border-clr) solid 1px;
   border-radius: calc(var(--tile-size) * 0.35);
   display: grid;
   place-content: center;
@@ -37,7 +37,7 @@ body {
 }
 
 .main-content {
-  max-width: var(--main-content-width);
+  max-width: var(--max-content-width);
   width: 80%;
   margin-inline: auto;
 }

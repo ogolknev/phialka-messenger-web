@@ -57,7 +57,7 @@ const { active = false } = defineProps<{ active?: boolean }>()
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color var(--animation-focus-duration) var(--animation-focus-function);
+  transition: border-color var(--anim-fade);
   cursor: pointer;
 
   svg {
@@ -65,29 +65,29 @@ const { active = false } = defineProps<{ active?: boolean }>()
   }
 
   svg * {
-    fill: var(--icon);
+    fill: var(--icon-clr);
   }
 
   rect {
     transition:
-      x var(--animation-submit-duration) var(--animation-submit-function),
-      y var(--animation-submit-duration) var(--animation-submit-function),
-      width var(--animation-submit-duration) var(--animation-submit-function),
-      height var(--animation-submit-duration) var(--animation-submit-function);
+      x 200ms ease-out,
+      y 200ms ease-out,
+      width 200ms ease-out,
+      height 200ms ease-out;
   }
 
   path,
   rect {
-    transition: fill var(--animation-focus-duration) var(--animation-focus-function);
+    transition: fill var(--anim-fade);
   }
 }
 
 .sign-in-button:hover {
-  border-color: var(--accent);
+  border-color: var(--accent-0);
 
   path,
   rect {
-    fill: var(--accent);
+    fill: var(--accent-0);
   }
 }
 

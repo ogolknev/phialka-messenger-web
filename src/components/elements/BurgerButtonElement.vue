@@ -23,14 +23,14 @@ const { active = false } = defineProps<{ active: boolean }>()
   justify-content: center;
   gap: calc(var(--tile-size) * 0.12);
   cursor: pointer;
-  transition: border-color var(--animation-focus-duration) var(--animation-focus-function);
+  transition: border-color var(--anim-fade);
 }
 
 .burger-button:hover {
-  border-color: var(--accent);
+  border-color: var(--accent-0);
 
   .line {
-    background-color: var(--accent);
+    background-color: var(--accent-0);
   }
 }
 
@@ -53,11 +53,11 @@ const { active = false } = defineProps<{ active: boolean }>()
 .line {
   width: 50%;
   height: var(--icon-width);
-  background-color: var(--icon);
+  background-color: var(--icon-clr);
   border-radius: calc(var(--icon-width) * 0.5);
   transition:
-    background-color var(--animation-focus-duration) var(--animation-focus-function),
-    transform var(--animation-focus-duration) var(--animation-focus-function)
+    background-color var(--anim-fade),
+    transform var(--anim-fade)
 }
 
 .line:nth-child(3) {

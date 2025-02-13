@@ -14,14 +14,14 @@
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: border-color var(--animation-focus-duration) var(--animation-focus-function);
+  transition: border-color var(--anim-fade);
 }
 
 .close-button-element:hover {
-  border-color: var(--danger);
+  border-color: var(--danger-0);
 
   .line {
-    background-color: var(--danger);
+    background-color: var(--danger-0);
   }
 }
 
@@ -29,8 +29,8 @@
   position: absolute;
   height: var(--icon-width);
   width: calc(var(--tile-size) * 0.5);
-  background-color: var(--icon);
-  transition: background-color var(--animation-focus-duration) var(--animation-focus-function);
+  background-color: var(--icon-clr);
+  transition: background-color var(--anim-fade);
 }
 
 .line:nth-child(1) {

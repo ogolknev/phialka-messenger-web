@@ -73,8 +73,8 @@ async function onClickCreate() {
     padding-inline: var(--gap);
     flex-grow: 1;
     font-size: var(--text-m);
-    color: var(--success);
-    border-color: var(--success);
+    color: var(--success-0);
+    border-color: var(--success-0);
   }
 }
 

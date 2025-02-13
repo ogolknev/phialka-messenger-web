@@ -102,8 +102,8 @@ onMounted(() => {
     padding-inline: var(--gap);
     flex-grow: 1;
     font-size: var(--text-m);
-    color: var(--warning);
-    border-color: var(--warning);
+    color: var(--warning-0);
+    border-color: var(--warning-0);
   }
 }
 

@@ -102,8 +102,8 @@ header {
   justify-content: center;
   padding-inline: var(--gap);
   width: fit-content;
-  color: var(--accent);
-  border-color: var(--accent);
+  color: var(--accent-0);
+  border-color: var(--accent-0);
   font-size: var(--text-xl);
   cursor: pointer;
   user-select: none;
@@ -113,11 +113,11 @@ header {
   position: absolute;
   top: calc(2 * var(--gap) + var(--tile-size));
   padding: var(--gap);
-  max-width: var(--main-menu-width);
+  max-width: 30rem;
   width: calc(100% - (2 * var(--gap)));
   height: calc(100% - (3 * var(--gap) + var(--tile-size)));
   transform: translateX(calc(-100% - var(--gap)));
-  transition: transform var(--animation-appear-from-side-duration) var(--animation-appear-from-side-function);
+  transition: transform var(--anim-side);
 }
 
 .side-menu-component.active {
@@ -126,10 +126,10 @@ header {
 
 .profile-photo {
   cursor: pointer;
-  transition: border-color var(--animation-focus-duration) var(--animation-focus-function);
+  transition: border-color var(--anim-fade);
 
   &:hover {
-    border-color: var(--accent);
+    border-color: var(--accent-0);
   }
 }
 
@@ -138,7 +138,7 @@ header {
   top: calc(2 * var(--gap) + var(--tile-size));
   right: var(--gap);
   transform: translateX(calc(100% + var(--gap)));
-  transition: transform var(--animation-appear-from-side-duration) var(--animation-appear-from-side-function);
+  transition: transform var(--anim-side);
 }
 
 .profile-side-menu.active {

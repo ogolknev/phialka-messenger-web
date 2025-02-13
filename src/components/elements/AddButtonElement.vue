@@ -11,19 +11,19 @@ const { color } = defineProps<{color?: 'success' | 'warning' | 'danger'}>()
 
 <style scoped>
 .add-button-element {
-  --accent-btn: var(--accent);
+  --accent-btn: var(--accent-0);
 }
 
 .add-button-element.success {
-  --accent-btn: var(--success);
+  --accent-btn: var(--success-0);
 }
 
 .add-button-element.warning {
-  --accent-btn: var(--warning);
+  --accent-btn: var(--warning-0);
 }
 
 .add-button-element.danger {
-  --accent-btn: var(--danger);
+  --accent-btn: var(--danger-0);
 }
 
 .add-button-element {
@@ -31,14 +31,14 @@ const { color } = defineProps<{color?: 'success' | 'warning' | 'danger'}>()
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: border-color var(--animation-focus-duration) var(--animation-focus-function);
+  transition: border-color var(--anim-fade);
 
   .line {
     position: absolute;
     height: var(--icon-width);
     width: 40%;
-    background-color: var(--icon);
-    transition: background-color var(--animation-focus-duration) var(--animation-focus-function);
+    background-color: var(--icon-clr);
+    transition: background-color var(--anim-fade);
   }
 }
 

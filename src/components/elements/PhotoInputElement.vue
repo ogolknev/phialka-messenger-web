@@ -50,19 +50,19 @@ function onClick() {
 <style scoped>
 
 .photo-input-element {
-  --accent-photo-input: var(--accent);
+  --accent-photo-input: var(--accent-0);
 }
 
 .photo-input-element.success {
-  --accent-photo-input: var(--success);
+  --accent-photo-input: var(--success-0);
 }
 
 .photo-input-element.warning {
-  --accent-photo-input: var(--warning);
+  --accent-photo-input: var(--warning-0);
 }
 
 .photo-input-element.danger {
-  --accent-photo-input: var(--danger);
+  --accent-photo-input: var(--danger-0);
 }
 
 .photo-input-element {
@@ -70,13 +70,13 @@ function onClick() {
   display: grid;
   place-content: center;
   cursor: pointer;
-  transition: border-color var(--animation-focus-duration) var(--animation-focus-function);
+  transition: border-color var(--anim-fade);
   overflow: hidden;
 
   svg {
     width: calc(var(--tile-size) * 0.5);
-    fill: var(--icon);
-    transition: fill var(--animation-focus-duration) var(--animation-focus-function);
+    fill: var(--icon-clr);
+    transition: fill var(--anim-fade);
   }
 
   img {

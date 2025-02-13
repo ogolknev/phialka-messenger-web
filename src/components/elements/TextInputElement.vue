@@ -153,19 +153,19 @@ onMounted(() => {
 
 <style scoped>
 .text-input-element {
-  --accent-input: var(--accent)
+  --accent-input: var(--accent-0)
 }
 
 .text-input-element.success {
-  --accent-input: var(--success)
+  --accent-input: var(--success-0)
 }
 
 .text-input-element.warning {
-  --accent-input: var(--warning)
+  --accent-input: var(--warning-0)
 }
 
 .text-input-element.danger {
-  --accent-input: var(--danger)
+  --accent-input: var(--danger-0)
 }
 
 .text-input-element {
@@ -190,16 +190,16 @@ onMounted(() => {
 }
 
 .text-input-element.invalid {
-  border-color: var(--danger);
-  caret-color: var(--danger);
+  border-color: var(--danger-0);
+  caret-color: var(--danger-0);
 
   textarea,
   input {
-    color: var(--danger);
+    color: var(--danger-0);
   }
 
   .toogle-password-btn:hover {
-    fill: var(--danger);
+    fill: var(--danger-0);
   }
 }
 
@@ -207,7 +207,7 @@ textarea,
 input {
   width: 100%;
   line-height: var(--line-height);
-  color: var(--text);
+  color: var(--text-clr);
   background-color: transparent;
   font-family: inherit;
   font-weight: inherit;
@@ -222,7 +222,7 @@ textarea {
 
 textarea::placeholder,
 input::placeholder {
-  color: var(--text-dark-0);
+  color: var(--text-clr-dark-4);
 }
 
 .toogle-password-btn {
@@ -234,8 +234,8 @@ input::placeholder {
   cursor: pointer;
   display: grid;
   place-content: center;
-  fill: var(--icon);
-  transition: fill var(--animation-focus-duration) var(--animation-focus-function);
+  fill: var(--icon-clr);
+  transition: fill var(--anim-fade);
 
   svg {
     width: calc(var(--tile-size) * 0.4);

@@ -150,12 +150,12 @@ onBeforeUnmount(() => {
 
 .server-list-entry {
   flex-shrink: 0;
-  transition: border-color var(--animation-focus-duration) var(--animation-focus-function);
+  transition: border-color var(--anim-fade);
   cursor: pointer;
 }
 
 .server-list-entry.selected {
-  border-color: var(--accent);
+  border-color: var(--accent-0);
 }
 
 .server-context-menu {

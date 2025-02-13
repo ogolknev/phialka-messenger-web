@@ -68,7 +68,7 @@ watch(store.toasts, () => showToasts(store.toasts), { flush: 'sync' })
 
 .toast-area {
   position: absolute;
-  height: var(--toast-area-height);
+  height: 8rem;
   width: 100%;
   bottom: 0;
   pointer-events: none;
@@ -82,16 +82,16 @@ watch(store.toasts, () => showToasts(store.toasts), { flush: 'sync' })
 }
 
 .toast-element.show {
-  animation: toast-show var(--animation-appear-from-side-duration) var(--animation-appear-from-side-function) forwards;
+  animation: toast-show var(--anim-side) forwards;
 }
 
 .toast-element.hide {
-  animation: toast-hide var(--animation-appear-from-side-duration) var(--animation-appear-from-side-function) forwards;
+  animation: toast-hide var(--anim-side) forwards;
 }
 
 @keyframes toast-show {
   0% {
-    transform: translateY(calc(100% + var(--toast-area-height) / 2));
+    transform: translateY(calc(100% + 8rem / 2));
   }
   100% {
     transform: none;
@@ -103,7 +103,7 @@ watch(store.toasts, () => showToasts(store.toasts), { flush: 'sync' })
     transform: none;
   }
   100% {
-    transform: translateY(calc(100% + var(--toast-area-height) / 2));
+    transform: translateY(calc(100% + 8rem / 2));
   }
 }
 </style>

@@ -14,19 +14,19 @@ const { color } = defineProps<{ color?: 'success' | 'warning' | 'danger' }>()
 
 <style scoped>
 .button-element {
-  --accent-btn: var(--accent);
+  --accent-btn: var(--accent-0);
 }
 
 .button-element.success {
-  --accent-btn: var(--success);
+  --accent-btn: var(--success-0);
 }
 
 .button-element.warning {
-  --accent-btn: var(--warning);
+  --accent-btn: var(--warning-0);
 }
 
 .button-element.danger {
-  --accent-btn: var(--danger);
+  --accent-btn: var(--danger-0);
 }
 
 .button-element {
@@ -35,14 +35,14 @@ const { color } = defineProps<{ color?: 'success' | 'warning' | 'danger' }>()
   justify-content: center;
   padding-inline: var(--gap);
   padding-block: calc(var(--gap) / 2);
-  color: var(--text);
+  color: var(--text-clr);
   font: inherit;
   font-size: var(--text-s);
   cursor: pointer;
   user-select: none;
   transition:
-    color var(--animation-focus-duration) var(--animation-focus-function),
-    border-color var(--animation-focus-duration) var(--animation-focus-function);
+    color var(--anim-fade),
+    border-color var(--anim-fade);
 }
 
 .button-element:hover,

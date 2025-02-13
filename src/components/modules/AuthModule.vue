@@ -82,7 +82,7 @@ function onClose() {
 .auth-view {
   margin-top: var(--gap);
   margin-inline: auto;
-  max-width: var(--main-content-width);
+  max-width: var(--max-content-width);
   width: 80%;
   height: 100%;
   display: flex;
@@ -113,13 +113,13 @@ function onClose() {
   min-width: fit-content;
   flex-shrink: 0;
   font-size: var(--text-m);
-  color: var(--text);
+  color: var(--text-clr);
   cursor: pointer;
   user-select: none;
   transition:
-    flex-grow var(--animation-submit-duration) var(--animation-submit-function),
-    border-color var(--animation-focus-duration) var(--animation-focus-function),
-    color var(--animation-focus-duration) var(--animation-focus-function);
+    flex-grow 200ms ease-out,
+    border-color var(--anim-fade),
+    color var(--anim-fade);
 }
 
 .nav-entry.active {
@@ -128,14 +128,14 @@ function onClose() {
 
 .to-sign-in-form.active,
 .to-sign-in-form:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--accent-0);
+  color: var(--accent-0);
 }
 
 .to-sign-up-form.active,
 .to-sign-up-form:hover {
-  border-color: var(--success);
-  color: var(--success);
+  border-color: var(--success-0);
+  color: var(--success-0);
 }
 
 .name-input,

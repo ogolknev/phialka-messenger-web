@@ -133,26 +133,26 @@ img {
 }
 
 .cropper-drag-box {
-  background-color: var(--cropper-border);
+  background-color: var(--cropper-border-clr);
   opacity: 0;
 }
 
 .cropper-modal {
-  background-color: var(--cropper-modal);
+  background-color: var(--cropper-modal-clr);
   opacity: 0.5;
 }
 
 .cropper-view-box {
   display: block;
   height: 100%;
-  outline: 1px solid var(--cropper-border);
+  outline: 1px solid var(--cropper-border-clr);
   /* outline-color: rgba(51, 153, 255, 0.75); */
   overflow: hidden;
   width: 100%;
 }
 
 .cropper-dashed {
-  border: 0 dashed var(--cropper-grid);
+  border: 0 dashed var(--cropper-grid-clr);
   display: block;
   opacity: 0.5;
   position: absolute;
@@ -187,7 +187,7 @@ img {
 
   &::before,
   &::after {
-    background-color: var(--cropper-grid);
+    background-color: var(--cropper-grid-clr);
     content: ' ';
     display: block;
     position: absolute;
@@ -219,13 +219,13 @@ img {
 }
 
 .cropper-face {
-  background-color: var(--cropper-grid);
+  background-color: var(--cropper-grid-clr);
   left: 0;
   top: 0;
 }
 
 .cropper-line {
-  background-color: var(--cropper-border);
+  background-color: var(--cropper-border-clr);
 
   &.line-e {
     cursor: ew-resize;
@@ -257,7 +257,7 @@ img {
 }
 
 .cropper-point {
-  background-color: var(--cropper-border);
+  background-color: var(--cropper-border-clr);
   height: 5px;
   opacity: 0.75;
   width: 5px;
