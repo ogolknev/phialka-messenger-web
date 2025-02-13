@@ -3,15 +3,14 @@ import CloseButtonElement from '@/elements/CloseButtonElement.vue';
 import ProfileEditFormComponent from '@/components/ProfileEditFormComponent.vue';
 import CropImageComponent from '@/components/CropImageComponent.vue';
 import { computed, ref } from 'vue';
-import { useProfileStore } from '@/store/profile';
 import { formatDate, getCanvasBlob } from '@/composables/shared';
 import { useRouter } from 'vue-router';
-import { useAppStore } from '@/store/app';
+import { useStore } from '@/store';
+import api from '@/api';
 
 
 const router = useRouter()
-const appStore = useAppStore()
-const profileStore = useProfileStore()
+const store = useStore()
 const newProfilePhotoCroppedCanvas = ref<HTMLCanvasElement>()
 const newProfilePhotoURL = ref<string>()
 const newProfilePhotoURLCropped = ref<string>()
@@ -27,16 +26,16 @@ const newProfileForm = ref<{
   description: ''
 })
 
-if (profileStore.profile) {
-  newProfileForm.value.name = profileStore.profile.name ?? ''
-  newProfileForm.value.tag = profileStore.profile.tag ?? ''
-  newProfileForm.value.birthdate = formatDate(profileStore.profile.birthdate, 'yyyy-mm-dd', 'dd.mm.yyyy') ?? ''
-  newProfileForm.value.description = profileStore.profile.description ?? ''
+if (store.profile) {
+  newProfileForm.value.name = store.profile.name ?? ''
+  newProfileForm.value.tag = store.profile.tag ?? ''
+  newProfileForm.value.birthdate = formatDate(store.profile.birthdate, 'yyyy-mm-dd', 'dd.mm.yyyy') ?? ''
+  newProfileForm.value.description = store.profile.description ?? ''
 }
 
 const profilePhoto = computed(() => {
   if (newProfilePhotoURLCropped.value) return newProfilePhotoURLCropped.value
-  if (profileStore.profile?.photo) return import.meta.env.VITE_API_BASE_URL + '/files/download/' + profileStore.profile?.photo.download_id
+  if (store.profile?.photo) return import.meta.env.VITE_API_BASE_URL + '/files/download/' + store.profile?.photo.download_id
   return undefined
 })
 
@@ -64,18 +63,18 @@ function onKeydown(event: KeyboardEvent) {
 
 async function onSubmit() {
   console.log(JSON.stringify(newProfileForm.value))
-  await profileStore.editProfile({ ...newProfileForm.value, ...{ birthdate: formatDate(newProfileForm.value.birthdate ?? '') ?? undefined } })
+  await api.profile.editProfile({ ...newProfileForm.value, ...{ birthdate: formatDate(newProfileForm.value.birthdate ?? '') ?? undefined } })
   if (newProfilePhotoCroppedCanvas.value) {
     const blob = await getCanvasBlob(newProfilePhotoCroppedCanvas.value)
     const formData = new FormData()
     formData.append('photo', blob, 'profile-photo.jpg')
-    await profileStore.setProfilePhoto(formData)
+    await api.profile.setProfilePhoto(formData)
   }
-  await profileStore.getProfile()
+  store.profile = await api.profile.getProfile()
 }
 
 function onRemove() {
-  appStore.toasts.push("It's not working yet (0_o)")
+  store.toasts.push("It's not working yet (0_o)")
 }
 
 function onClose() {

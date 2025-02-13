@@ -1,9 +1,9 @@
 <script setup lang='ts'>
 import { onMounted, ref, watch } from 'vue';
-import { useAppStore } from '../store/app';
 import ToastElement from '@/elements/ToastElement.vue';
+import { useStore } from '@/store';
 
-const appStore = useAppStore()
+const store = useStore()
 const currentToast = ref<string | null>()
 const currentToastState = ref<'show' | 'hide' | ''>('show')
 let animationAppearDuration = 0
@@ -34,11 +34,11 @@ async function showToasts(toasts: string[]) {
 onMounted(() => {
   animationAppearDuration = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--animation-appear-from-side-duration'), 10)
   addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') appStore.toasts.push('AAAA')
+    if (event.key === 'Escape') store.toasts.push('AAAA')
   })
 })
 
-watch(appStore.toasts, () => showToasts(appStore.toasts), { flush: 'sync' })
+watch(store.toasts, () => showToasts(store.toasts), { flush: 'sync' })
 </script>
 
 <template>

@@ -3,7 +3,7 @@ import PhotoInputElement from '@/elements/PhotoInputElement.vue';
 import TextInputElement from '@/elements/TextInputElement.vue';
 import ButtonElement from '@/elements/ButtonElement.vue';
 import { useValidation } from '@/composables/validation';
-import { useAppStore } from '@/store/app';
+import { useStore } from '@/store';
 
 const { imageUrl } = defineProps<{ imageUrl?: string }>()
 const emit = defineEmits<{
@@ -16,7 +16,7 @@ const tag = defineModel<string>('tag', { required: true })
 const birthdate = defineModel<string>('birthdate', { required: true })
 const description = defineModel<string>('description', { required: true })
 
-const appStore = useAppStore()
+const store = useStore()
 
 console.log(name.value)
 
@@ -25,7 +25,7 @@ const validation = {
     maxLength: {
       value: 30,
       callback(value) {
-        appStore.toasts.push(`Maximum ${value} chars in name`)
+        store.toasts.push(`Maximum ${value} chars in name`)
       }
     }
   }),
@@ -33,20 +33,20 @@ const validation = {
     minLength: {
       value: 3,
       callback(value) {
-        appStore.toasts.push(`Minimum ${value} chars in tag`)
+        store.toasts.push(`Minimum ${value} chars in tag`)
       }
     },
     maxLength: {
       value: 12,
       callback(value) {
-        appStore.toasts.push(`Maximum ${value} chars in tag`)
+        store.toasts.push(`Maximum ${value} chars in tag`)
       }
     }
   }),
   birthdate: useValidation(birthdate, {
     validDate: {
       callback() {
-        appStore.toasts.push(`Birthdate must be a valid date`)
+        store.toasts.push(`Birthdate must be a valid date`)
       }
     }
   }),
@@ -54,7 +54,7 @@ const validation = {
     maxLength: {
       value: 200,
       callback(value) {
-        appStore.toasts.push(`Maximum ${value} chars in description`)
+        store.toasts.push(`Maximum ${value} chars in description`)
       }
     }
   })

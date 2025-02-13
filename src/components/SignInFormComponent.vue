@@ -3,32 +3,32 @@ import TextInputElement from '@/elements/TextInputElement.vue';
 import ButtonElement from '@/elements/ButtonElement.vue';
 import { onMounted, onUnmounted } from 'vue';
 import { useValidation } from '@/composables/validation';
-import { useAppStore } from '@/store/app';
+import { useStore } from '@/store';
 
 
 const username = defineModel<string>('username', { required: true })
 const password = defineModel<string>('password', { required: true })
 const emit = defineEmits(['sign-in'])
 
-const appStore = useAppStore()
+const store = useStore()
 
 const validation = {
   username: useValidation(username, {
     minLength: {
       value: 4,
       callback(value) {
-        appStore.toasts.push(`Minimum ${value} chars in login`)
+        store.toasts.push(`Minimum ${value} chars in login`)
       }
     },
     maxLength: {
       value: 15,
       callback(value) {
-        appStore.toasts.push(`Maximum ${value} chars in login`)
+        store.toasts.push(`Maximum ${value} chars in login`)
       }
     },
     alphaNumeric: {
       callback() {
-        appStore.toasts.push(`Login must be alphanumeric`)
+        store.toasts.push(`Login must be alphanumeric`)
       }
     }
   }),
@@ -36,28 +36,28 @@ const validation = {
     minLength: {
       value: 8,
       callback(value) {
-        appStore.toasts.push(`Minimum ${value} chars in password`)
+        store.toasts.push(`Minimum ${value} chars in password`)
       }
     },
     maxLength: {
       value: 30,
       callback(value) {
-        appStore.toasts.push(`Maximum ${value} chars in password`)
+        store.toasts.push(`Maximum ${value} chars in password`)
       }
     },
     // hasCapital: {
     //   callback() {
-    //     appStore.toasts.push(`Password must contain at least one\nuppercase letter`)
+    //     store.toasts.push(`Password must contain at least one\nuppercase letter`)
     //   }
     // },
     // hasLowercase: {
     //   callback() {
-    //     appStore.toasts.push(`Password must contain at least one\nlowercase letter`)
+    //     store.toasts.push(`Password must contain at least one\nlowercase letter`)
     //   }
     // },
     // hasSpecial: {
     //   callback() {
-    //     appStore.toasts.push(`Password must contain at least one\nof symbols !@#$%^&*(),.?":{}|<>`)
+    //     store.toasts.push(`Password must contain at least one\nof symbols !@#$%^&*(),.?":{}|<>`)
     //   }
     // }
   })

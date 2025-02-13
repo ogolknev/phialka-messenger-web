@@ -4,14 +4,13 @@ import { ref } from 'vue';
 import CloseButtonElement from '@/elements/CloseButtonElement.vue';
 import SignUpFormComponent from '@/components/SignUpFormComponent.vue';
 import SignInFormComponent from '@/components/SignInFormComponent.vue';
-import { useAuthStore } from '@/store/auth';
-import { useProfileStore } from '@/store/profile';
 import { useRouter } from 'vue-router';
+import api from '@/api';
+import { useStore } from '@/store';
 
 const mode = ref<'sign-in' | 'sign-up'>('sign-in')
 const router = useRouter()
-const authStore = useAuthStore()
-const profileStore = useProfileStore()
+const store = useStore()
 
 const signInFormInitial = {
   username: "",
@@ -27,14 +26,14 @@ const signUpFormInitial = {
 const signUpForm = ref({ ...signUpFormInitial })
 
 async function signIn(authData = signInForm.value) {
-  await authStore.signIn(authData)
+  await api.auth.signIn(authData)
   signInForm.value = { ...signInFormInitial }
-  await profileStore.getProfile()
+  store.profile = await api.profile.getProfile()
   router.push("/")
 }
 
 async function signUp() {
-  await authStore.signUp(signUpForm.value)
+  await api.auth.signUp(signUpForm.value)
   await signIn({ username: signUpForm.value.username, password: signUpForm.value.password })
   signUpForm.value = { ...signUpFormInitial }
 }

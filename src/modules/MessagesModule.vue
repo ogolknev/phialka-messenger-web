@@ -1,22 +1,20 @@
 <script setup lang='ts'>
 import { useRouter } from 'vue-router';
-import { useProfileStore } from '@/store/profile';
-import { useServersStore } from '@/store/servers';
 
 import ServerListComponent from '@/components/ServerListComponent.vue';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
+import { useStore } from '@/store';
+import api from '@/api';
 
 
 const router = useRouter()
-const profileStore = useProfileStore()
-const serversStore = useServersStore()
+const store = useStore()
 
 const getServerInterval = ref<number>()
-const isAuth = computed(() => profileStore.profile !== null)
+const isAuth = computed(() => store.profile !== null)
 
 function onClickServer(serverId: string) {
-  serversStore.selectedServerId = serverId
-  console.log(serversStore.selectedServerId)
+  store.selectedServerID = serverId
 }
 
 function onClickCreateServer() {
@@ -28,7 +26,9 @@ function onClickEditServer(serverId: string) {
 }
 
 async function getServers() {
-  if (isAuth.value) await serversStore.getServers()
+  if (isAuth.value) {
+    store.servers = await api.servers.getServers()
+  }
 }
 
 onMounted(() => {
@@ -53,8 +53,8 @@ onBeforeUnmount(() => {
     class="main-view"
   >
     <server-list-component
-      :servers="serversStore.servers"
-      :selected-server-id="serversStore.selectedServerId"
+      :servers="store.servers"
+      :selected-server-id="store.selectedServerID"
       @click-server="onClickServer"
       @click-create-server="onClickCreateServer"
       @click-edit-server="onClickEditServer"

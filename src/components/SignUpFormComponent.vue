@@ -3,7 +3,7 @@ import TextInputElement from '@/elements/TextInputElement.vue';
 import ButtonElement from '@/elements/ButtonElement.vue';
 import { useValidation } from '@/composables/validation';
 import { onMounted, onUnmounted } from 'vue';
-import { useAppStore } from '@/store/app';
+import { useStore } from '@/store';
 
 
 const name = defineModel<string>('name', { required: true })
@@ -11,25 +11,25 @@ const username = defineModel<string>('username', { required: true })
 const password = defineModel<string>('password', { required: true })
 const emit = defineEmits(['sign-up'])
 
-const appStore = useAppStore()
+const store = useStore()
 
 const validation = {
   name: useValidation(name, {
     minLength: {
       value: 4,
       callback(value) {
-        appStore.toasts.push(`Minimum ${value} chars in name`)
+        store.toasts.push(`Minimum ${value} chars in name`)
       }
     },
     maxLength: {
       value: 20,
       callback(value) {
-        appStore.toasts.push(`Maximum ${value} chars in name`)
+        store.toasts.push(`Maximum ${value} chars in name`)
       }
     },
     alphaNumeric: {
       callback() {
-        appStore.toasts.push(`Name must be alphanumeric`)
+        store.toasts.push(`Name must be alphanumeric`)
       }
     }
   }),
@@ -37,18 +37,18 @@ const validation = {
     minLength: {
       value: 4,
       callback(value) {
-        appStore.toasts.push(`Minimum ${value} chars in login`)
+        store.toasts.push(`Minimum ${value} chars in login`)
       }
     },
     maxLength: {
       value: 15,
       callback(value) {
-        appStore.toasts.push(`Maximum ${value} chars in login`)
+        store.toasts.push(`Maximum ${value} chars in login`)
       }
     },
     alphaNumeric: {
       callback() {
-        appStore.toasts.push(`Login must be alphanumeric`)
+        store.toasts.push(`Login must be alphanumeric`)
       }
     }
   }),
@@ -56,28 +56,28 @@ const validation = {
     minLength: {
       value: 8,
       callback(value) {
-        appStore.toasts.push(`Minimum ${value} chars in password`)
+        store.toasts.push(`Minimum ${value} chars in password`)
       }
     },
     maxLength: {
       value: 30,
       callback(value) {
-        appStore.toasts.push(`Maximum ${value} chars in password`)
+        store.toasts.push(`Maximum ${value} chars in password`)
       }
     },
     // hasCapital: {
     //   callback() {
-    //     appStore.toasts.push(`Password must contain at least one uppercase letter`)
+    //     store.toasts.push(`Password must contain at least one uppercase letter`)
     //   }
     // },
     // hasLowercase: {
     //   callback() {
-    //     appStore.toasts.push(`Password must contain at least one lowercase letter`)
+    //     store.toasts.push(`Password must contain at least one lowercase letter`)
     //   }
     // },
     // hasSpecial: {
     //   callback() {
-    //     appStore.toasts.push(`Password must contain at least one of symbols !@#$%^&*(),.?":{}|<>`)
+    //     store.toasts.push(`Password must contain at least one of symbols !@#$%^&*(),.?":{}|<>`)
     //   }
     // }
   })

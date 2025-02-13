@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/store/auth';
 
 import BurgerButtonElement from '@/elements/BurgerButtonElement.vue';
 import SignInButtonElement from '@/elements/SignInButtonElement.vue';
@@ -9,17 +8,17 @@ import ThumbnailElement from '@/elements/ThumbnailElement.vue';
 
 import SideMenuComponent from '@/components/SideMenuComponent.vue';
 import ProfileSideMenuComponent from '@/components/ProfileSideMenuComponent.vue';
-import { useProfileStore } from '@/store/profile';
+import { useStore } from '@/store';
+import api from '@/api';
 
 
 const router = useRouter()
-const authStore = useAuthStore()
-const profileStore = useProfileStore()
+const store = useStore()
 
 const isSideMenuActive = ref(false)
 const isProfileSideMenuActive = ref(false)
 const profilePhoto = computed(() => {
-  const download_id = profileStore.profile?.photo?.download_id
+  const download_id = store.profile?.photo?.download_id
   if (download_id) {
     return "/api/files/download/" + download_id
   }
@@ -45,8 +44,8 @@ function toProfileEdit() {
   isProfileSideMenuActive.value = false
 }
 function signOut() {
-  authStore.signOut()
-  profileStore.unsetProfile()
+  api.auth.signOut()
+  store.profile = null
   isProfileSideMenuActive.value = false
   router.push('/auth')
 }
@@ -65,7 +64,7 @@ function signOut() {
     >Phialka</div>
     <div class="tile header-spacer"></div>
     <div
-      v-if="profileStore.profile !== null"
+      v-if="store.profile !== null"
       class="tile profile-photo"
       @click="profileSideMenuToogle"
     >
@@ -78,9 +77,9 @@ function signOut() {
     <profile-side-menu-component
       @edit="toProfileEdit"
       @sign-out="signOut"
-      :profile-name="profileStore.profile?.name"
-      :class="{ active: isProfileSideMenuActive && profileStore.profile !== null }"
-      :tabindex="isProfileSideMenuActive && profileStore.profile !== null ? 0 : -1"
+      :profile-name="store.profile?.name"
+      :class="{ active: isProfileSideMenuActive && store.profile !== null }"
+      :tabindex="isProfileSideMenuActive && store.profile !== null ? 0 : -1"
     ></profile-side-menu-component>
   </header>
 </template>

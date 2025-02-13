@@ -5,8 +5,9 @@ import { useRoute, useRouter } from 'vue-router';
 import ServerEditFormComponent from '@/components/ServerEditFormComponent.vue';
 import CloseButtonElement from '@/elements/CloseButtonElement.vue';
 import CropImageComponent from '@/components/CropImageComponent.vue';
-import { useServersStore } from '@/store/servers';
 import { getCanvasBlob } from '@/composables/shared';
+import api from '@/api';
+import { useStore } from '@/store';
 
 const title = ref('')
 const description = ref('')
@@ -17,7 +18,7 @@ const iconBlob = ref<Blob>()
 
 const route = useRoute()
 const router = useRouter()
-const serversStore = useServersStore()
+const store = useStore()
 
 function onClose() {
   router.push("/")
@@ -34,25 +35,29 @@ async function onIconCrop(canvas: HTMLCanvasElement) {
 }
 
 async function onClickEdit() {
-  await serversStore.editServer({
+  await api.servers.editServer(route.params.id as string, {
     title: title.value,
     description: description.value
-  }, route.params.id as string)
-  if (iconBlob.value) await serversStore.setServerIcon(iconBlob.value, route.params.id as string)
+  })
+  if (iconBlob.value){
+    const formData = new FormData()
+    formData.append('logo', iconBlob.value)
+    await api.servers.setServerIcon(route.params.id as string, formData)
+  }
   title.value = ''
   description.value = ''
   router.push('/')
 }
 
 async function onClickRemove() {
-  await serversStore.removeServer(route.params.id as string)
+  await api.servers.removeServer(route.params.id as string)
   title.value = ''
   description.value = ''
   router.push('/')
 }
 
 onMounted(() => {
-  server.value = serversStore.servers.find((value) => value.server_id === route.params.id)
+  server.value = store.servers.find((value) => value.server_id === route.params.id)
   title.value = server.value?.title ?? ''
   description.value = server.value?.description ?? ''
   if (server.value?.logo?.download_id) iconUrlCropped.value = import.meta.env.VITE_API_BASE_URL + "/files/download/" + server.value?.logo?.download_id

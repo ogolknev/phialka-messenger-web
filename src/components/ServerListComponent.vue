@@ -6,7 +6,7 @@ import ButtonElement from '@/elements/ButtonElement.vue';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 
-const { servers = [], selectedServerId } = defineProps<{ servers: API.Server[], selectedServerId: string }>()
+const { servers = [], selectedServerId } = defineProps<{ servers: API.Server[], selectedServerId: string | null }>()
 const emit = defineEmits<{
   (ev: 'click-create-server'): void
   (ev: 'click-edit-server', serverId: string): void

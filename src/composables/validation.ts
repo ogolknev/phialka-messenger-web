@@ -121,10 +121,10 @@ function alphaNumeric(target: string) {
 function validDate(target: string) {
   if (!/^\d{2}.\d{2}.\d{4}$/.test(target)) return false
   const [d, m, y] = target.split('.').map(Number)
-  const date = new Date(y, m, d)
+  const date = new Date(y, m - 1, d)
   return (
     date.getFullYear() === y &&
-    date.getMonth() === m &&
+    date.getMonth() + 1 === m &&
     date.getDate() === d
   )
 }

@@ -1,3 +1,10 @@
+declare namespace HTTP {
+  type Headers = {
+    accept?: "application/json";
+    "Content-Type"?: "application/json";
+  }
+  type Method = "get" | "post" | "patch" | "put" | "delete"
+}
 declare namespace API {
   type File = {
     file_id: string,

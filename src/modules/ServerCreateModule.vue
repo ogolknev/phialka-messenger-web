@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 import ServerCreateFormComponent from '@/components/ServerCreateFormComponent.vue';
 import CloseButtonElement from '@/elements/CloseButtonElement.vue';
 import CropImageComponent from '@/components/CropImageComponent.vue';
-import { useServersStore } from '@/store/servers';
+import api from '@/api';
 
 const title = ref('')
 const description = ref('')
@@ -13,7 +13,6 @@ const iconUrl = ref<string | null>(null)
 const iconUrlCropped = ref<string>()
 
 const router = useRouter()
-const serversStore = useServersStore()
 
 function onClose() {
   router.push("/")
@@ -29,7 +28,7 @@ function onIconCrop(canvas: HTMLCanvasElement) {
 }
 
 async function onClickCreate() {
-  await serversStore.createServer({ title: title.value, description: description.value })
+  await api.servers.createServer({ title: title.value, description: description.value })
   title.value = ''
   description.value = ''
   router.push('/')
