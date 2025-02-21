@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ButtonElement from '../elements/ButtonElement.vue';
+import ButtonElement from '../elements/ButtonDefault.vue';
 
 
 const emit = defineEmits(['sign-out', 'edit'])
@@ -16,7 +16,7 @@ function onEdit() {
 </script>
 
 <template>
-  <div class="tile profile-side-menu">
+  <div class="tile menu-profile-mini">
     <span class="name">{{ profileName }}</span>
     <div class="button-container">
       <button-element color="danger" @click="onSignOut" @keydown.enter="onSignOut" :tabindex="tabindex">Sign Out</button-element>
@@ -26,7 +26,7 @@ function onEdit() {
 </template>
 
 <style scoped>
-.profile-side-menu {
+.menu-profile-mini {
   padding: var(--gap);
   width: fit-content;
   height: fit-content;
@@ -35,7 +35,7 @@ function onEdit() {
   gap: var(--gap);
 }
 
-.profile-side-menu.active {
+.menu-profile-mini.active {
   transform: none;
 }
 

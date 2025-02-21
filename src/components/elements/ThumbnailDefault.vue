@@ -4,13 +4,13 @@ const { src } = defineProps<{ src?: string }>()
 </script>
 
 <template>
-    <div class="thumbnail-element">
+    <div class="thumbnail thumbnail-default">
       <img :src="src">
     </div>
 </template>
 
 <style scoped>
-.thumbnail-element {
+.thumbnail-default {
   position: relative;
   height: calc(var(--tile-size) * 0.7);
   width: calc(var(--tile-size) * 0.7);

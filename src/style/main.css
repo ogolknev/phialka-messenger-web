@@ -16,7 +16,7 @@ body {
 }
 
 #app {
-  height: 100vh;
+  height: 100dvh;
   background-color: var(--bg-clr-0);
 }
 
@@ -26,14 +26,9 @@ body {
   height: var(--tile-size);
   background-color: var(--bg-clr-1);
   border: var(--border-clr) solid 1px;
-  border-radius: calc(var(--tile-size) * 0.35);
+  border-radius: var(--border-r);
   display: grid;
   place-content: center;
-}
-
-.button {
-  width: fit-content;
-  height: fit-content;
 }
 
 .main-content {

@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import AddButtonElement from '../elements/AddButtonElement.vue';
-import ThumbnailElement from '../elements/ThumbnailElement.vue';
-import ButtonElement from '../elements/ButtonElement.vue';
+import ButtonAdd from '../elements/ButtonAdd.vue';
+import ThumbnailDefault from '../elements/ThumbnailDefault.vue';
+import ButtonDefault from '../elements/ButtonDefault.vue';
 
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
@@ -85,50 +85,32 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="server-list-module">
-    <add-button-element
-      @click="onClickCreateServer"
-      color='success'
-    ></add-button-element>
+  <div class="nav-of-servers">
+    <ButtonAdd @click="onClickCreateServer" color='success'></ButtonAdd>
     <div class="servers-container">
-      <div
-        v-for="server in servers"
-        :key="server.server_id"
-        class="tile server-list-entry"
-        :class="{ selected: selectedServerId === server.server_id }"
-        @click="() => onClickServer(server.server_id)"
+      <div v-for="server in servers" :key="server.server_id" class="tile server-list-entry"
+        :class="{ selected: selectedServerId === server.server_id }" @click="() => onClickServer(server.server_id)"
         @click.right.prevent="(event) => openServerContextMenu(event, server.title, server.server_id)"
         @touchstart.prevent="(event) => startLongPress(event, server.title, server.server_id)"
-        @touchcancel.prevent="cancelLongPress"
-        @touchend.prevent="cancelLongPress"
-      >
-        <thumbnail-element :src="getIconSrc(server.logo?.download_id)"></thumbnail-element>
+        @touchcancel.prevent="cancelLongPress" @touchend.prevent="cancelLongPress">
+        <ThumbnailDefault :src="getIconSrc(server.logo?.download_id)"></ThumbnailDefault>
       </div>
     </div>
   </div>
-  <teleport
-    v-if="serverContextMenu"
-    to=".app-overlay-module"
-  >
-    <div
-      class="tile server-context-menu"
-      :style="{
-        position: 'absolute',
-        left: serverContextMenu.left + 'px',
-        top: serverContextMenu.top + 'px'
-      }"
-    >
+  <teleport v-if="serverContextMenu" to=".app-overlay">
+    <div class="tile server-context-menu" :style="{
+      position: 'absolute',
+      left: serverContextMenu.left + 'px',
+      top: serverContextMenu.top + 'px'
+    }">
       <span class="title">{{ serverContextMenu.title }}</span>
-      <button-element
-        color='warning'
-        @click="onClickEditServer"
-      >Edit</button-element>
+      <ButtonDefault color='warning' @click="onClickEditServer">Edit</ButtonDefault>
     </div>
   </teleport>
 </template>
 
 <style scoped>
-.server-list-module {
+.nav-of-servers {
   display: grid;
   grid-template-rows: auto 1fr;
   gap: var(--gap);

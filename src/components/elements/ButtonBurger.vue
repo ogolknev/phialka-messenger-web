@@ -3,10 +3,7 @@ const { active = false } = defineProps<{ active: boolean }>()
 </script>
 
 <template>
-  <div
-    class="tile burger-button"
-    :class="{ active }"
-  >
+  <div class="tile button button-burger" :class="{ active }">
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
@@ -15,7 +12,7 @@ const { active = false } = defineProps<{ active: boolean }>()
 </template>
 
 <style scoped>
-.burger-button {
+.button-burger {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -26,7 +23,7 @@ const { active = false } = defineProps<{ active: boolean }>()
   transition: border-color var(--anim-fade);
 }
 
-.burger-button:hover {
+.button-burger:hover {
   border-color: var(--accent-0);
 
   .line {
@@ -34,7 +31,7 @@ const { active = false } = defineProps<{ active: boolean }>()
   }
 }
 
-.burger-button.active {
+.button-burger.active {
 
   .line:nth-child(1),
   .line:nth-child(4) {

@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import ButtonElement from '../elements/ButtonElement.vue';
+import ButtonElement from '../elements/ButtonDefault.vue';
 </script>
 
 <template>
-  <div class="tile side-menu-component">
+  <div class="tile menu-main">
     <span class="title">Menu</span>
     <button-element class="settings-button">Settings</button-element>
   </div>
 </template>
 
 <style scoped>
-.side-menu-component {
+.menu-main {
   display: flex;
   flex-direction: column;
   align-items: center;

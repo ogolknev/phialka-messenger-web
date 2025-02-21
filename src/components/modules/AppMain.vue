@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { useRouter } from 'vue-router';
 
-import ServerListComponent from '@/components/components/ServerListComponent.vue';
+import ServerListComponent from '@/components/components/NavOfServers.vue';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useStore } from '@/store';
 import api from '@/api';
@@ -50,7 +50,7 @@ onBeforeUnmount(() => {
 
   <div
     v-if="isAuth"
-    class="main-view"
+    class="app-main"
   >
     <server-list-component
       :servers="store.servers"
@@ -71,7 +71,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.main-view {
+.app-main {
   position: relative;
   width: 100%;
   height: 100%;

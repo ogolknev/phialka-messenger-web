@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import TextInputElement from '../elements/TextInputElement.vue';
-import ButtonElement from '../elements/ButtonElement.vue';
+import InputText from '../elements/InputText.vue';
+import ButtonDefault from '../elements/ButtonDefault.vue';
 import { useValidation } from '@/composables/validation';
 import { onMounted, onUnmounted } from 'vue';
 import { useStore } from '@/store';
@@ -111,51 +111,23 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div
-    class="sign-up-form form"
-    @keydown.enter="onSubmit"
-  >
-    <text-input-element
-      v-model="name"
-      class="name-input"
-      type='text'
-      placeholder="Name..."
-      :invalid="!validation.name.isValid.value"
-      autocomplete="name"
-      maxlength="47"
-      color='success'
-    ></text-input-element>
-    <text-input-element
-      v-model="username"
-      class="login-input"
-      type='text'
-      placeholder="Login..."
-      :invalid="!validation.username.isValid.value"
-      autocomplete="username"
-      maxlength="47"
-      color='success'
-    ></text-input-element>
-    <text-input-element
-      v-model="password"
-      class="password-input"
-      type='password'
-      placeholder="Password..."
-      :invalid="!validation.password.isValid.value"
-      autocomplete="new-password"
-      maxlength="47"
-      color='success'
-    ></text-input-element>
+  <div class="form-sign-up form" @keydown.enter="onSubmit">
+    <InputText v-model="name" class="input name-input" type='text' placeholder="Name..."
+      :invalid="!validation.name.isValid.value" autocomplete="name" maxlength="47" color='success'></InputText>
+    <InputText v-model="username" class="input login-input" type='text' placeholder="Login..."
+      :invalid="!validation.username.isValid.value" autocomplete="username" maxlength="47"
+      color='success'></InputText>
+    <InputText v-model="password" class="input password-input" type='password' placeholder="Password..."
+      :invalid="!validation.password.isValid.value" autocomplete="new-password" maxlength="47"
+      color='success'></InputText>
     <div class="button-container">
-      <button-element
-        color="success"
-        @click="onSubmit"
-      >Sign Up</button-element>
+      <ButtonDefault color="success" @click="onSubmit">Sign Up</ButtonDefault>
     </div>
   </div>
 </template>
 
 <style scoped>
-.text-input-element {
+.input {
   position: relative;
   width: 100%;
 }

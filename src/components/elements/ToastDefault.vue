@@ -2,11 +2,13 @@
 </script>
 
 <template>
-  <div class="tile toast-element"><slot></slot></div>
+  <div class="tile toast-default">
+    <slot></slot>
+  </div>
 </template>
 
 <style scoped>
-.toast-element {
+.toast-default {
   width: fit-content;
   max-width: calc(var(--tile-size) * 8);
   height: fit-content;

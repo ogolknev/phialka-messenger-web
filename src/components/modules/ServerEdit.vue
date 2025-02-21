@@ -2,9 +2,9 @@
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import ServerEditFormComponent from '@/components/components/ServerEditFormComponent.vue';
-import CloseButtonElement from '../elements/CloseButtonElement.vue';
-import CropImageComponent from '@/components/components/CropImageComponent.vue';
+import FormServerEdit from '@/components/components/FormServerEdit.vue';
+import ButtonClose from '../elements/ButtonClose.vue';
+import ImageCropper from '@/components/components/ImageCropper.vue';
 import { getCanvasBlob } from '@/composables/shared';
 import api from '@/api';
 import { useStore } from '@/store';
@@ -39,7 +39,7 @@ async function onClickEdit() {
     title: title.value,
     description: description.value
   })
-  if (iconBlob.value){
+  if (iconBlob.value) {
     const formData = new FormData()
     formData.append('logo', iconBlob.value)
     await api.servers.setServerIcon(route.params.id as string, formData)
@@ -65,30 +65,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="server-edit-module main-content">
+  <div class="server-edit main-content">
     <header class="server-edit-form-header">
       <div class="tile title">Server</div>
-      <close-button-element @click="onClose"></close-button-element>
+      <ButtonClose @click="onClose"></ButtonClose>
     </header>
-    <server-edit-form-component
-      v-model:title="title"
-      v-model:description="description"
-      :src="iconUrlCropped"
-      @icon-load="onIconLoad"
-      @click-edit="onClickEdit"
-      @click-remove="onClickRemove"
-    ></server-edit-form-component>
+    <FormServerEdit class="form-server-edit" v-model:title="title" v-model:description="description"
+      :src="iconUrlCropped" @icon-load="onIconLoad" @click-edit="onClickEdit" @click-remove="onClickRemove">
+    </FormServerEdit>
   </div>
-  <teleport
-    v-if="iconUrl"
-    to=".app-overlay-module"
-  >
-    <crop-image-component
-      :src="iconUrl"
-      @cancel="iconUrl = null"
-      @crop="onIconCrop"
-    ></crop-image-component>
-  </teleport>
+  <Teleport v-if="iconUrl" to=".app-overlay">
+    <ImageCropper :src="iconUrl" @cancel="iconUrl = null" @crop="onIconCrop"></ImageCropper>
+  </Teleport>
 </template>
 
 <style scoped>
@@ -107,7 +95,7 @@ onMounted(() => {
   }
 }
 
-.server-edit-form-component {
+.form-server-edit {
   margin-top: var(--gap);
 }
 </style>

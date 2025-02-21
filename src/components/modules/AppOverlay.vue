@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { onMounted, ref, watch } from 'vue';
-import ToastElement from '../elements/ToastElement.vue';
 import { useStore } from '@/store';
+import ToastDefault from '../elements/ToastDefault.vue';
 
 const store = useStore()
 const currentToast = ref<string | null>()
@@ -42,15 +42,15 @@ watch(store.toasts, () => showToasts(store.toasts), { flush: 'sync' })
 </script>
 
 <template>
-  <div class="app-overlay-module">
+  <div class="app-overlay">
     <div class="toast-area">
-      <toast-element v-if="currentToast" :class="currentToastState">{{ currentToast }}</toast-element>
+      <ToastDefault v-if="currentToast" :class="currentToastState">{{ currentToast }}</ToastDefault>
     </div>
   </div>
 </template>
 
 <style scoped>
-.app-overlay-module {
+.app-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -62,7 +62,7 @@ watch(store.toasts, () => showToasts(store.toasts), { flush: 'sync' })
   place-content: center;
 }
 
-.app-overlay-module * {
+.app-overlay * {
   pointer-events: auto;
 }
 
@@ -77,15 +77,15 @@ watch(store.toasts, () => showToasts(store.toasts), { flush: 'sync' })
   overflow: hidden;
 }
 
-.toast-element {
+.ToastDefault {
   transform: none;
 }
 
-.toast-element.show {
+.ToastDefault.show {
   animation: toast-show var(--anim-side) forwards;
 }
 
-.toast-element.hide {
+.ToastDefault.hide {
   animation: toast-hide var(--anim-side) forwards;
 }
 

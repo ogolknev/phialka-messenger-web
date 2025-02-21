@@ -2,14 +2,14 @@
 </script>
 
 <template>
-  <div class="tile close-button-element">
+  <div class="tile button button-close">
     <div class="line"></div>
     <div class="line"></div>
   </div>
 </template>
 
 <style scoped>
-.close-button-element {
+.button-close {
   position: relative;
   display: grid;
   place-items: center;
@@ -17,7 +17,7 @@
   transition: border-color var(--anim-fade);
 }
 
-.close-button-element:hover {
+.button-close:hover {
   border-color: var(--danger-0);
 
   .line {

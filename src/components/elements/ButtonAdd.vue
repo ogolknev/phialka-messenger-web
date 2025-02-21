@@ -3,30 +3,30 @@ const { color } = defineProps<{color?: 'success' | 'warning' | 'danger'}>()
 </script>
 
 <template>
-  <div class="add-button-element tile" :class="color">
+  <div class="tile button button-add" :class="color">
     <div class="line"></div>
     <div class="line"></div>
   </div>
 </template>
 
 <style scoped>
-.add-button-element {
+.button-add {
   --accent-btn: var(--accent-0);
 }
 
-.add-button-element.success {
+.button-add.success {
   --accent-btn: var(--success-0);
 }
 
-.add-button-element.warning {
+.button-add.warning {
   --accent-btn: var(--warning-0);
 }
 
-.add-button-element.danger {
+.button-add.danger {
   --accent-btn: var(--danger-0);
 }
 
-.add-button-element {
+.button-add {
   position: relative;
   display: grid;
   place-items: center;
@@ -42,7 +42,7 @@ const { color } = defineProps<{color?: 'success' | 'warning' | 'danger'}>()
   }
 }
 
-.add-button-element:hover {
+.button-add:hover {
   border-color: var(--accent-btn);
 
   .line {

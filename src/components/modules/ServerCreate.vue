@@ -2,9 +2,9 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import ServerCreateFormComponent from '@/components/components/ServerCreateFormComponent.vue';
-import CloseButtonElement from '../elements/CloseButtonElement.vue';
-import CropImageComponent from '@/components/components/CropImageComponent.vue';
+import FormServerCreate from '@/components/components/FormServerCreate.vue';
+import ButtonClose from '../elements/ButtonClose.vue';
+import ImageCropper from '@/components/components/ImageCropper.vue';
 import api from '@/api';
 
 const title = ref('')
@@ -36,33 +36,20 @@ async function onClickCreate() {
 </script>
 
 <template>
-  <div class="server-create-module main-content">
+  <div class="server-create main-content">
     <header class="server-create-form-header">
       <div class="tile title">Server</div>
-      <close-button-element @click="onClose"></close-button-element>
+      <ButtonClose @click="onClose"></ButtonClose>
     </header>
-    <server-create-form-component
-      v-model:title="title"
-      v-model:description="description"
-      :src="iconUrlCropped"
-      @icon-load="onIconLoad"
-      @click-create="onClickCreate"
-    ></server-create-form-component>
+    <FormServerCreate class="form-server-create" v-model:title="title" v-model:description="description" :src="iconUrlCropped"
+      @icon-load="onIconLoad" @click-create="onClickCreate"></FormServerCreate>
   </div>
-  <teleport
-    v-if="iconUrl"
-    to=".app-overlay-module"
-  >
-    <crop-image-component
-      :src="iconUrl"
-      @cancel="iconUrl = null"
-      @crop="onIconCrop"
-    ></crop-image-component>
-  </teleport>
+  <Teleport v-if="iconUrl" to=".app-overlay">
+    <ImageCropper :src="iconUrl" @cancel="iconUrl = null" @crop="onIconCrop"></ImageCropper>
+  </Teleport>
 </template>
 
 <style scoped>
-
 .server-create-form-header {
   display: flex;
   flex-flow: row nowrap;
@@ -78,7 +65,7 @@ async function onClickCreate() {
   }
 }
 
-.server-create-form-component {
+.form-server-create {
   margin-top: var(--gap);
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import TextInputElement from '../elements/TextInputElement.vue';
-import ButtonElement from '../elements/ButtonElement.vue';
+import InputText from '../elements/InputText.vue';
+import ButtonDefault from '../elements/ButtonDefault.vue';
 import { onMounted, onUnmounted } from 'vue';
 import { useValidation } from '@/composables/validation';
 import { useStore } from '@/store';
@@ -90,36 +90,19 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <form class="sign-in-form form">
-    <text-input-element
-      class="login-input"
-      :invalid="!validation.username.isValid.value"
-      type='text'
-      v-model="username"
-      placeholder="Login..."
-      autocomplete="username"
-      maxlength="47"
-    ></text-input-element>
-    <text-input-element
-      v-model="password"
-      class="password-input"
-      :invalid="!validation.password.isValid.value"
-      type='password'
-      placeholder="Password..."
-      maxlength="47"
-      autocomplete="current-password"
-    ></text-input-element>
+  <form class="form-sign-in form">
+    <InputText class="input login-input" :invalid="!validation.username.isValid.value" type='text'
+      v-model="username" placeholder="Login..." autocomplete="username" maxlength="47"></InputText>
+    <InputText v-model="password" class="input password-input" :invalid="!validation.password.isValid.value"
+      type='password' placeholder="Password..." maxlength="47" autocomplete="current-password"></InputText>
     <div class="button-container">
-      <button-element
-        tabindex="0"
-        @click="onSubmit"
-      >Sign In</button-element>
+      <ButtonDefault tabindex="0" @click="onSubmit">Sign In</ButtonDefault>
     </div>
   </form>
 </template>
 
 <style scoped>
-.text-input-element {
+.input {
   width: 100%;
 }
 

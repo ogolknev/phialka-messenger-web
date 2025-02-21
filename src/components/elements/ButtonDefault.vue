@@ -3,38 +3,36 @@ const { color } = defineProps<{ color?: 'success' | 'warning' | 'danger' }>()
 </script>
 
 <template>
-  <div
-    tabindex="0"
-    class="tile button button-element"
-    :class="color"
-  >
+  <div tabindex="0" class="tile button button-default" :class="color">
     <slot>Button</slot>
   </div>
 </template>
 
 <style scoped>
-.button-element {
+.button-default {
   --accent-btn: var(--accent-0);
 }
 
-.button-element.success {
+.button-default.success {
   --accent-btn: var(--success-0);
 }
 
-.button-element.warning {
+.button-default.warning {
   --accent-btn: var(--warning-0);
 }
 
-.button-element.danger {
+.button-default.danger {
   --accent-btn: var(--danger-0);
 }
 
-.button-element {
+.button-default {
+  width: fit-content;
+  height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-inline: var(--gap);
-  padding-block: calc(var(--gap) / 2);
+  padding-block: var(--gap);
   color: var(--text-clr);
   font: inherit;
   font-size: var(--text-s);
@@ -45,8 +43,8 @@ const { color } = defineProps<{ color?: 'success' | 'warning' | 'danger' }>()
     border-color var(--anim-fade);
 }
 
-.button-element:hover,
-.button-element:focus {
+.button-default:hover,
+.button-default:focus {
   color: var(--accent-btn);
   border-color: var(--accent-btn);
 }

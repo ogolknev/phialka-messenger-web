@@ -1,9 +1,10 @@
 /* sizes */
 :root {
   --tile-size:         3rem;
+  --border-r:          10px;
   --icon-width:        calc(var(--tile-size) * 0.03);
   --max-content-width: calc(var(--tile-size) * 8);
-  --gap:               calc(var(--tile-size) * 0.3);
+  --gap:               calc(var(--tile-size) * 0.2);
   --text-xxl:          calc(var(--tile-size) * 0.6);
   --text-xl:           calc(var(--tile-size) * 0.5);
   --text-l:            calc(var(--tile-size) * 0.4);

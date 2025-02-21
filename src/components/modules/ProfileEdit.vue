@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import CloseButtonElement from '../elements/CloseButtonElement.vue';
-import ProfileEditFormComponent from '@/components/components/ProfileEditFormComponent.vue';
-import CropImageComponent from '@/components/components/CropImageComponent.vue';
+import CloseButtonElement from '../elements/ButtonClose.vue';
+import ProfileEditFormComponent from '@/components/components/FormProfileEdit.vue';
+import CropImageComponent from '@/components/components/ImageCropper.vue';
 import { computed, ref } from 'vue';
 import { formatDate, getCanvasBlob } from '@/composables/shared';
 import { useRouter } from 'vue-router';
@@ -84,7 +84,7 @@ function onClose() {
 </script>
 
 <template>
-  <div class="profile-edit-view">
+  <div class="profile-edit">
     <header>
       <div class="tile title">Profile</div>
       <close-button-element @click="onClose"></close-button-element>
@@ -99,7 +99,7 @@ function onClose() {
       @submit="onSubmit"
       @remove="onRemove"
     ></profile-edit-form-component>
-    <teleport to=".app-overlay-module">
+    <teleport to=".app-overlay">
       <crop-image-component
         v-if="newProfilePhotoURL"
         :src="newProfilePhotoURL"
@@ -110,7 +110,7 @@ function onClose() {
 </template>
 
 <style scoped>
-.profile-edit-view {
+.profile-edit {
   position: relative;
   margin-inline: auto;
   max-width: var(--max-content-width);

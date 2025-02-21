@@ -1,9 +1,10 @@
 <script setup lang='ts'>
-import PhotoInputElement from '../elements/PhotoInputElement.vue';
-import TextInputElement from '../elements/TextInputElement.vue';
-import ButtonElement from '../elements/ButtonElement.vue';
+import InputPhoto from '../elements/InputPhoto.vue';
+import InputText from '../elements/InputText.vue';
+import ButtonDefault from '../elements/ButtonDefault.vue';
 import { useValidation } from '@/composables/validation';
 import { useStore } from '@/store';
+
 
 const { imageUrl } = defineProps<{ imageUrl?: string }>()
 const emit = defineEmits<{
@@ -81,60 +82,27 @@ function onRemove() {
 </script>
 
 <template>
-  <div class="profile-edit-form-component">
+  <div class="form-profile-edit">
     <div class="first-row-container">
-      <photo-input-element
-        :src="imageUrl"
-        color='warning'
-        @change="onChange"
-      ></photo-input-element>
-      <text-input-element
-        v-model="name"
-        class="name-input"
-        :invalid="!validation.name.isValid.value"
-        placeholder="Name..."
-        color='warning'
-      ></text-input-element>
-      <text-input-element
-        v-model="tag"
-        class="tag-input"
-        :invalid="!validation.tag.isValid.value"
-        placeholder="Tag..."
-        color='warning'
-      ></text-input-element>
-      <text-input-element
-        v-model="birthdate"
-        class="bithdate-input"
-        :invalid="!validation.birthdate.isValid.value"
-        placeholder="Birthdate..."
-        color='warning'
-        date
-      ></text-input-element>
+      <InputPhoto :src="imageUrl" class="input-photo" color='warning' @change="onChange"></InputPhoto>
+      <InputText v-model="name" class="input-text name-input" :invalid="!validation.name.isValid.value"
+        placeholder="Name..." color='warning'></InputText>
+      <InputText v-model="tag" class="input-text tag-input" :invalid="!validation.tag.isValid.value" placeholder="Tag..."
+        color='warning'></InputText>
+      <InputText v-model="birthdate" class="input-text bithdate-input" :invalid="!validation.birthdate.isValid.value"
+        placeholder="Birthdate..." color='warning' date></InputText>
     </div>
-    <text-input-element
-      v-model="description"
-      class="description-input"
-      :invalid="!validation.description.isValid.value"
-      placeholder="Description..."
-      color='warning'
-      :maxrows="4"
-      :maxlength="200"
-    ></text-input-element>
+    <InputText v-model="description" class="input-text description-input" :invalid="!validation.description.isValid.value"
+      placeholder="Description..." color='warning' :maxrows="4" :maxlength="200"></InputText>
     <div class="buttons-container">
-      <button-element
-        color='danger'
-        @click="onRemove"
-      >Remove</button-element>
-      <button-element
-        color='warning'
-        @click="onSubmit"
-      >Edit</button-element>
+      <ButtonDefault color='danger' @click="onRemove">Remove</ButtonDefault>
+      <ButtonDefault color='warning' @click="onSubmit">Edit</ButtonDefault>
     </div>
   </div>
 </template>
 
 <style scoped>
-.profile-edit-form-component {
+.form-profile-edit {
   overflow-y: auto;
   display: flex;
   flex-flow: column nowrap;
@@ -142,11 +110,11 @@ function onRemove() {
   scrollbar-width: none;
 }
 
-.profile-edit-form-component::-webkit-scrollbar {
+.form-profile-edit::-webkit-scrollbar {
   display: none;
 }
 
-.text-input-element {
+.input-text {
   width: 100%;
 }
 
@@ -157,7 +125,7 @@ function onRemove() {
   gap: var(--gap);
 }
 
-.photo-input-element {
+.input-photo {
   grid-row: 1 / 4;
   grid-column: 1 / 2;
   height: 100%;

@@ -2,12 +2,12 @@
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import BurgerButtonElement from '../elements/BurgerButtonElement.vue';
-import SignInButtonElement from '../elements/SignInButtonElement.vue';
-import ThumbnailElement from '../elements/ThumbnailElement.vue';
+import ButtonBurger from '../elements/ButtonBurger.vue';
+import ButtonSignIn from '../elements/ButtonSignIn.vue';
+import ThumbnailDefault from '../elements/ThumbnailDefault.vue';
 
-import SideMenuComponent from '@/components/components/SideMenuComponent.vue';
-import ProfileSideMenuComponent from '@/components/components/ProfileSideMenuComponent.vue';
+import MenuMain from '@/components/components/MenuMain.vue';
+import MenuProfileMini from '@/components/components/MenuProfileMini.vue';
 import { useStore } from '@/store';
 import api from '@/api';
 
@@ -25,25 +25,14 @@ const profilePhoto = computed(() => {
   return "/src/assets/user.svg"
 })
 
-function sideMenuToogle() {
-  if (isSideMenuActive.value) {
-    isSideMenuActive.value = false
-  } else {
-    isSideMenuActive.value = true
-  }
-}
-function profileSideMenuToogle() {
-  if (isProfileSideMenuActive.value) {
-    isProfileSideMenuActive.value = false
-  } else {
-    isProfileSideMenuActive.value = true
-  }
-}
-function toProfileEdit() {
+const sideMenuToogle = () => isSideMenuActive.value = !isSideMenuActive.value
+const profileSideMenuToogle = () => isProfileSideMenuActive.value = !isProfileSideMenuActive.value
+
+const toProfileEdit = () => {
   router.push('/profile/edit')
   isProfileSideMenuActive.value = false
 }
-function signOut() {
+const signOut = () => {
   api.auth.signOut()
   store.profile = null
   isProfileSideMenuActive.value = false
@@ -52,40 +41,23 @@ function signOut() {
 </script>
 
 <template>
-  <header class="main-header-module">
-    <burger-button-element
-      @click="sideMenuToogle"
-      :active="isSideMenuActive"
-    ></burger-button-element>
-    <side-menu-component :class="{ active: isSideMenuActive }"></side-menu-component>
-    <div
-      class="tile title"
-      @click="router.push('/')"
-    >Phialka</div>
+  <header class="app-header">
+    <ButtonBurger @click="sideMenuToogle" :active="isSideMenuActive"></ButtonBurger>
+    <MenuMain class="menu-main" :class="{ active: isSideMenuActive }"></MenuMain>
+    <div class="tile title" @click="router.push('/')">Phialka</div>
     <div class="tile header-spacer"></div>
-    <div
-      v-if="store.profile !== null"
-      class="tile profile-photo"
-      @click="profileSideMenuToogle"
-    >
-      <thumbnail-element :src="profilePhoto"></thumbnail-element>
+    <div v-if="store.profile !== null" class="tile profile-photo" @click="profileSideMenuToogle">
+      <ThumbnailDefault :src="profilePhoto"></ThumbnailDefault>
     </div>
-    <sign-in-button-element
-      v-else
-      @click="router.push('/auth')"
-    ></sign-in-button-element>
-    <profile-side-menu-component
-      @edit="toProfileEdit"
-      @sign-out="signOut"
-      :profile-name="store.profile?.name"
+    <ButtonSignIn v-else @click="router.push('/auth')"></ButtonSignIn>
+    <MenuProfileMini class="menu-profile-mini" @edit="toProfileEdit" @sign-out="signOut" :profile-name="store.profile?.name"
       :class="{ active: isProfileSideMenuActive && store.profile !== null }"
-      :tabindex="isProfileSideMenuActive && store.profile !== null ? 0 : -1"
-    ></profile-side-menu-component>
+      :tabindex="isProfileSideMenuActive && store.profile !== null ? 0 : -1"></MenuProfileMini>
   </header>
 </template>
 
 <style scoped>
-header {
+.app-header {
   display: grid;
   grid-template-columns: auto auto 1fr auto;
   gap: var(--gap);
@@ -109,7 +81,7 @@ header {
   user-select: none;
 }
 
-.side-menu-component {
+.menu-main {
   position: absolute;
   top: calc(2 * var(--gap) + var(--tile-size));
   padding: var(--gap);
@@ -120,7 +92,7 @@ header {
   transition: transform var(--anim-side);
 }
 
-.side-menu-component.active {
+.menu-main.active {
   transform: none;
 }
 
@@ -133,7 +105,7 @@ header {
   }
 }
 
-.profile-side-menu {
+.menu-profile-mini {
   position: fixed;
   top: calc(2 * var(--gap) + var(--tile-size));
   right: var(--gap);
@@ -141,7 +113,7 @@ header {
   transition: transform var(--anim-side);
 }
 
-.profile-side-menu.active {
+.menu-profile-mini.active {
   transform: none;
 }
 </style>

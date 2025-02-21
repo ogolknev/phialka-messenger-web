@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import CloseButtonElement from '../elements/CloseButtonElement.vue';
-import SignUpFormComponent from '@/components/components/SignUpFormComponent.vue';
-import SignInFormComponent from '@/components/components/SignInFormComponent.vue';
+import ButtonClose from '../elements/ButtonClose.vue';
+import FormSignUp from '@/components/components/FormSignUp.vue';
+import FormSignIn from '@/components/components/FormSignIn.vue';
 import { useRouter } from 'vue-router';
 import api from '@/api';
 import { useStore } from '@/store';
@@ -45,41 +45,24 @@ function onClose() {
 </script>
 
 <template>
-  <div class="auth-view">
+  <div class="app-auth">
     <div class="navbar">
-      <div
-        class="tile to-sign-in-form nav-entry"
-        :class="{ active: mode === 'sign-in' }"
-        @click="mode = 'sign-in'"
-      >Sign In</div>
-      <div
-        class="tile to-sign-up-form nav-entry"
-        :class="{ active: mode === 'sign-up' }"
-        @click="mode = 'sign-up'"
-      >Sign Up</div>
-      <close-button-element
-        class="nav-entry"
-        @click="onClose"
-      ></close-button-element>
+      <div class="tile to-form-sign-in nav-entry" :class="{ active: mode === 'sign-in' }" @click="mode = 'sign-in'">Sign
+        In</div>
+      <div class="tile to-form-sign-up nav-entry" :class="{ active: mode === 'sign-up' }" @click="mode = 'sign-up'">Sign
+        Up</div>
+      <ButtonClose class="button-close nav-entry" @click="onClose"></ButtonClose>
     </div>
-    <sign-up-form-component
-      v-if="mode === 'sign-up'"
-      v-model:name="signUpForm.name"
-      v-model:username="signUpForm.username"
-      v-model:password="signUpForm.password"
-      @sign-up="signUp"
-    ></sign-up-form-component>
-    <sign-in-form-component
-      v-else
-      v-model:username="signInForm.username"
-      v-model:password="signInForm.password"
-      @sign-in="() => signIn()"
-    ></sign-in-form-component>
+    <FormSignUp v-if="mode === 'sign-up'" class="form form-sign-up" v-model:name="signUpForm.name"
+      v-model:username="signUpForm.username" v-model:password="signUpForm.password"
+      @sign-up="signUp"></FormSignUp>
+    <FormSignIn v-else class="form form-sign-in" v-model:username="signInForm.username" v-model:password="signInForm.password"
+      @sign-in="() => signIn()"></FormSignIn>
   </div>
 </template>
 
 <style scoped>
-.auth-view {
+.app-auth {
   margin-top: var(--gap);
   margin-inline: auto;
   max-width: var(--max-content-width);
@@ -126,22 +109,16 @@ function onClose() {
   flex-grow: 1;
 }
 
-.to-sign-in-form.active,
-.to-sign-in-form:hover {
+.to-form-sign-in.active,
+.to-form-sign-in:hover {
   border-color: var(--accent-0);
   color: var(--accent-0);
 }
 
-.to-sign-up-form.active,
-.to-sign-up-form:hover {
+.to-form-sign-up.active,
+.to-form-sign-up:hover {
   border-color: var(--success-0);
   color: var(--success-0);
-}
-
-.name-input,
-.login-input,
-.password-input {
-  width: 100%;
 }
 
 .button-container {
