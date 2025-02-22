@@ -1,12 +1,12 @@
 <script setup lang='ts'>
-const { color } = defineProps<{color?: 'success' | 'warning' | 'danger'}>()
+const { color } = defineProps<{ color?: 'success' | 'warning' | 'danger' }>()
 </script>
 
 <template>
-  <div class="tile button button-add" :class="color">
+  <button class="tile button button-add" :class="color">
     <div class="line"></div>
     <div class="line"></div>
-  </div>
+  </button>
 </template>
 
 <style scoped>
@@ -40,6 +40,10 @@ const { color } = defineProps<{color?: 'success' | 'warning' | 'danger'}>()
     background-color: var(--icon-clr);
     transition: background-color var(--anim-fade);
   }
+
+  .line:nth-child(1) {
+    transform: rotate(90deg);
+  }
 }
 
 .button-add:hover {
@@ -48,9 +52,5 @@ const { color } = defineProps<{color?: 'success' | 'warning' | 'danger'}>()
   .line {
     background-color: var(--accent-btn);
   }
-}
-
-.line:nth-child(1) {
-  transform: rotate(90deg);
 }
 </style>

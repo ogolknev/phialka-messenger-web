@@ -3,7 +3,7 @@ const { active = false } = defineProps<{ active?: boolean }>()
 </script>
 
 <template>
-  <div class="tile button button-sign-in" :class="{ active }">
+  <button class="tile button button-sign-in" :class="{ active }">
     <svg class="sign-in-icon" width="43" height="42" viewBox="0 0 43 42" fill="none" xmlns="http://www.w3.org/2000/svg">
       <mask id="path-1-inside-1_150_2517">
         <path
@@ -15,7 +15,7 @@ const { active = false } = defineProps<{ active?: boolean }>()
       <rect x="19.4141" y="12" width="13" height="2" rx="1" transform="rotate(45 19.4141 12)" class="arrow-head-top" />
       <rect x="18" y="29" width="13" height="2" rx="1" transform="rotate(-45 18 29)" class="arrow-head-bottom" />
     </svg>
-  </div>
+  </button>
 </template>
 
 <style scoped>

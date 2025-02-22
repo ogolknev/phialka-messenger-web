@@ -3,7 +3,7 @@ import CloseButtonElement from '../elements/ButtonClose.vue';
 import ProfileEditFormComponent from '@/components/components/FormProfileEdit.vue';
 import CropImageComponent from '@/components/components/ImageCropper.vue';
 import { computed, ref } from 'vue';
-import { formatDate, getCanvasBlob } from '@/composables/shared';
+import { formatDate, getCanvasBlob } from '@/utils/shared';
 import { useRouter } from 'vue-router';
 import { useStore } from '@/store';
 import api from '@/api';

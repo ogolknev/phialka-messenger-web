@@ -11,6 +11,7 @@
   --text-m:            calc(var(--tile-size) * 0.3);
   --text-s:            calc(var(--tile-size) * 0.2);
   --text-xs:           calc(var(--tile-size) * 0.1);
+  --line-height:       1.5;
 }
 
 @media (min-width: 600px) {

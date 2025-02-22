@@ -2,6 +2,7 @@
 import InputPhoto from '../elements/InputPhoto.vue';
 import InputText from '../elements/InputText.vue';
 import ButtonDefault from '../elements/ButtonDefault.vue';
+import InputTextarea from '../elements/InputTextarea.vue';
 
 
 const title = defineModel('title', { type: String, required: true })
@@ -31,11 +32,11 @@ function onClickCreate() {
 <template>
   <div class="form-server-create">
     <InputPhoto class="input-photo" :src="src" @change="onPhotoLoad" color='success'></InputPhoto>
-    <InputText class="input-text tite-input" v-model="title" placeholder="Title..." color='success'></InputText>
-    <InputText class="input-text description-input" v-model="description" placeholder="Description..." color='success'
-      maxrows="5" rows="5" maxlength="200"></InputText>
+    <InputText class="input-text title-input" v-model="title" placeholder="Title..." color='success'></InputText>
+    <InputTextarea class="input-text description-input" v-model="description" placeholder="Description..." color='success'
+      max-rows="5" rows="5" maxlength="200"></InputTextarea>
     <div class="buttons-container">
-      <ButtonDefault color='success' @click="onClickCreate">Create</ButtonDefault>
+      <ButtonDefault color='success' @click.prevent="onClickCreate">Create</ButtonDefault>
     </div>
   </div>
 </template>
@@ -49,6 +50,10 @@ function onClickCreate() {
 }
 
 .input-text {
+  width: 100%;
+}
+
+.title-input {
   width: 100%;
 }
 

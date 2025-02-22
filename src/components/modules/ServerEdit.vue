@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router';
 import FormServerEdit from '@/components/components/FormServerEdit.vue';
 import ButtonClose from '../elements/ButtonClose.vue';
 import ImageCropper from '@/components/components/ImageCropper.vue';
-import { getCanvasBlob } from '@/composables/shared';
+import { getCanvasBlob } from '@/utils/shared';
 import api from '@/api';
 import { useStore } from '@/store';
 

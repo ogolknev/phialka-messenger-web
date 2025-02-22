@@ -2,10 +2,10 @@
 </script>
 
 <template>
-  <div class="tile button button-close">
+  <button class="tile button button-close">
     <div class="line"></div>
     <div class="line"></div>
-  </div>
+  </button>
 </template>
 
 <style scoped>

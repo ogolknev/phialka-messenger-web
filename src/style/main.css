@@ -20,6 +20,18 @@ body {
   background-color: var(--bg-clr-0);
 }
 
+.input {
+  padding-inline: var(--gap);
+  color: var(--text-clr);
+  font: inherit;
+  font-size: var(--text-m);
+  background-color: transparent;
+
+  &::placeholder {
+    color: var(--text-clr-dark-3);
+  }
+}
+
 .tile {
   box-sizing: border-box;
   width: var(--tile-size);

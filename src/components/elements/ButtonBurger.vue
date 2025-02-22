@@ -3,12 +3,12 @@ const { active = false } = defineProps<{ active: boolean }>()
 </script>
 
 <template>
-  <div class="tile button button-burger" :class="{ active }">
+  <button class="tile button button-burger" :class="{ active }">
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
-  </div>
+  </button>
 </template>
 
 <style scoped>

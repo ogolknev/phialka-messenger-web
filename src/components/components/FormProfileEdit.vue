@@ -2,7 +2,9 @@
 import InputPhoto from '../elements/InputPhoto.vue';
 import InputText from '../elements/InputText.vue';
 import ButtonDefault from '../elements/ButtonDefault.vue';
-import { useValidation } from '@/composables/validation';
+import InputData from '../elements/InputData.vue';
+import InputTextarea from '../elements/InputTextarea.vue';
+import { useValidation } from '@/utils/composables/validation';
 import { useStore } from '@/store';
 
 
@@ -89,14 +91,14 @@ function onRemove() {
         placeholder="Name..." color='warning'></InputText>
       <InputText v-model="tag" class="input-text tag-input" :invalid="!validation.tag.isValid.value" placeholder="Tag..."
         color='warning'></InputText>
-      <InputText v-model="birthdate" class="input-text bithdate-input" :invalid="!validation.birthdate.isValid.value"
-        placeholder="Birthdate..." color='warning' date></InputText>
+      <InputData v-model="birthdate" class="input-text bithdate-input" :invalid="!validation.birthdate.isValid.value"
+        placeholder="Birthdate..." color='warning' date></InputData>
     </div>
-    <InputText v-model="description" class="input-text description-input" :invalid="!validation.description.isValid.value"
-      placeholder="Description..." color='warning' :maxrows="4" :maxlength="200"></InputText>
+    <InputTextarea v-model="description" class="input-text description-input" :invalid="!validation.description.isValid.value"
+      placeholder="Description..." color='warning' :max-rows="4" :maxlength="200"></InputTextarea>
     <div class="buttons-container">
-      <ButtonDefault color='danger' @click="onRemove">Remove</ButtonDefault>
-      <ButtonDefault color='warning' @click="onSubmit">Edit</ButtonDefault>
+      <ButtonDefault color='danger' @click.prevent="onRemove">Remove</ButtonDefault>
+      <ButtonDefault color='warning' @click.prevent="onSubmit">Edit</ButtonDefault>
     </div>
   </div>
 </template>

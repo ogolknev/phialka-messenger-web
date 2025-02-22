@@ -1,90 +1,33 @@
 <script setup lang="ts">
-import { nextTick, onMounted, ref, watch } from 'vue';
+import { ref } from 'vue';
 
 
 const model = defineModel({ type: String, required: true })
-const emit = defineEmits<{ (e: 'input', event: Event): void }>()
 const {
   placeholder,
-  rows = 1,
-  maxrows = 1,
   maxlength = 20,
   type = 'text',
-  date = false,
   spellcheck = false,
   invalid = false,
   color
 } = defineProps<{
   placeholder?: string,
-  rows?: number | string,
-  maxrows?: number | string,
   maxlength?: number | string,
   type?: 'password' | 'text' | 'email' | 'tel',
-  date?: boolean,
   autocomplete?: string,
   spellcheck?: boolean | 'true' | 'false',
   invalid?: boolean,
   color?: 'success' | 'warning' | 'danger'
 }>()
 
-const textarea = ref<HTMLTextAreaElement>()
-const input = ref<HTMLInputElement>()
 const showPassword = ref(false)
 
-function textareaResize(textarea?: HTMLTextAreaElement) {
-  if (textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px'
-  }
-}
-
-function dateFormat(dateString: string) {
-  dateString = dateString.replace(/\D/g, '').slice(0, 8)
-  dateString = [dateString?.slice(0, 2), dateString?.slice(2, 4), dateString?.slice(4, 8)].filter(Boolean).join('.')
-  return dateString
-}
-
-function onInput(event: Event) {
-  const target = (event as Event & { target: HTMLInputElement | HTMLTextAreaElement }).target
-  if (date) target.value = dateFormat((event.target as HTMLInputElement).value)
-  model.value = target.value
-  textareaResize(textarea.value);
-  emit('input', event)
-}
-
-watch(model, () => {
-  if (Number(maxrows) > 1) {
-    if (textarea.value) textarea.value.value = model.value
-  } else {
-    if (input.value) input.value.value = model.value
-  }
-})
-
-onMounted(() => {
-  nextTick(() => {
-    if (Number(maxrows) > 1) {
-      if (textarea.value) textarea.value.value = model.value
-    } else {
-      if (input.value) input.value.value = model.value
-    }
-  })
-})
 </script>
 
 <template>
-  <div class="tile input input-text" :class="[{ invalid }, color]">
-    <textarea v-if="Number(maxrows) > 1" ref="textarea" :autocomplete="autocomplete" :rows="rows" :maxlength="maxlength"
-      :placeholder="placeholder" :spellcheck="spellcheck" @input.prevent="onInput"></textarea>
-    <input v-else ref="input" :type="(() => {
-      if (type == 'password') {
-        if (showPassword) {
-          return 'text'
-        }
-        return 'password'
-      }
-      return type
-    })()" :autocomplete="autocomplete" :maxlength="maxlength" :placeholder="placeholder" :spellcheck="spellcheck"
-      @input.prevent="onInput">
+  <div class="tile input-text-container" :class="[{ invalid }, color]">
+    <input v-model="model" class="input input-text" :type="showPassword ? '' : type" :autocomplete="autocomplete" :maxlength="maxlength"
+      :placeholder="placeholder" :spellcheck="spellcheck">
     <button v-if="type === 'password'" class="toogle-password-btn" @click.prevent="showPassword = !showPassword">
       <svg v-if="!showPassword" width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -98,103 +41,62 @@ onMounted(() => {
         <rect x="23.7783" y="6.80762" width="2" height="24" rx="1" transform="rotate(45 23.7783 6.80762)"
           fill="inherit" />
       </svg>
-
     </button>
   </div>
 </template>
 
 <style scoped>
-.input-text {
+.input-text-container {
   --accent-input: var(--accent-0)
 }
 
-.input-text.success {
+.input-text-container.success {
   --accent-input: var(--success-0)
 }
 
-.input-text.warning {
+.input-text-container.warning {
   --accent-input: var(--warning-0)
 }
 
-.input-text.danger {
+.input-text-container.danger {
   --accent-input: var(--danger-0)
 }
 
-.input-text {
-
-  --line-height: 1.5;
-  --max-rows: v-bind("maxrows");
-
+.input-text-container {
+  display: block;
   position: relative;
-  display: grid;
-  place-items: center;
-  grid-template-columns: 1fr;
-  height: fit-content;
-  min-height: var(--tile-size);
-  padding-block: calc((var(--tile-size) - var(--text-m) * (var(--line-height)) * 1.1) / 2);
-  padding-inline: var(--gap);
+  padding: 0;
 }
 
-.input-text:has(textarea:focus):not(.invalid),
-.input-text:has(input:focus):not(.invalid) {
+.input-text-container:has(.input-text:focus) {
   border-color: var(--accent-input);
   caret-color: var(--accent-input);
 }
 
-.input-text.invalid {
-  border-color: var(--danger-0);
-  caret-color: var(--danger-0);
-
-  textarea,
-  input {
-    color: var(--danger-0);
-  }
-
-  .toogle-password-btn:hover {
-    fill: var(--danger-0);
-  }
-}
-
-textarea,
-input {
+.input-text {
   width: 100%;
-  line-height: var(--line-height);
-  color: var(--text-clr);
-  background-color: transparent;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: var(--text-m);
-}
-
-textarea {
-  max-height: calc(var(--text-m) * var(--line-height) * var(--max-rows));
-  resize: none;
-  overflow-y: auto;
-}
-
-textarea::placeholder,
-input::placeholder {
-  color: var(--text-clr-dark-4);
+  height: 100%;
 }
 
 .toogle-password-btn {
   position: absolute;
-  right: calc(var(--tile-size) * 0.3);
-  width: calc(var(--tile-size) * 0.3);
-  height: calc(var(--tile-size) * 0.3);
+  right: var(--gap);
+  top: 50%;
+  width: calc(var(--tile-size) * 0.4);
+  height: calc(var(--tile-size) * 0.4);
+  padding: 0;
+  transform: translateY(-50%);
   background-color: transparent;
-  cursor: pointer;
-  display: grid;
-  place-content: center;
   fill: var(--icon-clr);
-  transition: fill var(--anim-fade);
+  cursor: pointer;
 
   svg {
-    width: calc(var(--tile-size) * 0.4);
+    width: 100%;
+    height: 100%;
   }
 }
 
 .toogle-password-btn:hover {
-  fill: var(--accent-input);
+  fill: var(--accent-0)
 }
 </style>

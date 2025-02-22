@@ -42,3 +42,4 @@ declare namespace API {
     created_at: string
   }
 }
+declare type DateStringFormat = 'dd.mm.yyyy' | 'yyyy.mm.dd' | 'dd-mm-yyyy' | 'yyyy-mm-dd'

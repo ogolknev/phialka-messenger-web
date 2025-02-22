@@ -2,7 +2,7 @@
 import InputText from '../elements/InputText.vue';
 import ButtonDefault from '../elements/ButtonDefault.vue';
 import { onMounted, onUnmounted } from 'vue';
-import { useValidation } from '@/composables/validation';
+import { useValidation } from '@/utils/composables/validation';
 import { useStore } from '@/store';
 
 
@@ -96,7 +96,7 @@ onUnmounted(() => {
     <InputText v-model="password" class="input password-input" :invalid="!validation.password.isValid.value"
       type='password' placeholder="Password..." maxlength="47" autocomplete="current-password"></InputText>
     <div class="button-container">
-      <ButtonDefault tabindex="0" @click="onSubmit">Sign In</ButtonDefault>
+      <ButtonDefault tabindex="0" @click.prevent="onSubmit">Sign In</ButtonDefault>
     </div>
   </form>
 </template>

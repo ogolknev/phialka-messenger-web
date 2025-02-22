@@ -3,9 +3,9 @@ const { color } = defineProps<{ color?: 'success' | 'warning' | 'danger' }>()
 </script>
 
 <template>
-  <div tabindex="0" class="tile button button-default" :class="color">
+  <button class="tile button button-default" :class="color">
     <slot>Button</slot>
-  </div>
+  </button>
 </template>
 
 <style scoped>

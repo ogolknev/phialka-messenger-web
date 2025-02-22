@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import InputText from '../elements/InputText.vue';
 import ButtonDefault from '../elements/ButtonDefault.vue';
-import { useValidation } from '@/composables/validation';
+import { useValidation } from '@/utils/composables/validation';
 import { onMounted, onUnmounted } from 'vue';
 import { useStore } from '@/store';
 
@@ -121,7 +121,7 @@ onUnmounted(() => {
       :invalid="!validation.password.isValid.value" autocomplete="new-password" maxlength="47"
       color='success'></InputText>
     <div class="button-container">
-      <ButtonDefault color="success" @click="onSubmit">Sign Up</ButtonDefault>
+      <ButtonDefault color="success" @click.prevent="onSubmit">Sign Up</ButtonDefault>
     </div>
   </div>
 </template>
