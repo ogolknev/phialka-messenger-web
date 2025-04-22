@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import ButtonElement from '../elements/ButtonDefault.vue';
-
+import ButtonElement from '../elements/ButtonDefault.vue'
 
 const emit = defineEmits(['sign-out', 'edit'])
 
-const { profileName } = defineProps<{ tabindex: 0 | -1, profileName?: string }>()
+const { profileName } = defineProps<{ tabindex: 0 | -1; profileName?: string }>()
 
 function onSignOut() {
   emit('sign-out')
@@ -19,7 +18,13 @@ function onEdit() {
   <div class="tile menu-profile-mini">
     <span class="name">{{ profileName }}</span>
     <div class="button-container">
-      <button-element color="danger" @click="onSignOut" @keydown.enter="onSignOut" :tabindex="tabindex">Sign Out</button-element>
+      <button-element
+        color="danger"
+        @click="onSignOut"
+        @keydown.enter="onSignOut"
+        :tabindex="tabindex"
+        >Sign Out</button-element
+      >
       <button-element color="warning" @click="onEdit" :tabindex="tabindex">Edit</button-element>
     </div>
   </div>

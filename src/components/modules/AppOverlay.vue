@@ -1,7 +1,7 @@
-<script setup lang='ts'>
-import { onMounted, ref, watch } from 'vue';
-import { useStore } from '@/store';
-import ToastDefault from '../elements/ToastDefault.vue';
+<script setup lang="ts">
+import { onMounted, ref, watch } from 'vue'
+import { useStore } from '@/store'
+import ToastDefault from '../elements/ToastDefault.vue'
 
 const store = useStore()
 const currentToast = ref<string | null>()
@@ -15,24 +15,35 @@ async function showToasts(toasts: string[]) {
     await new Promise<void>((resolve) => setTimeout(resolve, 1))
     currentToastState.value = 'show'
     currentToast.value = toast
-    await new Promise<void>((resolve) => setTimeout(() => {
-      currentToastState.value = ''
-      resolve()
-    }, animationAppearDuration))
-    await new Promise<void>((resolve) => setTimeout(() => {
-      currentToastState.value = 'hide'
-      resolve()
-    }, toastDuration))
-    await new Promise<void>((resolve) => setTimeout(() => {
-      currentToast.value = null
-      toasts.shift()
-      resolve()
-    }, animationAppearDuration))
+    await new Promise<void>((resolve) =>
+      setTimeout(() => {
+        currentToastState.value = ''
+        resolve()
+      }, animationAppearDuration),
+    )
+    await new Promise<void>((resolve) =>
+      setTimeout(() => {
+        currentToastState.value = 'hide'
+        resolve()
+      }, toastDuration),
+    )
+    await new Promise<void>((resolve) =>
+      setTimeout(() => {
+        currentToast.value = null
+        toasts.shift()
+        resolve()
+      }, animationAppearDuration),
+    )
   }
 }
 
 onMounted(() => {
-  animationAppearDuration = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--animation-appear-from-side-duration'), 10)
+  animationAppearDuration = parseInt(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      '--animation-appear-from-side-duration',
+    ),
+    10,
+  )
   addEventListener('keydown', (event) => {
     if (event.key === 'Escape') store.toasts.push('AAAA')
   })

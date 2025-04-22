@@ -1,10 +1,7 @@
-<script setup lang='ts'>
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div class="dev-view" accept="image/*" @change="onChange">
-  </div>
+  <div class="dev-view" accept="image/*" @change="onChange"></div>
 </template>
 
 <style scoped>

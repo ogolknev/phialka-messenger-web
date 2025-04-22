@@ -1,12 +1,14 @@
-<script setup lang='ts'>
-import ButtonAdd from '../elements/ButtonAdd.vue';
-import ThumbnailDefault from '../elements/ThumbnailDefault.vue';
-import ButtonDefault from '../elements/ButtonDefault.vue';
+<script setup lang="ts">
+import ButtonAdd from '../elements/ButtonAdd.vue'
+import ThumbnailDefault from '../elements/ThumbnailDefault.vue'
+import ButtonDefault from '../elements/ButtonDefault.vue'
 
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
-
-const { servers = [], selectedServerId } = defineProps<{ servers: API.Server[], selectedServerId: string | null }>()
+const { servers = [], selectedServerId } = defineProps<{
+  servers: API.Server[]
+  selectedServerId: string | null
+}>()
 const emit = defineEmits<{
   (ev: 'click-create-server'): void
   (ev: 'click-edit-server', serverId: string): void
@@ -14,9 +16,9 @@ const emit = defineEmits<{
 }>()
 
 const serverContextMenu = ref<{
-  left: number,
-  top: number,
-  title: string,
+  left: number
+  top: number
+  title: string
   id: string
 } | null>(null)
 let longPressTimer: number | undefined
@@ -27,27 +29,31 @@ function onClickCreateServer() {
 
 function onClickServer(serverId: string) {
   emit('click-server', serverId)
-  console.log("works?")
+  console.log('works?')
 }
 
 function getIconSrc(downloadId?: string) {
-  if (downloadId) return import.meta.env.VITE_API_BASE_URL + "/files/download/" + downloadId
+  if (downloadId) return import.meta.env.VITE_API_BASE_URL + '/files/download/' + downloadId
   return undefined
 }
 
-function openServerContextMenu(event: MouseEvent | TouchEvent, serverTitle: string, serverId: string) {
+function openServerContextMenu(
+  event: MouseEvent | TouchEvent,
+  serverTitle: string,
+  serverId: string,
+) {
   serverContextMenu.value = {
     left: 'clientX' in event ? event.clientX : event.touches[0].clientX,
     top: 'clientY' in event ? event.clientY : event.touches[0].clientY,
     title: serverTitle,
-    id: serverId
+    id: serverId,
   }
 }
 
 function closeServerContextMenu(event: MouseEvent | TouchEvent) {
   if (
-    (event.target as HTMLDivElement).style.left !== (serverContextMenu.value?.left + 'px') ||
-    (event.target as HTMLDivElement).style.top !== (serverContextMenu.value?.top + 'px')
+    (event.target as HTMLDivElement).style.left !== serverContextMenu.value?.left + 'px' ||
+    (event.target as HTMLDivElement).style.top !== serverContextMenu.value?.top + 'px'
   ) {
     serverContextMenu.value = null
   }
@@ -69,7 +75,7 @@ function startLongPress(event: TouchEvent, serverTitle: string, serverId: string
 
 function cancelLongPress(event: TouchEvent) {
   if (longPressTimer !== undefined) {
-    (event.target as HTMLElement).click?.()
+    ;(event.target as HTMLElement).click?.()
     clearTimeout(longPressTimer)
     longPressTimer = undefined
   }
@@ -86,25 +92,36 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="nav-of-servers">
-    <ButtonAdd @click="onClickCreateServer" color='success'></ButtonAdd>
+    <ButtonAdd @click="onClickCreateServer" color="success"></ButtonAdd>
     <div class="servers-container">
-      <div v-for="server in servers" :key="server.server_id" class="tile server-list-entry"
-        :class="{ selected: selectedServerId === server.server_id }" @click="() => onClickServer(server.server_id)"
-        @click.right.prevent="(event) => openServerContextMenu(event, server.title, server.server_id)"
+      <div
+        v-for="server in servers"
+        :key="server.server_id"
+        class="tile server-list-entry"
+        :class="{ selected: selectedServerId === server.server_id }"
+        @click="() => onClickServer(server.server_id)"
+        @click.right.prevent="
+          (event) => openServerContextMenu(event, server.title, server.server_id)
+        "
         @touchstart.prevent="(event) => startLongPress(event, server.title, server.server_id)"
-        @touchcancel.prevent="cancelLongPress" @touchend.prevent="cancelLongPress">
+        @touchcancel.prevent="cancelLongPress"
+        @touchend.prevent="cancelLongPress"
+      >
         <ThumbnailDefault :src="getIconSrc(server.logo?.download_id)"></ThumbnailDefault>
       </div>
     </div>
   </div>
   <teleport v-if="serverContextMenu" to=".app-overlay">
-    <div class="tile server-context-menu" :style="{
-      position: 'absolute',
-      left: serverContextMenu.left + 'px',
-      top: serverContextMenu.top + 'px'
-    }">
+    <div
+      class="tile server-context-menu"
+      :style="{
+        position: 'absolute',
+        left: serverContextMenu.left + 'px',
+        top: serverContextMenu.top + 'px',
+      }"
+    >
       <span class="title">{{ serverContextMenu.title }}</span>
-      <ButtonDefault color='warning' @click="onClickEditServer">Edit</ButtonDefault>
+      <ButtonDefault color="warning" @click="onClickEditServer">Edit</ButtonDefault>
     </div>
   </teleport>
 </template>
@@ -115,7 +132,6 @@ onBeforeUnmount(() => {
   grid-template-rows: auto 1fr;
   gap: var(--gap);
   overflow: hidden;
-
 }
 
 .servers-container {

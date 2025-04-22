@@ -1,14 +1,18 @@
-export function formatDate(date: string, from: DateStringFormat = 'dd.mm.yyyy', to: DateStringFormat = 'yyyy-mm-dd') {
+export function formatDate(
+  date: string,
+  from: DateStringFormat = 'dd.mm.yyyy',
+  to: DateStringFormat = 'yyyy-mm-dd',
+) {
   if (!date) return ''
   let day, month, year
   if (from === 'dd.mm.yyyy') {
-    [day, month, year] = date.split('.')
+    ;[day, month, year] = date.split('.')
   } else if (from === 'yyyy.mm.dd') {
-    [year, month, day] = date.split('.')
+    ;[year, month, day] = date.split('.')
   } else if (from === 'dd-mm-yyyy') {
-    [day, month, year] = date.split('-')
+    ;[day, month, year] = date.split('-')
   } else {
-    [year, month, day] = date.split('-')
+    ;[year, month, day] = date.split('-')
   }
   if (to === 'dd.mm.yyyy') {
     return `${day}.${month}.${year}`
@@ -27,7 +31,10 @@ export function stringToDateString(string: string) {
   return string
 }
 
-export async function getCanvasBlob(canvas: HTMLCanvasElement, type: 'image/png' | 'image/jpeg' = 'image/png') {
+export async function getCanvasBlob(
+  canvas: HTMLCanvasElement,
+  type: 'image/png' | 'image/jpeg' = 'image/png',
+) {
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (blob) {

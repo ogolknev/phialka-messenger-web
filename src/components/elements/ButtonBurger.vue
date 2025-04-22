@@ -32,7 +32,6 @@ const { active = false } = defineProps<{ active: boolean }>()
 }
 
 .button-burger.active {
-
   .line:nth-child(1),
   .line:nth-child(4) {
     transform: scaleX(0);
@@ -54,7 +53,7 @@ const { active = false } = defineProps<{ active: boolean }>()
   border-radius: calc(var(--icon-width) * 0.5);
   transition:
     background-color var(--anim-fade),
-    transform var(--anim-fade)
+    transform var(--anim-fade);
 }
 
 .line:nth-child(3) {

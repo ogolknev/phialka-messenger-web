@@ -1,8 +1,7 @@
-<script setup lang='ts'>
-import ButtonDefault from '../elements/ButtonDefault.vue';
-import { onMounted, onUnmounted, ref } from 'vue';
+<script setup lang="ts">
+import ButtonDefault from '../elements/ButtonDefault.vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import Cropper from 'cropperjs'
-
 
 const image = ref<HTMLImageElement>()
 let cropper: Cropper | null = null
@@ -30,7 +29,7 @@ const onLoad = () => {
     responsive: true,
     background: false,
     center: false,
-    guides: false
+    guides: false,
   })
 }
 
@@ -54,7 +53,7 @@ function onCancel() {
 <template>
   <div class="tile image-cropper">
     <div class="crop-container">
-      <img v-if="src" ref="image" :src="src" @load="onLoad">
+      <img v-if="src" ref="image" :src="src" @load="onLoad" />
     </div>
     <div class="button-container">
       <ButtonDefault @click="onCancel" color="danger">Cancel</ButtonDefault>
@@ -74,7 +73,6 @@ function onCancel() {
     width: 80dvw;
     height: 80dvh;
     overflow: hidden;
-
   }
 }
 

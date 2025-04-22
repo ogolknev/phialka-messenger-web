@@ -1,5 +1,5 @@
-<script setup lang='ts'>
-import ServerEditModule from '../modules/ServerEdit.vue';
+<script setup lang="ts">
+import ServerEditModule from '../modules/ServerEdit.vue'
 </script>
 
 <template>

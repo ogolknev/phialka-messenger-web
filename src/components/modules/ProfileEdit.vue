@@ -1,13 +1,12 @@
-<script setup lang='ts'>
-import CloseButtonElement from '../elements/ButtonClose.vue';
-import ProfileEditFormComponent from '@/components/components/FormProfileEdit.vue';
-import CropImageComponent from '@/components/components/ImageCropper.vue';
-import { computed, ref } from 'vue';
-import { formatDate, getCanvasBlob } from '@/utils/shared';
-import { useRouter } from 'vue-router';
-import { useStore } from '@/store';
-import api from '@/api';
-
+<script setup lang="ts">
+import CloseButtonElement from '../elements/ButtonClose.vue'
+import ProfileEditFormComponent from '@/components/components/FormProfileEdit.vue'
+import CropImageComponent from '@/components/components/ImageCropper.vue'
+import { computed, ref } from 'vue'
+import { formatDate, getCanvasBlob } from '@/utils/shared'
+import { useRouter } from 'vue-router'
+import { useStore } from '@/store'
+import api from '@/api'
 
 const router = useRouter()
 const store = useStore()
@@ -15,27 +14,29 @@ const newProfilePhotoCroppedCanvas = ref<HTMLCanvasElement>()
 const newProfilePhotoURL = ref<string>()
 const newProfilePhotoURLCropped = ref<string>()
 const newProfileForm = ref<{
-  name: string,
-  tag: string,
-  birthdate: string,
+  name: string
+  tag: string
+  birthdate: string
   description: string
 }>({
   name: '',
   tag: '',
   birthdate: '',
-  description: ''
+  description: '',
 })
 
 if (store.profile) {
   newProfileForm.value.name = store.profile.name ?? ''
   newProfileForm.value.tag = store.profile.tag ?? ''
-  newProfileForm.value.birthdate = formatDate(store.profile.birthdate, 'yyyy-mm-dd', 'dd.mm.yyyy') ?? ''
+  newProfileForm.value.birthdate =
+    formatDate(store.profile.birthdate, 'yyyy-mm-dd', 'dd.mm.yyyy') ?? ''
   newProfileForm.value.description = store.profile.description ?? ''
 }
 
 const profilePhoto = computed(() => {
   if (newProfilePhotoURLCropped.value) return newProfilePhotoURLCropped.value
-  if (store.profile?.photo) return import.meta.env.VITE_API_BASE_URL + '/files/download/' + store.profile?.photo.download_id
+  if (store.profile?.photo)
+    return import.meta.env.VITE_API_BASE_URL + '/files/download/' + store.profile?.photo.download_id
   return undefined
 })
 
@@ -63,7 +64,10 @@ function onKeydown(event: KeyboardEvent) {
 
 async function onSubmit() {
   console.log(JSON.stringify(newProfileForm.value))
-  await api.profile.editProfile({ ...newProfileForm.value, ...{ birthdate: formatDate(newProfileForm.value.birthdate ?? '') ?? undefined } })
+  await api.profile.editProfile({
+    ...newProfileForm.value,
+    ...{ birthdate: formatDate(newProfileForm.value.birthdate ?? '') ?? undefined },
+  })
   if (newProfilePhotoCroppedCanvas.value) {
     const blob = await getCanvasBlob(newProfilePhotoCroppedCanvas.value)
     const formData = new FormData()
@@ -78,9 +82,8 @@ function onRemove() {
 }
 
 function onClose() {
-  router.push("/")
+  router.push('/')
 }
-
 </script>
 
 <template>

@@ -1,5 +1,5 @@
-<script setup lang='ts'>
-import MessagesModule from '../modules/AppMain.vue';
+<script setup lang="ts">
+import MessagesModule from '../modules/AppMain.vue'
 </script>
 
 <template>

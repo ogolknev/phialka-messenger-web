@@ -1,5 +1,5 @@
-<script setup lang='ts'>
-import ProfileEditModule from '../modules/ProfileEdit.vue';
+<script setup lang="ts">
+import ProfileEditModule from '../modules/ProfileEdit.vue'
 </script>
 
 <template>

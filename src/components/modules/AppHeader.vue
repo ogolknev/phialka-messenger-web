@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import ButtonBurger from '../elements/ButtonBurger.vue';
-import ButtonSignIn from '../elements/ButtonSignIn.vue';
-import ThumbnailDefault from '../elements/ThumbnailDefault.vue';
+import ButtonBurger from '../elements/ButtonBurger.vue'
+import ButtonSignIn from '../elements/ButtonSignIn.vue'
+import ThumbnailDefault from '../elements/ThumbnailDefault.vue'
 
-import MenuMain from '@/components/components/MenuMain.vue';
-import MenuProfileMini from '@/components/components/MenuProfileMini.vue';
-import { useStore } from '@/store';
-import api from '@/api';
-
+import MenuMain from '@/components/components/MenuMain.vue'
+import MenuProfileMini from '@/components/components/MenuProfileMini.vue'
+import { useStore } from '@/store'
+import api from '@/api'
 
 const router = useRouter()
 const store = useStore()
@@ -20,13 +19,13 @@ const isProfileSideMenuActive = ref(false)
 const profilePhoto = computed(() => {
   const download_id = store.profile?.photo?.download_id
   if (download_id) {
-    return "/api/files/download/" + download_id
+    return '/api/files/download/' + download_id
   }
-  return "/src/assets/user.svg"
+  return '/src/assets/user.svg'
 })
 
-const sideMenuToogle = () => isSideMenuActive.value = !isSideMenuActive.value
-const profileSideMenuToogle = () => isProfileSideMenuActive.value = !isProfileSideMenuActive.value
+const sideMenuToogle = () => (isSideMenuActive.value = !isSideMenuActive.value)
+const profileSideMenuToogle = () => (isProfileSideMenuActive.value = !isProfileSideMenuActive.value)
 
 const toProfileEdit = () => {
   router.push('/profile/edit')
@@ -50,9 +49,14 @@ const signOut = () => {
       <ThumbnailDefault :src="profilePhoto"></ThumbnailDefault>
     </div>
     <ButtonSignIn v-else @click="router.push('/auth')"></ButtonSignIn>
-    <MenuProfileMini class="menu-profile-mini" @edit="toProfileEdit" @sign-out="signOut" :profile-name="store.profile?.name"
+    <MenuProfileMini
+      class="menu-profile-mini"
+      @edit="toProfileEdit"
+      @sign-out="signOut"
+      :profile-name="store.profile?.name"
       :class="{ active: isProfileSideMenuActive && store.profile !== null }"
-      :tabindex="isProfileSideMenuActive && store.profile !== null ? 0 : -1"></MenuProfileMini>
+      :tabindex="isProfileSideMenuActive && store.profile !== null ? 0 : -1"
+    ></MenuProfileMini>
   </header>
 </template>
 

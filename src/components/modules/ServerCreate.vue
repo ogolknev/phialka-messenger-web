@@ -1,11 +1,11 @@
-<script setup lang='ts'>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import FormServerCreate from '@/components/components/FormServerCreate.vue';
-import ButtonClose from '../elements/ButtonClose.vue';
-import ImageCropper from '@/components/components/ImageCropper.vue';
-import api from '@/api';
+import FormServerCreate from '@/components/components/FormServerCreate.vue'
+import ButtonClose from '../elements/ButtonClose.vue'
+import ImageCropper from '@/components/components/ImageCropper.vue'
+import api from '@/api'
 
 const title = ref('')
 const description = ref('')
@@ -15,7 +15,7 @@ const iconUrlCropped = ref<string>()
 const router = useRouter()
 
 function onClose() {
-  router.push("/")
+  router.push('/')
 }
 
 function onIconLoad(url: string) {
@@ -41,8 +41,14 @@ async function onClickCreate() {
       <div class="tile title">Server</div>
       <ButtonClose @click="onClose"></ButtonClose>
     </header>
-    <FormServerCreate class="form-server-create" v-model:title="title" v-model:description="description" :src="iconUrlCropped"
-      @icon-load="onIconLoad" @click-create="onClickCreate"></FormServerCreate>
+    <FormServerCreate
+      class="form-server-create"
+      v-model:title="title"
+      v-model:description="description"
+      :src="iconUrlCropped"
+      @icon-load="onIconLoad"
+      @click-create="onClickCreate"
+    ></FormServerCreate>
   </div>
   <Teleport v-if="iconUrl" to=".app-overlay">
     <ImageCropper :src="iconUrl" @cancel="iconUrl = null" @crop="onIconCrop"></ImageCropper>

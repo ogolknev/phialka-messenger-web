@@ -1,11 +1,10 @@
-<script setup lang='ts'>
-import { useRouter } from 'vue-router';
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
 
-import ServerListComponent from '@/components/components/NavOfServers.vue';
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
-import { useStore } from '@/store';
-import api from '@/api';
-
+import ServerListComponent from '@/components/components/NavOfServers.vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useStore } from '@/store'
+import api from '@/api'
 
 const router = useRouter()
 const store = useStore()
@@ -47,11 +46,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-
-  <div
-    v-if="isAuth"
-    class="app-main"
-  >
+  <div v-if="isAuth" class="app-main">
     <server-list-component
       :servers="store.servers"
       :selected-server-id="store.selectedServerID"
@@ -62,12 +57,7 @@ onBeforeUnmount(() => {
     <div class="chat-list-module"></div>
     <div class="messages-area-module"></div>
   </div>
-  <div
-    v-else
-    class="not-auth-container"
-  >
-    Please, sign in or register
-  </div>
+  <div v-else class="not-auth-container">Please, sign in or register</div>
 </template>
 
 <style scoped>
@@ -90,6 +80,5 @@ onBeforeUnmount(() => {
   height: fit-content;
   color: var(--danger-0);
   font-size: var(--text-xl);
-
 }
 </style>

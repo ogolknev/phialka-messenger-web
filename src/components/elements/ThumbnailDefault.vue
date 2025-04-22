@@ -1,12 +1,11 @@
 <script setup lang="ts">
-
 const { src } = defineProps<{ src?: string }>()
 </script>
 
 <template>
-    <div class="thumbnail thumbnail-default">
-      <img :src="src">
-    </div>
+  <div class="thumbnail thumbnail-default">
+    <img :src="src" />
+  </div>
 </template>
 
 <style scoped>

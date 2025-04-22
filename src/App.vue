@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import AppHeaderModule from './components/modules/AppHeader.vue';
-import AppOverlayModule from './components/modules/AppOverlay.vue';
-
-
+import AppHeaderModule from './components/modules/AppHeader.vue'
+import AppOverlayModule from './components/modules/AppOverlay.vue'
 </script>
 
 <template>
@@ -15,16 +13,14 @@ import AppOverlayModule from './components/modules/AppOverlay.vue';
 
 <style>
 #app {
-  position:           relative;
-  box-sizing:         border-box;
-  padding:            var(--gap);
-  display:            grid;
-  /* grid-template-rows: var(--tile-size) calc(100% - var(--tile-size) - var(--gap)); */
+  position: relative;
+  box-sizing: border-box;
+  padding: var(--gap);
+  display: grid;
   grid-template-rows: var(--tile-size) 1fr;
-  gap:                var(--gap);
-  overflow:           hidden;
+  gap: var(--gap);
+  overflow: hidden;
 }
 </style>
 
-<style scoped>
-</style>
+<style scoped></style>

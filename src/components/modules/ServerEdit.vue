@@ -1,13 +1,13 @@
-<script setup lang='ts'>
-import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-import FormServerEdit from '@/components/components/FormServerEdit.vue';
-import ButtonClose from '../elements/ButtonClose.vue';
-import ImageCropper from '@/components/components/ImageCropper.vue';
-import { getCanvasBlob } from '@/utils/shared';
-import api from '@/api';
-import { useStore } from '@/store';
+import FormServerEdit from '@/components/components/FormServerEdit.vue'
+import ButtonClose from '../elements/ButtonClose.vue'
+import ImageCropper from '@/components/components/ImageCropper.vue'
+import { getCanvasBlob } from '@/utils/shared'
+import api from '@/api'
+import { useStore } from '@/store'
 
 const title = ref('')
 const description = ref('')
@@ -21,7 +21,7 @@ const router = useRouter()
 const store = useStore()
 
 function onClose() {
-  router.push("/")
+  router.push('/')
 }
 
 function onIconLoad(url: string) {
@@ -37,7 +37,7 @@ async function onIconCrop(canvas: HTMLCanvasElement) {
 async function onClickEdit() {
   await api.servers.editServer(route.params.id as string, {
     title: title.value,
-    description: description.value
+    description: description.value,
   })
   if (iconBlob.value) {
     const formData = new FormData()
@@ -60,7 +60,9 @@ onMounted(() => {
   server.value = store.servers.find((value) => value.server_id === route.params.id)
   title.value = server.value?.title ?? ''
   description.value = server.value?.description ?? ''
-  if (server.value?.logo?.download_id) iconUrlCropped.value = import.meta.env.VITE_API_BASE_URL + "/files/download/" + server.value?.logo?.download_id
+  if (server.value?.logo?.download_id)
+    iconUrlCropped.value =
+      import.meta.env.VITE_API_BASE_URL + '/files/download/' + server.value?.logo?.download_id
 })
 </script>
 
@@ -70,8 +72,15 @@ onMounted(() => {
       <div class="tile title">Server</div>
       <ButtonClose @click="onClose"></ButtonClose>
     </header>
-    <FormServerEdit class="form-server-edit" v-model:title="title" v-model:description="description"
-      :src="iconUrlCropped" @icon-load="onIconLoad" @click-edit="onClickEdit" @click-remove="onClickRemove">
+    <FormServerEdit
+      class="form-server-edit"
+      v-model:title="title"
+      v-model:description="description"
+      :src="iconUrlCropped"
+      @icon-load="onIconLoad"
+      @click-edit="onClickEdit"
+      @click-remove="onClickRemove"
+    >
     </FormServerEdit>
   </div>
   <Teleport v-if="iconUrl" to=".app-overlay">
