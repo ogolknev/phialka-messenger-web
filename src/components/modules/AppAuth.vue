@@ -5,8 +5,9 @@ import ButtonClose from '../elements/ButtonClose.vue'
 import FormSignUp from '@/components/components/FormSignUp.vue'
 import FormSignIn from '@/components/components/FormSignIn.vue'
 import { useRouter } from 'vue-router'
-import api from '@/api'
 import { useStore } from '@/store'
+import { api } from '@/shared'
+import { normalizeFile } from '@/adapters'
 
 const mode = ref<'sign-in' | 'sign-up'>('sign-in')
 const router = useRouter()
@@ -26,14 +27,16 @@ const signUpFormInitial = {
 const signUpForm = ref({ ...signUpFormInitial })
 
 async function signIn(authData = signInForm.value) {
-  await api.auth.signIn(authData)
+  await api.auth.loginAuthPost({ authDataBasic: authData })
   signInForm.value = { ...signInFormInitial }
-  store.profile = await api.profile.getProfile()
+  const apiProfile = await api.profile.getProfileProfileGet()
+  apiProfile.photo = normalizeFile(apiProfile.photo)
+  store.profile = apiProfile
   router.push('/')
 }
 
 async function signUp() {
-  await api.auth.signUp(signUpForm.value)
+  await api.profile.registerProfilePost({ userCreate: signUpForm.value })
   await signIn({ username: signUpForm.value.username, password: signUpForm.value.password })
   signUpForm.value = { ...signUpFormInitial }
 }
@@ -46,37 +49,18 @@ function onClose() {
 <template>
   <div class="app-auth">
     <div class="navbar">
-      <div
-        class="tile to-form-sign-in nav-entry"
-        :class="{ active: mode === 'sign-in' }"
-        @click="mode = 'sign-in'"
-      >
+      <div class="tile to-form-sign-in nav-entry" :class="{ active: mode === 'sign-in' }" @click="mode = 'sign-in'">
         Sign In
       </div>
-      <div
-        class="tile to-form-sign-up nav-entry"
-        :class="{ active: mode === 'sign-up' }"
-        @click="mode = 'sign-up'"
-      >
+      <div class="tile to-form-sign-up nav-entry" :class="{ active: mode === 'sign-up' }" @click="mode = 'sign-up'">
         Sign Up
       </div>
       <ButtonClose class="button-close nav-entry" @click="onClose"></ButtonClose>
     </div>
-    <FormSignUp
-      v-if="mode === 'sign-up'"
-      class="form form-sign-up"
-      v-model:name="signUpForm.name"
-      v-model:username="signUpForm.username"
-      v-model:password="signUpForm.password"
-      @sign-up="signUp"
-    ></FormSignUp>
-    <FormSignIn
-      v-else
-      class="form form-sign-in"
-      v-model:username="signInForm.username"
-      v-model:password="signInForm.password"
-      @sign-in="() => signIn()"
-    ></FormSignIn>
+    <FormSignUp v-if="mode === 'sign-up'" class="form form-sign-up" v-model:name="signUpForm.name"
+      v-model:username="signUpForm.username" v-model:password="signUpForm.password" @sign-up="signUp"></FormSignUp>
+    <FormSignIn v-else class="form form-sign-in" v-model:username="signInForm.username"
+      v-model:password="signInForm.password" @sign-in="() => signIn()"></FormSignIn>
   </div>
 </template>
 

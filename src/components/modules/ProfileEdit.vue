@@ -3,10 +3,11 @@ import CloseButtonElement from '../elements/ButtonClose.vue'
 import ProfileEditFormComponent from '@/components/components/FormProfileEdit.vue'
 import CropImageComponent from '@/components/components/ImageCropper.vue'
 import { computed, ref } from 'vue'
-import { formatDate, getCanvasBlob } from '@/utils/shared'
+import { formatDate, getCanvasBlob } from '@/shared/utils/shared'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
-import api from '@/api'
+import { api } from '@/shared'
+import { normalizeFile } from '@/adapters'
 
 const router = useRouter()
 const store = useStore()
@@ -26,18 +27,22 @@ const newProfileForm = ref<{
 })
 
 if (store.profile) {
-  newProfileForm.value.name = store.profile.name ?? ''
-  newProfileForm.value.tag = store.profile.tag ?? ''
-  newProfileForm.value.birthdate =
-    formatDate(store.profile.birthdate, 'yyyy-mm-dd', 'dd.mm.yyyy') ?? ''
-  newProfileForm.value.description = store.profile.description ?? ''
+  newProfileForm.value = {
+    name: store.profile.name ?? '',
+    tag: store.profile.tag ?? '',
+    birthdate: formatDate(store.profile.birthdate?.toISOString(), 'yyyy-mm-dd', 'dd.mm.yyyy') ?? '',
+    description: store.profile.description ?? ''
+  }
+  console.log(store.profile.birthdate)
+  console.log(store.profile.birthdate?.toISOString())
+  console.log(newProfileForm.value.birthdate)
 }
 
 const profilePhoto = computed(() => {
   if (newProfilePhotoURLCropped.value) return newProfilePhotoURLCropped.value
-  if (store.profile?.photo)
-    return import.meta.env.VITE_API_BASE_URL + '/files/download/' + store.profile?.photo.download_id
-  return undefined
+  if (store.profile?.photo?.downloadId)
+    return '/api/files/download/' + store.profile?.photo.downloadId
+  throw new Error(`Нет фото профиля: ${JSON.stringify(store.profile)}`)
 })
 
 function onNewProfilePhotoLoad(url: string) {
@@ -45,7 +50,8 @@ function onNewProfilePhotoLoad(url: string) {
   addEventListener('keydown', onKeydown)
 }
 
-function onNewProfilePhotoCrop(canvas: HTMLCanvasElement) {
+function onNewProfilePhotoCrop(canvas?: HTMLCanvasElement) {
+  if (!canvas) return
   newProfilePhotoURLCropped.value = canvas.toDataURL()
   newProfilePhotoURL.value = undefined
   newProfilePhotoCroppedCanvas.value = canvas
@@ -64,17 +70,19 @@ function onKeydown(event: KeyboardEvent) {
 
 async function onSubmit() {
   console.log(JSON.stringify(newProfileForm.value))
-  await api.profile.editProfile({
-    ...newProfileForm.value,
-    ...{ birthdate: formatDate(newProfileForm.value.birthdate ?? '') ?? undefined },
+  await api.profile.editProfileProfilePatch({
+    userUpdate: {
+      ...newProfileForm.value,
+      ...{ birthdate: new Date(newProfileForm.value.birthdate ?? '') ?? undefined },
+    }
   })
   if (newProfilePhotoCroppedCanvas.value) {
     const blob = await getCanvasBlob(newProfilePhotoCroppedCanvas.value)
-    const formData = new FormData()
-    formData.append('photo', blob, 'profile-photo.jpg')
-    await api.profile.setProfilePhoto(formData)
+    await api.profile.setProfilePhotoProfilePhotoPut({ photo: blob })
   }
-  store.profile = await api.profile.getProfile()
+  const apiProfile = await api.profile.getProfileProfileGet()
+  apiProfile.photo = normalizeFile(apiProfile.photo)
+  store.profile = apiProfile
 }
 
 function onRemove() {
@@ -92,22 +100,13 @@ function onClose() {
       <div class="tile title">Profile</div>
       <close-button-element @click="onClose"></close-button-element>
     </header>
-    <profile-edit-form-component
-      v-model:name="newProfileForm.name"
-      v-model:tag="newProfileForm.tag"
-      v-model:birthdate="newProfileForm.birthdate"
-      v-model:description="newProfileForm.description"
-      :image-url="profilePhoto"
-      @photo-load="onNewProfilePhotoLoad"
-      @submit="onSubmit"
-      @remove="onRemove"
-    ></profile-edit-form-component>
+    <profile-edit-form-component v-model:name="newProfileForm.name" v-model:tag="newProfileForm.tag"
+      v-model:birthdate="newProfileForm.birthdate" v-model:description="newProfileForm.description"
+      :image-url="profilePhoto" @photo-load="onNewProfilePhotoLoad" @submit="onSubmit"
+      @remove="onRemove"></profile-edit-form-component>
     <teleport to=".app-overlay">
-      <crop-image-component
-        v-if="newProfilePhotoURL"
-        :src="newProfilePhotoURL"
-        @crop="onNewProfilePhotoCrop"
-      ></crop-image-component>
+      <crop-image-component v-if="newProfilePhotoURL" :src="newProfilePhotoURL"
+        @crop="onNewProfilePhotoCrop"></crop-image-component>
     </teleport>
   </div>
 </template>

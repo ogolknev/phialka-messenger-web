@@ -7,24 +7,24 @@ declare namespace HTTP {
 }
 declare namespace API {
   type File = {
-    file_id: string
-    download_id: string
+    fileId: string
+    downloadId: string
     size: number
     hash: string
-    mime_type: string
-    upload_at: string
+    mimeType: string
+    uploadAt: string
   }
   type Profile = {
-    user_id: string
+    userId: string
     name: string
-    description: string
+    description?: string | null
     tag: string
-    birthdate: string
-    photo: File
+    birthdate?: Date | null
+    photo?: File
   }
   type ProfileEdit = {
     name: string
-    description?: string
+    description?: string | null
     tag?: string
     birthdate?: string
   }
@@ -34,12 +34,12 @@ declare namespace API {
   }
   type ServerEdit = ServerCreate
   type Server = {
-    server_id: string
-    owner_id: string
+    serverId: string
+    ownerId: string
     title: string
-    description: string
+    description?: string | null
     logo?: File
-    created_at: string
+    createdAt: Date
   }
 }
 declare type DateStringFormat = 'dd.mm.yyyy' | 'yyyy.mm.dd' | 'dd-mm-yyyy' | 'yyyy-mm-dd'

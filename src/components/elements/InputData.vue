@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { stringToDateString } from '@/utils/shared'
+import { stringToDateString } from '@/shared/utils/shared'
 
 const {
   modelValue,
@@ -11,13 +11,13 @@ const {
   color?: 'success' | 'warning' | 'danger'
   invalid?: boolean
 }>()
-const emit = defineEmits<{ 'update:modelValue': [value: string] }>()
+const emit = defineEmits<{ 'update:model-value': [value: string] }>()
 
-const value = ref('')
+const value = ref(stringToDateString(modelValue))
 
 const onInput = (event: Event) => {
   value.value = stringToDateString((event.target as HTMLInputElement).value)
-  emit('update:modelValue', value.value)
+  emit('update:model-value', value.value)
 }
 
 watch(
@@ -29,13 +29,7 @@ watch(
 </script>
 
 <template>
-  <input
-    v-model="value"
-    class="input-data tile input"
-    :class="[color, { invalid }]"
-    type="text"
-    @input="onInput"
-  />
+  <input v-model="value" class="input-data tile input" :class="[color, { invalid }]" type="text" @input="onInput" />
 </template>
 
 <style scoped>

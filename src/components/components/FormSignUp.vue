@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import InputText from '../elements/InputText.vue'
 import ButtonDefault from '../elements/ButtonDefault.vue'
-import { useValidation } from '@/utils/composables/validation'
+import { useValidation } from '@/shared/utils/composables/validation'
 import { onMounted, onUnmounted } from 'vue'
 import { useStore } from '@/store'
 
@@ -111,36 +111,13 @@ onUnmounted(() => {
 
 <template>
   <div class="form-sign-up form" @keydown.enter="onSubmit">
-    <InputText
-      v-model="name"
-      class="input name-input"
-      type="text"
-      placeholder="Name..."
-      :invalid="!validation.name.isValid.value"
-      autocomplete="name"
-      maxlength="47"
-      color="success"
-    ></InputText>
-    <InputText
-      v-model="username"
-      class="input login-input"
-      type="text"
-      placeholder="Login..."
-      :invalid="!validation.username.isValid.value"
-      autocomplete="username"
-      maxlength="47"
-      color="success"
-    ></InputText>
-    <InputText
-      v-model="password"
-      class="input password-input"
-      type="password"
-      placeholder="Password..."
-      :invalid="!validation.password.isValid.value"
-      autocomplete="new-password"
-      maxlength="47"
-      color="success"
-    ></InputText>
+    <InputText v-model="name" class="input name-input" type="text" placeholder="Name..."
+      :invalid="!validation.name.isValid.value" autocomplete="name" maxlength="47" color="success"></InputText>
+    <InputText v-model="username" class="input login-input" type="text" placeholder="Login..."
+      :invalid="!validation.username.isValid.value" autocomplete="username" maxlength="47" color="success"></InputText>
+    <InputText v-model="password" class="input password-input" type="password" placeholder="Password..."
+      :invalid="!validation.password.isValid.value" autocomplete="new-password" maxlength="47" color="success">
+    </InputText>
     <div class="button-container">
       <ButtonDefault color="success" @click.prevent="onSubmit">Sign Up</ButtonDefault>
     </div>

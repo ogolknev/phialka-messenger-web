@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import ServerListComponent from '@/components/components/NavOfServers.vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useStore } from '@/store'
-import api from '@/api'
+import { api } from '@/shared'
 
 const router = useRouter()
 const store = useStore()
@@ -26,7 +26,7 @@ function onClickEditServer(serverId: string) {
 
 async function getServers() {
   if (isAuth.value) {
-    store.servers = await api.servers.getServers()
+    store.servers = await api.servers.getMyServersServersGet()
   }
 }
 
@@ -47,13 +47,9 @@ onBeforeUnmount(() => {
 
 <template>
   <div v-if="isAuth" class="app-main">
-    <server-list-component
-      :servers="store.servers"
-      :selected-server-id="store.selectedServerID"
-      @click-server="onClickServer"
-      @click-create-server="onClickCreateServer"
-      @click-edit-server="onClickEditServer"
-    ></server-list-component>
+    <server-list-component :servers="store.servers" :selected-server-id="store.selectedServerID"
+      @click-server="onClickServer" @click-create-server="onClickCreateServer"
+      @click-edit-server="onClickEditServer"></server-list-component>
     <div class="chat-list-module"></div>
     <div class="messages-area-module"></div>
   </div>

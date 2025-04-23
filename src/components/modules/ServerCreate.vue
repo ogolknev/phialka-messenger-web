@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import FormServerCreate from '@/components/components/FormServerCreate.vue'
 import ButtonClose from '../elements/ButtonClose.vue'
 import ImageCropper from '@/components/components/ImageCropper.vue'
-import api from '@/api'
+import { api } from '@/shared'
 
 const title = ref('')
 const description = ref('')
@@ -22,13 +22,14 @@ function onIconLoad(url: string) {
   iconUrl.value = url
 }
 
-function onIconCrop(canvas: HTMLCanvasElement) {
+function onIconCrop(canvas?: HTMLCanvasElement) {
+  if (!canvas) return
   iconUrlCropped.value = canvas.toDataURL()
   iconUrl.value = null
 }
 
 async function onClickCreate() {
-  await api.servers.createServer({ title: title.value, description: description.value })
+  await api.servers.createServerServersPost({ serverCreate: { title: title.value, description: description.value } })
   title.value = ''
   description.value = ''
   router.push('/')
@@ -41,14 +42,8 @@ async function onClickCreate() {
       <div class="tile title">Server</div>
       <ButtonClose @click="onClose"></ButtonClose>
     </header>
-    <FormServerCreate
-      class="form-server-create"
-      v-model:title="title"
-      v-model:description="description"
-      :src="iconUrlCropped"
-      @icon-load="onIconLoad"
-      @click-create="onClickCreate"
-    ></FormServerCreate>
+    <FormServerCreate class="form-server-create" v-model:title="title" v-model:description="description"
+      :src="iconUrlCropped" @icon-load="onIconLoad" @click-create="onClickCreate"></FormServerCreate>
   </div>
   <Teleport v-if="iconUrl" to=".app-overlay">
     <ImageCropper :src="iconUrl" @cancel="iconUrl = null" @crop="onIconCrop"></ImageCropper>

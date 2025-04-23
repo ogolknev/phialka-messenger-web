@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+function onChange() { }
+</script>
 
 <template>
   <div class="dev-view" accept="image/*" @change="onChange"></div>

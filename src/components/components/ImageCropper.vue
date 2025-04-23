@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import ButtonDefault from '../elements/ButtonDefault.vue'
 import { onMounted, onUnmounted, ref } from 'vue'
-import Cropper from 'cropperjs'
+import Cropper, { CropperHandle } from 'cropperjs'
 
 const image = ref<HTMLImageElement>()
 let cropper: Cropper | null = null
 
 const { src } = defineProps<{ src?: string }>()
 const emit = defineEmits<{
-  (e: 'crop', canvas: HTMLCanvasElement): void
+  (e: 'crop', canvas: HTMLCanvasElement | undefined): void
   (e: 'cancel'): void
 }>()
 
@@ -20,29 +20,47 @@ onUnmounted(() => {
   removeEventListener('keydown', onKeydown)
 })
 
-const onLoad = () => {
-  cropper = new Cropper(image.value!, {
-    aspectRatio: 1,
-    viewMode: 2,
-    dragMode: 'move',
-    movable: true,
-    responsive: true,
-    background: false,
-    center: false,
-    guides: false,
-  })
+const initCropper = () => {
+  cropper = new Cropper('.cropper-image')
+  const selection = cropper.getCropperSelection()
+  if (selection) {
+    selection.aspectRatio = 1
+    selection.resizable = true
+    selection.movable = true
+    selection.$center()
+  }
+  const image = cropper.getCropperImage()
+  if (image) {
+    image.initialCenterSize = "cover"
+    image.skewable = true
+    image.translatable = true
+  }
+  const canvas = cropper.getCropperCanvas()
+  if (canvas) {
+    canvas.background = false
+    canvas.$addStyles(`
+      :host {
+        min-height: 60dvh;
+        min-width: 70dvw;
+      }
+    `)
+  }
+  const handle = cropper.container.querySelector<CropperHandle>('cropper-handle')
+  if (handle) {
+    handle.action = 'move'
+  }
 }
 
-function onKeydown(event: KeyboardEvent) {
+async function onKeydown(event: KeyboardEvent) {
   if (event.key === 'Enter') {
-    emit('crop', cropper!.getCroppedCanvas())
+    emit('crop', await cropper!.getCropperSelection()?.$toCanvas({ width: 1080 }))
   } else if (event.key === 'Escape') {
     emit('cancel')
   }
 }
 
-function onSubmit() {
-  emit('crop', cropper!.getCroppedCanvas())
+async function onSubmit() {
+  emit('crop', await cropper!.getCropperSelection()?.$toCanvas({ width: 1080 }))
 }
 
 function onCancel() {
@@ -52,9 +70,7 @@ function onCancel() {
 
 <template>
   <div class="tile image-cropper">
-    <div class="crop-container">
-      <img v-if="src" ref="image" :src="src" @load="onLoad" />
-    </div>
+    <img v-if="src" class="cropper-image" ref="image" :src="src" @load="initCropper" />
     <div class="button-container">
       <ButtonDefault @click="onCancel" color="danger">Cancel</ButtonDefault>
       <ButtonDefault @click="onSubmit" color="warning">Crop</ButtonDefault>
@@ -68,12 +84,6 @@ function onCancel() {
   width: fit-content;
   height: fit-content;
   padding: var(--gap);
-
-  .crop-container {
-    width: 80dvw;
-    height: 80dvh;
-    overflow: hidden;
-  }
 }
 
 img {
@@ -90,7 +100,7 @@ img {
 </style>
 
 <style>
-@import '/node_modules/cropperjs/dist/cropper.min.css';
+/* @import '/node_modules/cropperjs/dist/cropper.min.css';
 
 .cropper-view-box {
   outline: 1px solid var(--white-0);
@@ -102,5 +112,5 @@ img {
 
 .cropper-point {
   display: none;
-}
+} */
 </style>

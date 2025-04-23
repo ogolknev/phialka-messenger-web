@@ -5,8 +5,8 @@ import { useRoute, useRouter } from 'vue-router'
 import FormServerEdit from '@/components/components/FormServerEdit.vue'
 import ButtonClose from '../elements/ButtonClose.vue'
 import ImageCropper from '@/components/components/ImageCropper.vue'
-import { getCanvasBlob } from '@/utils/shared'
-import api from '@/api'
+import { getCanvasBlob } from '@/shared/utils/shared'
+import { api } from '@/shared'
 import { useStore } from '@/store'
 
 const title = ref('')
@@ -28,21 +28,25 @@ function onIconLoad(url: string) {
   iconUrl.value = url
 }
 
-async function onIconCrop(canvas: HTMLCanvasElement) {
+async function onIconCrop(canvas?: HTMLCanvasElement) {
+  if (!canvas) return
   iconUrlCropped.value = canvas.toDataURL()
   iconUrl.value = null
   iconBlob.value = await getCanvasBlob(canvas)
 }
 
 async function onClickEdit() {
-  await api.servers.editServer(route.params.id as string, {
-    title: title.value,
-    description: description.value,
+  // await api.servers.editServerServersServerIdPatch(route.params.id as string, {
+  //   title: title.value,
+  //   description: description.value,
+  // })
+  await api.servers.editServerServersServerIdPatch({
+    serverId: route.params.id as string, serverUpdate: {
+      title: title.value, description: description.value
+    }
   })
   if (iconBlob.value) {
-    const formData = new FormData()
-    formData.append('logo', iconBlob.value)
-    await api.servers.setServerIcon(route.params.id as string, formData)
+    await api.servers.setServerLogoServersServerIdLogoPut({ serverId: route.params.id as string, logo: iconBlob.value })
   }
   title.value = ''
   description.value = ''
@@ -50,19 +54,19 @@ async function onClickEdit() {
 }
 
 async function onClickRemove() {
-  await api.servers.removeServer(route.params.id as string)
+  await api.servers.deleteServerServersServerIdDelete({ serverId: route.params.id as string })
   title.value = ''
   description.value = ''
   router.push('/')
 }
 
 onMounted(() => {
-  server.value = store.servers.find((value) => value.server_id === route.params.id)
+  server.value = store.servers.find((value) => value.serverId === route.params.id)
   title.value = server.value?.title ?? ''
   description.value = server.value?.description ?? ''
-  if (server.value?.logo?.download_id)
+  if (server.value?.logo?.downloadId)
     iconUrlCropped.value =
-      import.meta.env.VITE_API_BASE_URL + '/files/download/' + server.value?.logo?.download_id
+      import.meta.env.VITE_API_BASE_URL + '/files/download/' + server.value?.logo?.downloadId
 })
 </script>
 
@@ -72,15 +76,8 @@ onMounted(() => {
       <div class="tile title">Server</div>
       <ButtonClose @click="onClose"></ButtonClose>
     </header>
-    <FormServerEdit
-      class="form-server-edit"
-      v-model:title="title"
-      v-model:description="description"
-      :src="iconUrlCropped"
-      @icon-load="onIconLoad"
-      @click-edit="onClickEdit"
-      @click-remove="onClickRemove"
-    >
+    <FormServerEdit class="form-server-edit" v-model:title="title" v-model:description="description"
+      :src="iconUrlCropped" @icon-load="onIconLoad" @click-edit="onClickEdit" @click-remove="onClickRemove">
     </FormServerEdit>
   </div>
   <Teleport v-if="iconUrl" to=".app-overlay">

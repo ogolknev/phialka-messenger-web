@@ -9,7 +9,6 @@ import ThumbnailDefault from '../elements/ThumbnailDefault.vue'
 import MenuMain from '@/components/components/MenuMain.vue'
 import MenuProfileMini from '@/components/components/MenuProfileMini.vue'
 import { useStore } from '@/store'
-import api from '@/api'
 
 const router = useRouter()
 const store = useStore()
@@ -17,7 +16,7 @@ const store = useStore()
 const isSideMenuActive = ref(false)
 const isProfileSideMenuActive = ref(false)
 const profilePhoto = computed(() => {
-  const download_id = store.profile?.photo?.download_id
+  const download_id = store.profile?.photo?.downloadId
   if (download_id) {
     return '/api/files/download/' + download_id
   }
@@ -32,7 +31,6 @@ const toProfileEdit = () => {
   isProfileSideMenuActive.value = false
 }
 const signOut = () => {
-  api.auth.signOut()
   store.profile = null
   isProfileSideMenuActive.value = false
   router.push('/auth')
@@ -49,14 +47,9 @@ const signOut = () => {
       <ThumbnailDefault :src="profilePhoto"></ThumbnailDefault>
     </div>
     <ButtonSignIn v-else @click="router.push('/auth')"></ButtonSignIn>
-    <MenuProfileMini
-      class="menu-profile-mini"
-      @edit="toProfileEdit"
-      @sign-out="signOut"
-      :profile-name="store.profile?.name"
-      :class="{ active: isProfileSideMenuActive && store.profile !== null }"
-      :tabindex="isProfileSideMenuActive && store.profile !== null ? 0 : -1"
-    ></MenuProfileMini>
+    <MenuProfileMini class="menu-profile-mini" @edit="toProfileEdit" @sign-out="signOut"
+      :profile-name="store.profile?.name" :class="{ active: isProfileSideMenuActive && store.profile !== null }"
+      :tabindex="isProfileSideMenuActive && store.profile !== null ? 0 : -1"></MenuProfileMini>
   </header>
 </template>
 

@@ -2,7 +2,7 @@
 import InputText from '../elements/InputText.vue'
 import ButtonDefault from '../elements/ButtonDefault.vue'
 import { onMounted, onUnmounted } from 'vue'
-import { useValidation } from '@/utils/composables/validation'
+import { useValidation } from '@/shared/utils/composables/validation'
 import { useStore } from '@/store'
 
 const username = defineModel<string>('username', { required: true })
@@ -87,24 +87,10 @@ onUnmounted(() => {
 
 <template>
   <form class="form-sign-in form">
-    <InputText
-      class="input login-input"
-      :invalid="!validation.username.isValid.value"
-      type="text"
-      v-model="username"
-      placeholder="Login..."
-      autocomplete="username"
-      maxlength="47"
-    ></InputText>
-    <InputText
-      v-model="password"
-      class="input password-input"
-      :invalid="!validation.password.isValid.value"
-      type="password"
-      placeholder="Password..."
-      maxlength="47"
-      autocomplete="current-password"
-    ></InputText>
+    <InputText class="input login-input" :invalid="!validation.username.isValid.value" type="text" v-model="username"
+      placeholder="Login..." autocomplete="username" maxlength="47"></InputText>
+    <InputText v-model="password" class="input password-input" :invalid="!validation.password.isValid.value"
+      type="password" placeholder="Password..." maxlength="47" autocomplete="current-password"></InputText>
     <div class="button-container">
       <ButtonDefault tabindex="0" @click.prevent="onSubmit">Sign In</ButtonDefault>
     </div>

@@ -4,7 +4,7 @@ import InputText from '../elements/InputText.vue'
 import ButtonDefault from '../elements/ButtonDefault.vue'
 import InputData from '../elements/InputData.vue'
 import InputTextarea from '../elements/InputTextarea.vue'
-import { useValidation } from '@/utils/composables/validation'
+import { useValidation } from '@/shared/utils/composables/validation'
 import { useStore } from '@/store'
 
 const { imageUrl } = defineProps<{ imageUrl?: string }>()
@@ -85,44 +85,17 @@ function onRemove() {
 <template>
   <div class="form-profile-edit">
     <div class="first-row-container">
-      <InputPhoto
-        :src="imageUrl"
-        class="input-photo"
-        color="warning"
-        @change="onChange"
-      ></InputPhoto>
-      <InputText
-        v-model="name"
-        class="input-text name-input"
-        :invalid="!validation.name.isValid.value"
-        placeholder="Name..."
-        color="warning"
-      ></InputText>
-      <InputText
-        v-model="tag"
-        class="input-text tag-input"
-        :invalid="!validation.tag.isValid.value"
-        placeholder="Tag..."
-        color="warning"
-      ></InputText>
-      <InputData
-        v-model="birthdate"
-        class="input-text bithdate-input"
-        :invalid="!validation.birthdate.isValid.value"
-        placeholder="Birthdate..."
-        color="warning"
-        date
-      ></InputData>
+      <InputPhoto :src="imageUrl" class="input-photo" color="warning" @change="onChange"></InputPhoto>
+      <InputText v-model="name" class="input-text name-input" :invalid="!validation.name.isValid.value"
+        placeholder="Name..." color="warning"></InputText>
+      <InputText v-model="tag" class="input-text tag-input" :invalid="!validation.tag.isValid.value"
+        placeholder="Tag..." color="warning"></InputText>
+      <InputData v-model="birthdate" class="input-text bithdate-input" :invalid="!validation.birthdate.isValid.value"
+        placeholder="Birthdate..." color="warning" date></InputData>
     </div>
-    <InputTextarea
-      v-model="description"
-      class="input-text description-input"
-      :invalid="!validation.description.isValid.value"
-      placeholder="Description..."
-      color="warning"
-      :max-rows="4"
-      :maxlength="200"
-    ></InputTextarea>
+    <InputTextarea v-model="description" class="input-text description-input"
+      :invalid="!validation.description.isValid.value" placeholder="Description..." color="warning" :max-rows="4"
+      :maxlength="200"></InputTextarea>
     <div class="buttons-container">
       <ButtonDefault color="danger" @click.prevent="onRemove">Remove</ButtonDefault>
       <ButtonDefault color="warning" @click.prevent="onSubmit">Edit</ButtonDefault>

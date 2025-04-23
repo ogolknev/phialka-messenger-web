@@ -4,11 +4,11 @@ import AppOverlayModule from './components/modules/AppOverlay.vue'
 </script>
 
 <template>
-  <app-header-module></app-header-module>
+  <AppHeaderModule></AppHeaderModule>
   <main>
-    <router-view></router-view>
+    <RouterView></RouterView>
   </main>
-  <app-overlay-module></app-overlay-module>
+  <AppOverlayModule></AppOverlayModule>
 </template>
 
 <style>

@@ -1,10 +1,11 @@
 export function formatDate(
-  date: string,
+  date?: string,
   from: DateStringFormat = 'dd.mm.yyyy',
   to: DateStringFormat = 'yyyy-mm-dd',
 ) {
   if (!date) return ''
   let day, month, year
+  date = date.slice(0, 10)
   if (from === 'dd.mm.yyyy') {
     ;[day, month, year] = date.split('.')
   } else if (from === 'yyyy.mm.dd') {
