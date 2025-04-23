@@ -1,1 +1,0 @@
-export { normalizeFile } from './file'
