@@ -1,1 +1,2 @@
-export { AuthWidget } from './auth'
+export { SignUpWidget } from './sign-up'
+export { SignInWidget } from './sign-in'

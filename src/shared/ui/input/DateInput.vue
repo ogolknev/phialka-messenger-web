@@ -36,3 +36,9 @@ function parseDate(value: string): Date | null {
     <input v-model="value" type="text" pattern="\d{2}\.\d{2}\.\d{4}" inputmode="numeric">
   </div>
 </template>
+
+<style scoped>
+input {
+  padding: unset;
+}
+</style>

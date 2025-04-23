@@ -10,3 +10,9 @@ const { type = 'text' } = defineProps<{ type?: 'password' | 'text' }>()
     <input v-model="model" :type="type">
   </div>
 </template>
+
+<style scoped>
+input {
+  padding: unset;
+}
+</style>

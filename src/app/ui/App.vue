@@ -3,5 +3,7 @@ import './style/main.css'
 </script>
 
 <template>
-  <main></main>
+  <main>
+    <RouterView></RouterView>
+  </main>
 </template>
