@@ -16,8 +16,9 @@ async function submitSignIn() {
   <div class="auth-widget">
     <form class="sign-in-form" @submit.prevent="submitSignIn">
 
-      <TextInput v-model="signInFormStore.username" class="username-input"></TextInput>
-      <TextInput v-model="signInFormStore.password" class="password-input" type='password'></TextInput>
+      <TextInput v-model="signInFormStore.username" class="username-input" placeholder="Username"></TextInput>
+      <TextInput v-model="signInFormStore.password" class="password-input" type='password' placeholder="Password">
+      </TextInput>
 
       <div v-if="error" class="errors">{{ error }}</div>
 
@@ -28,3 +29,7 @@ async function submitSignIn() {
     </form>
   </div>
 </template>
+
+<style scoped>
+@import './style/main.css';
+</style>

@@ -1,4 +1,7 @@
 .input {
+  padding: var(--gap-size-s);
+  padding-inline: var(--gap-size-m);
+  font-size: var(--font-size-m);
   max-width: fit-content;
 }
 

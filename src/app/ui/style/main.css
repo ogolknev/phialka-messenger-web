@@ -10,6 +10,5 @@ body {
 .tile {
   border: var(--line-width-s) solid var(--clr-border);
   border-radius: var(--border-radius-m);
-  background-color: var(--clr-bg);
-  padding: var(--gap-size-s);
+  background-color: var(--clr-bg-light);
 }

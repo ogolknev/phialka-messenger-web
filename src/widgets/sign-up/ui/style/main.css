@@ -1,0 +1,9 @@
+.sign-up-form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--gap-size-s);
+}
+
+.errors {
+  color: var(--clr-danger);
+}

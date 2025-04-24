@@ -4,6 +4,7 @@ import { onMounted, ref, useTemplateRef, watch } from 'vue';
 import Inputmask from 'inputmask';
 
 const model = defineModel<Date | null>({ required: true })
+const { placeholder } = defineProps<{ placeholder?: string }>()
 const value = ref('')
 const input = useTemplateRef('input')
 
@@ -45,7 +46,7 @@ onMounted(() => {
 
 <template>
   <div class="date-input input tile">
-    <input ref="input" :value="value" @input="onInput" type="text" inputmode="numeric">
+    <input ref="input" :value="value" @input="onInput" type="text" inputmode="numeric" :placeholder="placeholder">
   </div>
 </template>
 
