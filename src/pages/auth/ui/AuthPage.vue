@@ -2,8 +2,23 @@
 import { SignInWidget, SignUpWidget } from '@/widgets';
 import { DefaultButton } from '@/shared';
 import { ref } from 'vue';
+import { useSignInFormStore } from '@/features';
+import { useProfileStore } from '@/entities/profile';
 
+const signInFormStore = useSignInFormStore()
+const profileStore = useProfileStore()
 const mode = ref<'sign-in' | 'sign-up'>('sign-in')
+
+async function onSignIn() {
+  await profileStore.updateProfile()
+}
+
+async function onSignUp(username: string, password: string) {
+  signInFormStore.username = username
+  signInFormStore.password = password
+  const error = await signInFormStore.submit()
+  if (error) throw new Error(error)
+}
 
 </script>
 
@@ -18,8 +33,8 @@ const mode = ref<'sign-in' | 'sign-up'>('sign-in')
           :disabled="mode === 'sign-up'">Sign Up
         </DefaultButton>
       </header>
-      <SignInWidget v-if="mode === 'sign-in'"></SignInWidget>
-      <SignUpWidget v-else></SignUpWidget>
+      <SignInWidget v-if="mode === 'sign-in'" @sign-in="onSignIn"></SignInWidget>
+      <SignUpWidget v-else @sign-up="onSignUp"></SignUpWidget>
     </div>
   </div>
 </template>
@@ -58,7 +73,6 @@ header {
 
 .switch-to-sign-in.active,
 .switch-to-sign-up.active {
-  /* border-color: var(--clr-accent); */
   color: var(--clr-accent);
 }
 </style>

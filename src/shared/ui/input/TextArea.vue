@@ -29,4 +29,8 @@ onMounted(() => {
 
 <style scoped>
 @import './style/main.css';
+
+textarea {
+  resize: none;
+}
 </style>

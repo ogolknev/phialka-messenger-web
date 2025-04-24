@@ -10,7 +10,3 @@
   border-color: var(--clr-accent);
   color: var(--clr-accent);
 }
-
-textarea {
-  resize: none;
-}

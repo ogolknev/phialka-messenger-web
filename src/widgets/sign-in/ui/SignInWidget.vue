@@ -3,11 +3,13 @@ import { useSignInFormStore } from '@/features';
 import { TextInput, DefaultButton } from '@/shared';
 import { ref } from 'vue';
 
+const emit = defineEmits<{ signIn: [] }>()
 const signInFormStore = useSignInFormStore()
 const error = ref('')
 
 async function submitSignIn() {
   error.value = await signInFormStore.submit() || ''
+  if (!error.value) emit('signIn')
 }
 
 </script>
@@ -31,5 +33,13 @@ async function submitSignIn() {
 </template>
 
 <style scoped>
-@import './style/main.css';
+.sign-in-form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--gap-size-s);
+}
+
+.errors {
+  color: var(--clr-danger);
+}
 </style>

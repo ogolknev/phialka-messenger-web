@@ -3,11 +3,13 @@ import { useSignUpFormStore } from '@/features';
 import { TextInput, TextArea, DateInput, DefaultButton } from '@/shared';
 import { ref } from 'vue';
 
+const emit = defineEmits<{ signUp: [username: string, password: string] }>()
 const signUpFormStore = useSignUpFormStore()
 const error = ref('')
 
 async function submitSignUp() {
   error.value = await signUpFormStore.submit() || ''
+  if (!error.value) emit('signUp', signUpFormStore.username, signUpFormStore.password)
 }
 
 </script>
@@ -36,5 +38,13 @@ async function submitSignUp() {
 </template>
 
 <style scoped>
-@import './style/main.css';
+.sign-up-form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--gap-size-s);
+}
+
+.errors {
+  color: var(--clr-danger);
+}
 </style>

@@ -1,10 +1,12 @@
 <script setup lang='ts'>
-import './style/main.css'
+import './style/main.css';
+import { MainHeaderWidget } from '@/widgets';
 </script>
 
 <template>
   <div class="app">
     <header>
+      <MainHeaderWidget></MainHeaderWidget>
     </header>
     <main>
       <RouterView></RouterView>
@@ -16,7 +18,7 @@ import './style/main.css'
 .app {
   height: 100dvh;
   display: grid;
-  grid-template-rows: 10rem 1fr;
+  grid-template-rows: 5rem 1fr;
 }
 
 main {
