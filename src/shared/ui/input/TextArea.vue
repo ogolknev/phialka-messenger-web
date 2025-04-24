@@ -22,14 +22,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="text-area">
+  <div class="text-area input tile">
     <textarea ref="textarea" :rows="rows" @input="autoResize"></textarea>
   </div>
 </template>
 
 <style scoped>
-textarea {
-  line-height: 1rem;
-  padding: unset;
-}
+@import './style/main.css';
 </style>

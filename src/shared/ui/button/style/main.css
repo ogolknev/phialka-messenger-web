@@ -1,0 +1,10 @@
+button {
+  max-width: fit-content;
+  cursor: pointer;
+}
+
+button:focus,
+button:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+}

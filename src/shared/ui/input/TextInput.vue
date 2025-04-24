@@ -6,13 +6,11 @@ const { type = 'text' } = defineProps<{ type?: 'password' | 'text' }>()
 </script>
 
 <template>
-  <div class="text-input">
+  <div class="text-input input tile">
     <input v-model="model" :type="type">
   </div>
 </template>
 
 <style scoped>
-input {
-  padding: unset;
-}
+@import './style/main.css';
 </style>

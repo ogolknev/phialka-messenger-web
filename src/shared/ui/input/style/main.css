@@ -1,0 +1,13 @@
+.input {
+  max-width: fit-content;
+}
+
+.input:has(:focus),
+.input:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+}
+
+textarea {
+  resize: none;
+}

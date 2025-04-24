@@ -1,25 +1,21 @@
 <script setup lang='ts'>
 import { dateToString } from '@/shared/utils';
-import { computed } from 'vue';
+import { onMounted, ref, useTemplateRef, watch } from 'vue';
+import Inputmask from 'inputmask';
 
 const model = defineModel<Date | null>({ required: true })
-const value = computed({
-  get() {
-    return model.value ? dateToString(model.value, 'dd.MM.yyyy') : ''
-  },
-  set(newValue) {
-    const date = parseDate(newValue)
-    if (date) model.value = date
-  }
-})
+const value = ref('')
+const input = useTemplateRef('input')
 
-function parseDate(value: string): Date | null {
-  const [day, month, year] = value.split('.').map(Number)
-  if (
-    day < 1 || day > 31 ||
-    month < 1 || month > 12 ||
-    year < 1000 || year > 9999
-  ) return null
+function onInput(event: Event) {
+  const target = event.target as HTMLInputElement
+  value.value = target.value
+  model.value = parseDate(value.value)
+}
+
+function parseDate(dateString: string): Date | null {
+  const [day, month, year] = dateString.split('.').map(Number)
+  if (!isValidDate(day, month, year)) return null
 
   const date = new Date(year, month - 1, day)
   if (date.getDate() !== day || date.getMonth() !== month - 1) {
@@ -29,16 +25,30 @@ function parseDate(value: string): Date | null {
   return date
 }
 
+function isValidDate(day: number, month: number, year: number) {
+  return (
+    day >= 1 && day <= 31 &&
+    month >= 1 && month <= 12 &&
+    year >= 1000 && year <= 9999
+  )
+}
+
+watch(model, () => {
+  if (model.value) value.value = dateToString(model.value, 'dd.MM.yyyy')
+}, { immediate: true })
+
+onMounted(() => {
+  if (input.value) new Inputmask('99.99.9999').mask(input.value)
+})
+
 </script>
 
 <template>
-  <div class="date-input">
-    <input v-model="value" type="text" pattern="\d{2}\.\d{2}\.\d{4}" inputmode="numeric">
+  <div class="date-input input tile">
+    <input ref="input" :value="value" @input="onInput" type="text" inputmode="numeric">
   </div>
 </template>
 
 <style scoped>
-input {
-  padding: unset;
-}
+@import './style/main.css';
 </style>

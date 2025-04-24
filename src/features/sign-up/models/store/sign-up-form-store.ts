@@ -18,11 +18,13 @@ export const useSignUpFormStore = defineStore('sign-up-form', () => {
     username.value = ''
     password.value = ''
   }
+
   function validate(): string | void {
     if (!name.value) return 'Name is required'
     if (!username.value) return 'Username is required'
     if (!password.value) return 'Password is required'
   }
+  
   async function submit(): Promise<string | void> {
     const error = validate()
     if (error) return error

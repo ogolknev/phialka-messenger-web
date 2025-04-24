@@ -1,0 +1,41 @@
+:root {
+  --clr-black: #030303;
+  --clr-black-light: #202020;
+  --clr-gray: #6d6d6d;
+  --clr-gray-light: #bababa;
+  --clr-white: #fafafa;
+  --clr-accent: #ddb0f9;
+  --clr-success: #72cd92;
+  --clr-warning: #eead71;
+  --clr-danger: #fd9ec0;
+
+  --clr-border: var(--clr-gray);
+  --clr-bg-dark: var(--clr-black);
+  --clr-bg: var(--clr-black-light);
+  --clr-fg: var(--clr-white);
+  --clr-fg-dark: var(--clr-gray-light);
+}
+
+:root {
+  --scale: 1;
+
+  --line-width-s: calc(0.0625rem * var(--scale));
+  --line-width-m: calc(0.125rem * var(--scale));
+  --line-width-l: calc(0.25rem * var(--scale));
+  --font-size-xxs: calc(0.296rem * var(--scale));
+  --font-size-xs: calc(0.444rem * var(--scale));
+  --font-size-s: calc(0.667rem * var(--scale));
+  --font-size-m: calc(1rem * var(--scale));
+  --font-size-l: calc(1.5rem * var(--scale));
+  --font-size-xl: calc(2.25rem * var(--scale));
+  --font-size-xxl: calc(3.375rem * var(--scale));
+  --gap-size-xs: calc(0.25rem * var(--scale));
+  --gap-size-s: calc(0.5rem * var(--scale));
+  --gap-size-m: calc(1rem * var(--scale));
+  --gap-size-l: calc(2rem * var(--scale));
+  --gap-size-xl: calc(3rem * var(--scale));
+  --border-radius-xs: calc(0.125rem * var(--scale));
+  --border-radius-s: calc(0.25rem * var(--scale));
+  --border-radius-m: calc(0.5rem * var(--scale));
+  --border-radius-l: calc(1rem * var(--scale));
+}
