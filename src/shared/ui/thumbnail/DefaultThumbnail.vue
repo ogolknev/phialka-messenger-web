@@ -1,5 +1,5 @@
-<script setup lang='ts'>
-import { DefaultImage } from '../image';
+<script setup lang="ts">
+import { DefaultImage } from '../image'
 
 const { src } = defineProps<{ src?: string }>()
 </script>

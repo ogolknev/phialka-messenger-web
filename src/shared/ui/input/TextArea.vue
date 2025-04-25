@@ -1,7 +1,11 @@
-<script setup lang='ts'>
-import { onMounted, useTemplateRef } from 'vue';
+<script setup lang="ts">
+import { onMounted, useTemplateRef } from 'vue'
 
-const { rows = 1, maxRows, placeholder } = defineProps<{ rows?: number, maxRows?: number, placeholder?: string }>()
+const {
+  rows = 1,
+  maxRows,
+  placeholder,
+} = defineProps<{ rows?: number; maxRows?: number; placeholder?: string }>()
 const textareaRef = useTemplateRef('textarea')
 
 function autoResize() {

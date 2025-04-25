@@ -1,0 +1,1 @@
+export { adaptApiServer } from './adapters'

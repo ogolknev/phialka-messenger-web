@@ -1,6 +1,6 @@
 import type { ApiProfile } from '@/shared'
 import type { Profile } from '../../model'
-import { adaptApiFile } from '@/entities/uploaded-file'
+import { adaptApiFile } from '@/entities/uploaded-files'
 
 export function adaptApiProfile(apiProfile: ApiProfile): Profile {
   return {

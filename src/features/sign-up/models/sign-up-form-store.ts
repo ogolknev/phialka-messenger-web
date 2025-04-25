@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { signUp } from '../../api/sign-up'
+import { signUp } from '../api/sign-up'
 
 export const useSignUpFormStore = defineStore('sign-up-form', () => {
+  const loading = ref(false)
+
   const name = ref('')
   const tag = ref('')
   const description = ref('')
@@ -10,7 +12,7 @@ export const useSignUpFormStore = defineStore('sign-up-form', () => {
   const username = ref('')
   const password = ref('')
 
-  function reset(): void {
+  function resetForm(): void {
     name.value = ''
     tag.value = ''
     description.value = ''
@@ -19,17 +21,19 @@ export const useSignUpFormStore = defineStore('sign-up-form', () => {
     password.value = ''
   }
 
-  function validate(): string | void {
+  function validateForm(): string | void {
     if (!name.value) return 'Name is required'
     if (!username.value) return 'Username is required'
     if (!password.value) return 'Password is required'
   }
-  
-  async function submit(): Promise<string | void> {
-    const error = validate()
+
+  async function submitForm(): Promise<string | void> {
+    const error = validateForm()
     if (error) return error
 
     try {
+      loading.value = true
+
       await signUp({
         name: name.value,
         tag: tag.value,
@@ -38,8 +42,8 @@ export const useSignUpFormStore = defineStore('sign-up-form', () => {
         username: username.value,
         password: password.value,
       })
-    } catch (error) {
-      return error instanceof Error ? error.message : 'Unknown error'
+    } finally {
+      loading.value = false
     }
   }
 
@@ -50,8 +54,8 @@ export const useSignUpFormStore = defineStore('sign-up-form', () => {
     birthdate,
     username,
     password,
-    reset,
-    validate,
-    submit,
+    resetForm,
+    validateForm,
+    submitForm,
   }
 })

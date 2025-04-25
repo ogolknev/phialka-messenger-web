@@ -1,7 +1,7 @@
-<script setup lang='ts'>
-import { dateToString } from '@/shared/utils';
-import { onMounted, ref, useTemplateRef, watch } from 'vue';
-import Inputmask from 'inputmask';
+<script setup lang="ts">
+import { dateToString } from '@/shared/utils'
+import { onMounted, ref, useTemplateRef, watch } from 'vue'
+import Inputmask from 'inputmask'
 
 const model = defineModel<Date | null>({ required: true })
 const { placeholder } = defineProps<{ placeholder?: string }>()
@@ -27,26 +27,32 @@ function parseDate(dateString: string): Date | null {
 }
 
 function isValidDate(day: number, month: number, year: number) {
-  return (
-    day >= 1 && day <= 31 &&
-    month >= 1 && month <= 12 &&
-    year >= 1000 && year <= 9999
-  )
+  return day >= 1 && day <= 31 && month >= 1 && month <= 12 && year >= 1000 && year <= 9999
 }
 
-watch(model, () => {
-  if (model.value) value.value = dateToString(model.value, 'dd.MM.yyyy')
-}, { immediate: true })
+watch(
+  model,
+  () => {
+    if (model.value) value.value = dateToString(model.value, 'dd.MM.yyyy')
+  },
+  { immediate: true },
+)
 
 onMounted(() => {
   if (input.value) new Inputmask('99.99.9999').mask(input.value)
 })
-
 </script>
 
 <template>
   <div class="date-input input tile">
-    <input ref="input" :value="value" @input="onInput" type="text" inputmode="numeric" :placeholder="placeholder">
+    <input
+      ref="input"
+      :value="value"
+      @input="onInput"
+      type="text"
+      inputmode="numeric"
+      :placeholder="placeholder"
+    />
   </div>
 </template>
 

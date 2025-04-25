@@ -1,10 +1,12 @@
-<script setup lang='ts'>
-import { SignInWidget, SignUpWidget } from '@/widgets';
-import { DefaultButton } from '@/shared';
-import { ref } from 'vue';
-import { useSignInFormStore } from '@/features';
-import { useProfileStore } from '@/entities/profile';
+<script setup lang="ts">
+import { SignInWidget, SignUpWidget } from '@/widgets'
+import { DefaultButton } from '@/shared'
+import { ref } from 'vue'
+import { useSignInFormStore } from '@/features'
+import { useProfileStore } from '@/entities/profile'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const signInFormStore = useSignInFormStore()
 const profileStore = useProfileStore()
 const mode = ref<'sign-in' | 'sign-up'>('sign-in')
@@ -16,21 +18,29 @@ async function onSignIn() {
 async function onSignUp(username: string, password: string) {
   signInFormStore.username = username
   signInFormStore.password = password
-  const error = await signInFormStore.submit()
+  const error = await signInFormStore.submitForm()
   if (error) throw new Error(error)
+  router.push({ name: 'messenger' })
 }
-
 </script>
 
 <template>
   <div class="auth-page">
     <div class="modal tile">
       <header>
-        <DefaultButton class="switch-to-sign-in" :class="{ active: mode === 'sign-in' }" @click="mode = 'sign-in'"
-          :disabled="mode === 'sign-in'">Sign In
+        <DefaultButton
+          class="switch-to-sign-in"
+          :class="{ active: mode === 'sign-in' }"
+          @click="mode = 'sign-in'"
+          :disabled="mode === 'sign-in'"
+          >Sign In
         </DefaultButton>
-        <DefaultButton class="switch-to-sign-up" :class="{ active: mode === 'sign-up' }" @click="mode = 'sign-up'"
-          :disabled="mode === 'sign-up'">Sign Up
+        <DefaultButton
+          class="switch-to-sign-up"
+          :class="{ active: mode === 'sign-up' }"
+          @click="mode = 'sign-up'"
+          :disabled="mode === 'sign-up'"
+          >Sign Up
         </DefaultButton>
       </header>
       <SignInWidget v-if="mode === 'sign-in'" @sign-in="onSignIn"></SignInWidget>

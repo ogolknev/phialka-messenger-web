@@ -1,2 +1,2 @@
-export type { Profile } from './interface'
-export { useProfileStore } from './store'
+export type { Profile } from './profile'
+export { useProfileStore } from './profile-store'

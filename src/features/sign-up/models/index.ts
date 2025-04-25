@@ -1,1 +1,1 @@
-export { useSignUpFormStore } from './store'
+export { useSignUpFormStore } from './sign-up-form-store'

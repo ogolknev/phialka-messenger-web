@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
-import type { Profile } from '../interface'
-import { getProfile } from '../../api'
+import type { Profile } from './profile'
+import { getProfile } from '../api'
 
 export const useProfileStore = defineStore('profile', () => {
   const loading = ref(false)
@@ -13,7 +13,7 @@ export const useProfileStore = defineStore('profile', () => {
     photo: null,
   })
 
-  function reset() {
+  function resetProfile() {
     profile.name = ''
     profile.tag = ''
     profile.description = ''
@@ -32,8 +32,6 @@ export const useProfileStore = defineStore('profile', () => {
       profile.description = fetchedProfile.description
       profile.birthdate = fetchedProfile.birthdate
       profile.photo = fetchedProfile.photo
-    } catch (error) {
-      throw new Error(`Can't fetch profile: ${error instanceof Error ? error.message : error}`)
     } finally {
       loading.value = false
     }
@@ -42,7 +40,7 @@ export const useProfileStore = defineStore('profile', () => {
   return {
     loading,
     profile,
-    reset,
+    resetProfile,
     updateProfile,
   }
 })

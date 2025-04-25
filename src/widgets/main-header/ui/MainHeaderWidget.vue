@@ -1,17 +1,19 @@
-<script setup lang='ts'>
-import { useProfileStore } from '@/entities/profile';
-import { DefaultButton, DefaultThumbnail } from '@/shared';
+<script setup lang="ts">
+import { useProfileStore } from '@/entities/profile'
+import { DefaultButton, DefaultThumbnail } from '@/shared'
 
 const profileStore = useProfileStore()
-
 </script>
 
 <template>
   <div class="main-header-widget tile">
     <DefaultButton class="menu-button">Menu</DefaultButton>
     <span class="title">Phialka</span>
-    <DefaultThumbnail v-if="profileStore.profile.photo?.url" class="profile-photo"
-      :src="profileStore.profile.photo?.url"></DefaultThumbnail>
+    <DefaultThumbnail
+      v-if="profileStore.profile.photo?.url"
+      class="profile-photo"
+      :src="profileStore.profile.photo?.url"
+    ></DefaultThumbnail>
     <DefaultButton v-else class="sign-in-button">Sign In</DefaultButton>
   </div>
 </template>
