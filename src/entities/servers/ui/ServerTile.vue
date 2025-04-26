@@ -8,6 +8,19 @@ const { server } = defineProps<{ server: Server }>()
 
 <template>
   <div class="server-tile tile">
-    <DefaultThumbnail :src="server.photo?.url"></DefaultThumbnail>
+    <DefaultThumbnail :src="server.photo?.url" class="thumbnail"></DefaultThumbnail>
   </div>
 </template>
+
+<style scoped>
+.server-tile {
+  width: 100%;
+  aspect-ratio: 1;
+  padding: var(--gap-size-s);
+}
+
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 1;
+}
+</style>

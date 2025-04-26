@@ -1,20 +1,23 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import { signIn } from '../api/sign-in'
+import { reactive, ref } from 'vue'
+import { signIn } from '../api'
 
 export const useSignInFormStore = defineStore('sign-in-form', () => {
   const loading = ref(false)
-  const username = ref('')
-  const password = ref('')
+
+  const form = reactive<SignInForm>({
+    username: '',
+    password: '',
+  })
 
   function resetForm() {
-    username.value = ''
-    password.value = ''
+    form.username = ''
+    form.password = ''
   }
 
   function validateForm(): string | void {
-    if (!username.value) return 'Username is required'
-    if (!password.value) return 'Password is required'
+    if (!form.username) return 'Username is required'
+    if (!form.password) return 'Password is required'
   }
 
   async function submitForm() {
@@ -24,8 +27,8 @@ export const useSignInFormStore = defineStore('sign-in-form', () => {
     try {
       loading.value = true
       await signIn({
-        username: username.value,
-        password: password.value,
+        username: form.username,
+        password: form.password,
       })
     } finally {
       loading.value = false
@@ -34,10 +37,14 @@ export const useSignInFormStore = defineStore('sign-in-form', () => {
 
   return {
     loading,
-    username,
-    password,
+    form,
     resetForm,
     submitForm,
     validateForm,
   }
 })
+
+interface SignInForm {
+  username: string
+  password: string
+}

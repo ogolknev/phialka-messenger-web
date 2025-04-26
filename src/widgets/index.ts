@@ -1,4 +1,5 @@
 export { SignUpWidget } from './sign-up'
 export { SignInWidget } from './sign-in'
 export { MainHeaderWidget } from './main-header'
-export { ServerList } from './server-list'
+export { ServerListWidget } from './server-list'
+export { ServerCreateWidget } from './server-create'

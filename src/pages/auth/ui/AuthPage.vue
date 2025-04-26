@@ -13,14 +13,15 @@ const mode = ref<'sign-in' | 'sign-up'>('sign-in')
 
 async function onSignIn() {
   await profileStore.updateProfile()
+  router.back()
 }
 
 async function onSignUp(username: string, password: string) {
-  signInFormStore.username = username
-  signInFormStore.password = password
+  signInFormStore.form.username = username
+  signInFormStore.form.password = password
   const error = await signInFormStore.submitForm()
   if (error) throw new Error(error)
-  router.push({ name: 'messenger' })
+  router.back()
 }
 </script>
 
@@ -28,19 +29,11 @@ async function onSignUp(username: string, password: string) {
   <div class="auth-page">
     <div class="modal tile">
       <header>
-        <DefaultButton
-          class="switch-to-sign-in"
-          :class="{ active: mode === 'sign-in' }"
-          @click="mode = 'sign-in'"
-          :disabled="mode === 'sign-in'"
-          >Sign In
+        <DefaultButton class="switch-to-sign-in" :class="{ active: mode === 'sign-in' }" @click="mode = 'sign-in'"
+          :disabled="mode === 'sign-in'">Sign In
         </DefaultButton>
-        <DefaultButton
-          class="switch-to-sign-up"
-          :class="{ active: mode === 'sign-up' }"
-          @click="mode = 'sign-up'"
-          :disabled="mode === 'sign-up'"
-          >Sign Up
+        <DefaultButton class="switch-to-sign-up" :class="{ active: mode === 'sign-up' }" @click="mode = 'sign-up'"
+          :disabled="mode === 'sign-up'">Sign Up
         </DefaultButton>
       </header>
       <SignInWidget v-if="mode === 'sign-in'" @sign-in="onSignIn"></SignInWidget>

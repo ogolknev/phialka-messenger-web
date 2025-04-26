@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ServerList } from '@/widgets';
+import { ServerListWidget } from '@/widgets';
 
 </script>
 
 <template>
   <div class="messenger-page">
-    <ServerList class="server-list tile"></ServerList>
+    <ServerListWidget class="server-list tile"></ServerListWidget>
   </div>
 </template>
 

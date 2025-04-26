@@ -3,8 +3,10 @@ import { ServerTile } from '@/entities';
 import { useServersStore } from '@/entities';
 import { AddButton } from '@/shared';
 import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
 const serversStore = useServersStore()
+const router = useRouter()
 
 onMounted(() => {
   serversStore.updateServers()
@@ -14,7 +16,7 @@ onMounted(() => {
 
 <template>
   <div class="server-list">
-    <AddButton class="add-server-button"></AddButton>
+    <AddButton @click="router.push('server-create')" class="add-server-button"></AddButton>
     <ServerTile v-for="server in serversStore.servers" :key="server.id" :server="server"></ServerTile>
   </div>
 </template>

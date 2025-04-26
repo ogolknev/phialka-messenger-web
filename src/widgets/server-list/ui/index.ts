@@ -1,1 +1,1 @@
-export { default as ServerList } from './ServerList.vue'
+export { default as ServerListWidget } from './ServerListWidget.vue'

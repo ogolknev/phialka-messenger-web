@@ -48,5 +48,6 @@ onMounted(() => {
 
 main {
   height: 100%;
+  overflow: hidden;
 }
 </style>

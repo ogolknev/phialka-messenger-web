@@ -1,1 +1,1 @@
-export { ServerList } from './ui'
+export { ServerListWidget } from './ui'

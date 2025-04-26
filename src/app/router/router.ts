@@ -1,4 +1,4 @@
-import { AuthPage, MessengerPage } from '@/pages'
+import { AuthPage, MessengerPage, ServerCreatePage } from '@/pages'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
 export const router = createRouter({
@@ -13,6 +13,11 @@ export const router = createRouter({
       path: '/auth',
       component: AuthPage,
       name: 'auth',
+    },
+    {
+      path: '/server-create',
+      component: ServerCreatePage,
+      name: 'server-create',
     },
   ],
 })

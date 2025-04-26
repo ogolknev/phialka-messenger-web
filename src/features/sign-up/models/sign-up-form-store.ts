@@ -1,30 +1,32 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import { signUp } from '../api/sign-up'
+import { reactive, ref } from 'vue'
+import { signUp } from '../api'
 
 export const useSignUpFormStore = defineStore('sign-up-form', () => {
   const loading = ref(false)
 
-  const name = ref('')
-  const tag = ref('')
-  const description = ref('')
-  const birthdate = ref<Date | null>(null)
-  const username = ref('')
-  const password = ref('')
+  const form = reactive<SignUpForm>({
+    name: '',
+    tag: '',
+    description: '',
+    birthdate: null,
+    username: '',
+    password: '',
+  })
 
   function resetForm(): void {
-    name.value = ''
-    tag.value = ''
-    description.value = ''
-    birthdate.value = null
-    username.value = ''
-    password.value = ''
+    form.name = ''
+    form.tag = ''
+    form.description = ''
+    form.birthdate = null
+    form.username = ''
+    form.password = ''
   }
 
   function validateForm(): string | void {
-    if (!name.value) return 'Name is required'
-    if (!username.value) return 'Username is required'
-    if (!password.value) return 'Password is required'
+    if (!form.name) return 'Name is required'
+    if (!form.username) return 'Username is required'
+    if (!form.password) return 'Password is required'
   }
 
   async function submitForm(): Promise<string | void> {
@@ -35,12 +37,12 @@ export const useSignUpFormStore = defineStore('sign-up-form', () => {
       loading.value = true
 
       await signUp({
-        name: name.value,
-        tag: tag.value,
-        description: description.value,
-        birthdate: birthdate.value ?? undefined,
-        username: username.value,
-        password: password.value,
+        name: form.name,
+        tag: form.tag,
+        description: form.description,
+        birthdate: form.birthdate ?? undefined,
+        username: form.username,
+        password: form.password,
       })
     } finally {
       loading.value = false
@@ -48,14 +50,19 @@ export const useSignUpFormStore = defineStore('sign-up-form', () => {
   }
 
   return {
-    name,
-    tag,
-    description,
-    birthdate,
-    username,
-    password,
+    loading,
+    form,
     resetForm,
     validateForm,
     submitForm,
   }
 })
+
+interface SignUpForm {
+  name: string
+  tag: string
+  description: string
+  birthdate: Date | null
+  username: string
+  password: string
+}
