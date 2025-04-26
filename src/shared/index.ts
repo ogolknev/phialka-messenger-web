@@ -5,4 +5,12 @@ export { HTTPError } from './api'
 
 export { dateToString } from './utils'
 
-export { DefaultButton, TextArea, TextInput, DateInput, DefaultImage, DefaultThumbnail } from './ui'
+export {
+  DefaultButton,
+  AddButton,
+  TextArea,
+  TextInput,
+  DateInput,
+  DefaultImage,
+  DefaultThumbnail,
+} from './ui'

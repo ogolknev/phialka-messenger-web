@@ -6,11 +6,9 @@ const { type = 'button', disabled = false } = defineProps<{
 </script>
 
 <template>
-  <div class="default-button button tile">
-    <button :type="type" :disabled="disabled">
-      <slot></slot>
-    </button>
-  </div>
+  <button class="default-button button tile" :type="type" :disabled="disabled">
+    <slot></slot>
+  </button>
 </template>
 
 <style scoped>

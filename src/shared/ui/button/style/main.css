@@ -1,22 +1,18 @@
-button {
+.button {
   padding: var(--gap-size-s);
   padding-inline: var(--gap-size-m);
-  cursor: inherit;
-}
-
-.button {
   font-size: var(--font-size-s);
-  max-width: fit-content;
+  min-width: fit-content;
   cursor: pointer;
 }
 
-.button:has(:focus),
-.button:has(:hover) {
+.button:focus,
+.button:hover {
   border-color: var(--clr-accent);
   color: var(--clr-accent);
 }
 
-.button:has(:disabled) {
+.button:disabled {
   border-color: transparent;
   color: var(--clr-fg-dark);
   cursor: auto;

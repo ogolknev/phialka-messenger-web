@@ -5,7 +5,5 @@ const DEFAULT_IMAGE_SRC = ''
 </script>
 
 <template>
-  <div class="default-image">
-    <img :src="src ?? DEFAULT_IMAGE_SRC" alt="image" />
-  </div>
+  <img class="default-image" :src="src ?? DEFAULT_IMAGE_SRC" alt="image" />
 </template>

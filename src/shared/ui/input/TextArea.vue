@@ -14,10 +14,15 @@ function autoResize() {
 
   textarea.style.height = 'auto'
 
-  const lineHeight = parseFloat(getComputedStyle(textarea).lineHeight || '0')
+  const computedStyle = getComputedStyle(textarea)
+  const lineHeight = parseFloat(computedStyle.lineHeight || '0')
   const maxHeight = lineHeight * (maxRows || rows)
+  const topBorderWidth = parseFloat(computedStyle.borderTopWidth || '0')
+  const bottomBorderWidth = parseFloat(computedStyle.borderBottomWidth || '0')
 
-  textarea.style.height = Math.min(maxHeight, textarea.scrollHeight) + 'px'
+
+  textarea.style.height = Math.min(maxHeight, textarea.scrollHeight) + topBorderWidth + bottomBorderWidth + 'px'
+  textarea.scrollTop = textarea.scrollHeight
 }
 
 onMounted(() => {
@@ -26,9 +31,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="text-area input tile">
-    <textarea ref="textarea" :rows="rows" @input="autoResize" :placeholder="placeholder"></textarea>
-  </div>
+  <textarea ref="textarea" class="text-area input tile" :rows="rows" @input="autoResize"
+    :placeholder="placeholder"></textarea>
 </template>
 
 <style scoped>

@@ -44,16 +44,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="date-input input tile">
-    <input
-      ref="input"
-      :value="value"
-      @input="onInput"
-      type="text"
-      inputmode="numeric"
-      :placeholder="placeholder"
-    />
-  </div>
+  <input ref="input" :value="value" class="date-input input tile" @input="onInput" type="text" inputmode="numeric"
+    :placeholder="placeholder" />
 </template>
 
 <style scoped>

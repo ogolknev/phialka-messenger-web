@@ -9,11 +9,8 @@ const profileStore = useProfileStore()
   <div class="main-header-widget tile">
     <DefaultButton class="menu-button">Menu</DefaultButton>
     <span class="title">Phialka</span>
-    <DefaultThumbnail
-      v-if="profileStore.profile.photo?.url"
-      class="profile-photo"
-      :src="profileStore.profile.photo?.url"
-    ></DefaultThumbnail>
+    <DefaultThumbnail v-if="profileStore.profile.photo?.url" class="profile-photo"
+      :src="profileStore.profile.photo?.url"></DefaultThumbnail>
     <DefaultButton v-else class="sign-in-button">Sign In</DefaultButton>
   </div>
 </template>
@@ -21,7 +18,7 @@ const profileStore = useProfileStore()
 <style scoped>
 .main-header-widget {
   height: 100%;
-  padding: var(--gap-size-m);
+  padding: var(--gap-size-s);
   display: grid;
   grid-template-columns: 10rem 1fr 10rem;
   align-items: center;

@@ -43,6 +43,7 @@ onMounted(() => {
   padding: var(--gap-size-s);
   display: grid;
   grid-template-rows: 5rem 1fr;
+  gap: var(--gap-size-s);
 }
 
 main {

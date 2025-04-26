@@ -7,9 +7,7 @@ const { type = 'text', placeholder } = defineProps<{
 </script>
 
 <template>
-  <div class="text-input input tile">
-    <input v-model="model" :type="type" :placeholder="placeholder" />
-  </div>
+  <input v-model="model" class="text-input input tile" :type="type" :placeholder="placeholder" />
 </template>
 
 <style scoped>
