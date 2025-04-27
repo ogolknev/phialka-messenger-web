@@ -1,15 +1,38 @@
 <script setup lang='ts'>
-import { ServerTile } from '@/entities';
+import { Server, ServerTile } from '@/entities';
 import { useServersStore } from '@/entities';
-import { AddButton } from '@/shared';
-import { onMounted } from 'vue';
+import { AddButton, DefaultButton } from '@/shared';
+import { nextTick, onMounted, onUnmounted, ref, useTemplateRef } from 'vue';
 import { useRouter } from 'vue-router';
 
 const serversStore = useServersStore()
 const router = useRouter()
+const contextMenuRef = useTemplateRef('context-menu')
+const isContextMenuOpen = ref(false)
+const contextMenuTargetServer = ref<Server | null>(null)
+
+function openContextMenu(event: MouseEvent) {
+  isContextMenuOpen.value = true
+
+  nextTick(() => {
+    if (!contextMenuRef.value) return
+    contextMenuRef.value.style.top = event.clientY + 'px'
+    contextMenuRef.value.style.left = event.clientX + 'px'
+  })
+}
+
+function onClickGlobal(event: MouseEvent) {
+  if ((event.target as HTMLElement).closest('.context-menu')) return
+  isContextMenuOpen.value = false
+}
 
 onMounted(() => {
   serversStore.updateServers()
+  addEventListener('click', onClickGlobal)
+})
+
+onUnmounted(() => {
+  removeEventListener('click', onClickGlobal)
 })
 
 </script>
@@ -19,7 +42,15 @@ onMounted(() => {
     <AddButton @click="router.push('server-create')" class="add-server-button"></AddButton>
     <ServerTile v-for="server in serversStore.servers" class="server-tile"
       :class="{ selected: server.id === serversStore.selected?.id }" :key="server.id" :server="server"
-      @click="() => serversStore.selectServer(server)"></ServerTile>
+      @click="() => serversStore.selectServer(server)"
+      @contextmenu.prevent="(event) => { openContextMenu(event); contextMenuTargetServer = server }">
+    </ServerTile>
+
+    <Teleport v-if="isContextMenuOpen" to="#overlay">
+      <div ref="context-menu" class="context-menu tile touchable">
+        <DefaultButton>Edit</DefaultButton>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -38,5 +69,10 @@ onMounted(() => {
 
 .server-tile {
   cursor: pointer;
+}
+
+.context-menu {
+  position: fixed;
+  padding: var(--gap-size-s);
 }
 </style>

@@ -33,10 +33,11 @@ function onCrop(croppedPhoto: Blob) {
       <ServerCreateWidget class="server-create-widget" @server-create="onServerCreate"
         :process-server-photo="processServerPhoto"></ServerCreateWidget>
     </div>
+
+    <Teleport v-if="serverPhotoSrc" to="#overlay">
+      <CropImageWidget class="touchable" :src="serverPhotoSrc" @crop="onCrop"></CropImageWidget>
+    </Teleport>
   </div>
-  <Teleport v-if="serverPhotoSrc" to="#overlay">
-    <CropImageWidget :src="serverPhotoSrc" @crop="onCrop"></CropImageWidget>
-  </Teleport>
 </template>
 
 <style scoped>

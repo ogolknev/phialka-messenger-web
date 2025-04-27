@@ -61,7 +61,7 @@ main {
   pointer-events: none;
 }
 
-#overlay:has(.modal) {
+#overlay:has(.touchable) {
   pointer-events: all;
 }
 </style>
