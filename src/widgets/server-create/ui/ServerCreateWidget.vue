@@ -3,6 +3,7 @@ import { DefaultButton, TextInput, TextArea, ImageInput } from '@/shared';
 import { useServerCreateFormStore } from '@/features';
 import { computed, ref } from 'vue';
 
+const { processServerPhoto } = defineProps<{ processServerPhoto?: (image: Blob) => Promise<Blob> }>()
 const serverCreateStore = useServerCreateFormStore()
 const emit = defineEmits<{ serverCreate: [] }>()
 const error = ref('')
@@ -15,8 +16,8 @@ async function submitServerCreate() {
   }
 }
 
-function onFileLoad(file: Blob) {
-  serverCreateStore.form.photo = file
+async function onFileLoad(file: Blob) {
+  serverCreateStore.form.photo = processServerPhoto ? await processServerPhoto(file) : file
 }
 </script>
 
