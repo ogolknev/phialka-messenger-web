@@ -17,22 +17,26 @@ onMounted(() => {
 <template>
   <div class="server-list">
     <AddButton @click="router.push('server-create')" class="add-server-button"></AddButton>
-    <ServerTile v-for="server in serversStore.servers" :key="server.id" :server="server"></ServerTile>
+    <ServerTile v-for="server in serversStore.servers" class="server-tile"
+      :class="{ selected: server.id === serversStore.selected?.id }" :key="server.id" :server="server"
+      @click="() => serversStore.selectServer(server)"></ServerTile>
   </div>
 </template>
 
 <style scoped>
-.server-list {
-  height: 100%;
-  display: flex;
-  padding: var(--gap-size-s);
-  flex-flow: column nowrap;
-  align-items: center;
-  overflow-y: auto;
-}
-
 .add-server-button {
   width: 100%;
+  max-width: 100%;
+  max-height: 100%;
   aspect-ratio: 1;
+}
+
+.server-tile:hover,
+.server-tile.selected {
+  border-color: var(--clr-accent);
+}
+
+.server-tile {
+  cursor: pointer;
 }
 </style>

@@ -18,5 +18,12 @@ import { ServerListWidget } from '@/widgets';
 
 .server-list {
   background: var(--clr-bg);
+  height: 100%;
+  padding: var(--gap-size-s);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--gap-size-s);
+  align-items: center;
+  overflow-y: auto;
 }
 </style>

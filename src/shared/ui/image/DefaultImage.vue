@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { ImageIcon } from '../icon';
 const { src } = defineProps<{ src?: string }>()
 
-const DEFAULT_IMAGE_SRC = ''
 </script>
 
 <template>
-  <img class="default-image" :src="src ?? DEFAULT_IMAGE_SRC" alt="image" />
+  <img v-if="src" class="default-image" :src="src" alt="image" />
+  <ImageIcon v-else class="default-image"></ImageIcon>
 </template>

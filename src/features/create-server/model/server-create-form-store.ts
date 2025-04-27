@@ -6,11 +6,13 @@ export const useServerCreateFormStore = defineStore('server-create-form', () => 
   const loading = ref(false)
 
   const form = reactive<ServerCreateForm>({
+    photo: null,
     name: '',
     description: '',
   })
 
   function resetForm() {
+    form.photo = null
     form.name = ''
     form.description = ''
   }
@@ -42,6 +44,7 @@ export const useServerCreateFormStore = defineStore('server-create-form', () => 
 })
 
 interface ServerCreateForm {
+  photo: Blob | null
   name: string
   description: string
 }

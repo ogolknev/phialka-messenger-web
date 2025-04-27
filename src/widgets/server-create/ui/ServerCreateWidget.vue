@@ -1,11 +1,12 @@
 <script setup lang='ts'>
-import { DefaultButton, TextInput, TextArea } from '@/shared';
+import { DefaultButton, TextInput, TextArea, ImageInput } from '@/shared';
 import { useServerCreateFormStore } from '@/features';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const serverCreateStore = useServerCreateFormStore()
 const emit = defineEmits<{ serverCreate: [] }>()
 const error = ref('')
+const serverPhotoSrc = computed(() => serverCreateStore.form.photo ? URL.createObjectURL(serverCreateStore.form.photo) : undefined)
 
 async function submitServerCreate() {
   error.value = (await serverCreateStore.submitForm()) || ''
@@ -13,11 +14,16 @@ async function submitServerCreate() {
     emit('serverCreate')
   }
 }
+
+function onFileLoad(file: Blob) {
+  serverCreateStore.form.photo = file
+}
 </script>
 
 <template>
   <div class="server-create-widget">
     <form class="server-create-form" @submit.prevent="submitServerCreate">
+      <ImageInput class="photo-input" :src="serverPhotoSrc" @fileload="onFileLoad"></ImageInput>
       <TextInput v-model="serverCreateStore.form.name" class="name-input" placeholder="Name"></TextInput>
       <TextArea v-model="serverCreateStore.form.description" class="description-input"
         placeholder="Description"></TextArea>
@@ -41,5 +47,10 @@ async function submitServerCreate() {
 
 .errors {
   color: var(--clr-danger);
+}
+
+.photo-input {
+  width: 5rem;
+  aspect-ratio: 1;
 }
 </style>
