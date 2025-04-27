@@ -1,3 +1,4 @@
 export { AuthPage } from './auth'
 export { MessengerPage } from './messenger'
 export { ServerCreatePage } from './server-create'
+export { ServerEditPage } from './server-edit'

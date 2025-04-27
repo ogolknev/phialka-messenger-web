@@ -30,6 +30,10 @@ export const useServersStore = defineStore('servers', () => {
     selected.value = server
   }
 
+  function getServerById(serverId: string) {
+    return servers.value.find((server) => server.id === serverId)
+  }
+
   return {
     loading,
     servers,
@@ -38,5 +42,6 @@ export const useServersStore = defineStore('servers', () => {
     resetSelected,
     updateServers,
     selectServer,
+    getServerById,
   }
 })

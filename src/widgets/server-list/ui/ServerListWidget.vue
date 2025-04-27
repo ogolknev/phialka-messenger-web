@@ -48,7 +48,8 @@ onUnmounted(() => {
 
     <Teleport v-if="isContextMenuOpen" to="#overlay">
       <div ref="context-menu" class="context-menu tile touchable">
-        <DefaultButton>Edit</DefaultButton>
+        <DefaultButton @click="router.push({ name: 'server-edit', params: { id: contextMenuTargetServer?.id } })">Edit
+        </DefaultButton>
       </div>
     </Teleport>
   </div>

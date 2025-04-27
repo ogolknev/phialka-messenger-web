@@ -3,27 +3,33 @@ import { DefaultButton, TextInput, TextArea, ImageInput } from '@/shared';
 import { useServerEditFormStore } from '@/features';
 import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useServersStore } from '@/entities';
 
 const { processServerPhoto } = defineProps<{ processServerPhoto?: (image: Blob) => Promise<Blob> }>()
-const serverEditStore = useServerEditFormStore()
+const serverEditFormStore = useServerEditFormStore()
+const serversStore = useServersStore()
 const emit = defineEmits<{ serverEdit: [] }>()
 const error = ref('')
-const serverPhotoSrc = computed(() => serverEditStore.form.photo ? URL.createObjectURL(serverEditStore.form.photo) : undefined)
+const serverPhotoSrc = computed(() => serverEditFormStore.form.photo ? URL.createObjectURL(serverEditFormStore.form.photo) : undefined)
 const route = useRoute()
 
 async function submitServerEdit() {
-  error.value = (await serverEditStore.submitForm()) || ''
+  error.value = (await serverEditFormStore.submitForm()) || ''
   if (!error.value) {
     emit('serverEdit')
   }
 }
 
 async function onFileLoad(file: Blob) {
-  serverEditStore.form.photo = processServerPhoto ? await processServerPhoto(file) : file
+  serverEditFormStore.form.photo = processServerPhoto ? await processServerPhoto(file) : file
 }
 
-onMounted(() => {
-  serverEditStore.form.serverId = route.params.id as string
+onMounted(async () => {
+  serverEditFormStore.form.serverId = route.params.id as string
+  const server = serversStore.getServerById(route.params.id as string)
+  serverEditFormStore.form.name = server?.name ?? ''
+  serverEditFormStore.form.description = server?.description ?? ''
+  serverEditFormStore.form.photo = server?.photo?.url ? await (await fetch(server.photo.url)).blob() : null
 })
 </script>
 
@@ -31,8 +37,8 @@ onMounted(() => {
   <div class="server-edit-widget">
     <form class="server-edit-form" @submit.prevent="submitServerEdit">
       <ImageInput class="photo-input" :src="serverPhotoSrc" @fileload="onFileLoad"></ImageInput>
-      <TextInput v-model="serverEditStore.form.name" class="name-input" placeholder="Name"></TextInput>
-      <TextArea v-model="serverEditStore.form.description" class="description-input"
+      <TextInput v-model="serverEditFormStore.form.name" class="name-input" placeholder="Name"></TextInput>
+      <TextArea v-model="serverEditFormStore.form.description" class="description-input"
         placeholder="Description"></TextArea>
 
       <div v-if="error" class="errors">{{ error }}</div>

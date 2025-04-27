@@ -4,20 +4,20 @@ import { useServerCreateFormStore } from '@/features';
 import { computed, ref } from 'vue';
 
 const { processServerPhoto } = defineProps<{ processServerPhoto?: (image: Blob) => Promise<Blob> }>()
-const serverCreateStore = useServerCreateFormStore()
+const serverCreateFormStore = useServerCreateFormStore()
 const emit = defineEmits<{ serverCreate: [] }>()
 const error = ref('')
-const serverPhotoSrc = computed(() => serverCreateStore.form.photo ? URL.createObjectURL(serverCreateStore.form.photo) : undefined)
+const serverPhotoSrc = computed(() => serverCreateFormStore.form.photo ? URL.createObjectURL(serverCreateFormStore.form.photo) : undefined)
 
 async function submitServerCreate() {
-  error.value = (await serverCreateStore.submitForm()) || ''
+  error.value = (await serverCreateFormStore.submitForm()) || ''
   if (!error.value) {
     emit('serverCreate')
   }
 }
 
 async function onFileLoad(file: Blob) {
-  serverCreateStore.form.photo = processServerPhoto ? await processServerPhoto(file) : file
+  serverCreateFormStore.form.photo = processServerPhoto ? await processServerPhoto(file) : file
 }
 </script>
 
@@ -25,8 +25,8 @@ async function onFileLoad(file: Blob) {
   <div class="server-create-widget">
     <form class="server-create-form" @submit.prevent="submitServerCreate">
       <ImageInput class="photo-input" :src="serverPhotoSrc" @fileload="onFileLoad"></ImageInput>
-      <TextInput v-model="serverCreateStore.form.name" class="name-input" placeholder="Name"></TextInput>
-      <TextArea v-model="serverCreateStore.form.description" class="description-input"
+      <TextInput v-model="serverCreateFormStore.form.name" class="name-input" placeholder="Name"></TextInput>
+      <TextArea v-model="serverCreateFormStore.form.description" class="description-input"
         placeholder="Description"></TextArea>
 
       <div v-if="error" class="errors">{{ error }}</div>
