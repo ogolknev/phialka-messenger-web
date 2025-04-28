@@ -1,3 +1,1 @@
-import CropImageWidget from './CropImageWidget.vue'
-
-export { CropImageWidget }
+export { CropImageWidget } from './ui'

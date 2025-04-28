@@ -38,7 +38,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="server-list">
+  <div class="server-list-widget">
     <AddButton @click="router.push({ name: 'server-create' })" class="add-server-button"></AddButton>
     <ServerTile v-for="server in serversStore.servers" class="server-tile"
       :class="{ selected: server.id === serversStore.selectedId }" :key="server.id" :server="server"

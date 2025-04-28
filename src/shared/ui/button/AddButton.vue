@@ -5,12 +5,21 @@ import { AddIcon } from '../icon';
 
 <template>
   <DefaultButton class="add-button">
-    <AddIcon></AddIcon>
+    <AddIcon class="add-icon"></AddIcon>
   </DefaultButton>
 </template>
 
 <style scoped>
 .add-button {
   padding: var(--gap-size-l);
+  display: flex;
+  justify-content: center;
+}
+
+.add-icon {
+  aspect-ratio: 1;
+  /* width: 100%; */
+  max-height: 100%;
+  max-width: 100%;
 }
 </style>
