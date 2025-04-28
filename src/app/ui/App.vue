@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { HTTPError } from '@/shared'
-import './style/main.css'
 import { useProfileStore } from '@/entities/profile'
 import { MainHeaderWidget } from '@/widgets'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import './style/main.css'
 
 const router = useRouter()
 const profileStore = useProfileStore()
