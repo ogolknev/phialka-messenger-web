@@ -18,7 +18,6 @@ import { AddIcon } from '../icon';
 
 .add-icon {
   aspect-ratio: 1;
-  /* width: 100%; */
   max-height: 100%;
   max-width: 100%;
 }

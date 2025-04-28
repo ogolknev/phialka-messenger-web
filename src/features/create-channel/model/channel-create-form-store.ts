@@ -1,24 +1,27 @@
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
-import { createServer } from '../api'
+import { createChannel } from '../api'
 
-export const useServerCreateFormStore = defineStore('server-create-form', () => {
+export const useChannelCreateFormStore = defineStore('channel-create-form', () => {
   const loading = ref(false)
 
-  const form = reactive<ServerCreateForm>({
+  const form = reactive<ChannelCreateForm>({
+    serverId: '',
     photo: null,
     name: '',
     description: '',
   })
 
   function resetForm() {
+    form.serverId = ''
     form.photo = null
     form.name = ''
     form.description = ''
   }
 
   function validateForm() {
-    if (!form.name) return 'Server name required'
+    if (!form.serverId) return 'Server id is required'
+    if (!form.name) return 'Channel name is required'
   }
 
   async function submitForm() {
@@ -28,7 +31,7 @@ export const useServerCreateFormStore = defineStore('server-create-form', () => 
     try {
       loading.value = true
 
-      await createServer(form)
+      await createChannel(form)
     } finally {
       loading.value = false
     }
@@ -42,7 +45,8 @@ export const useServerCreateFormStore = defineStore('server-create-form', () => 
   }
 })
 
-interface ServerCreateForm {
+interface ChannelCreateForm {
+  serverId: string
   photo: Blob | null
   name: string
   description: string
