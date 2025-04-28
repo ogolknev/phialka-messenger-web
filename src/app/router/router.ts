@@ -1,6 +1,7 @@
 import {
   AuthPage,
   ChannelCreatePage,
+  ChannelEditPage,
   MessengerPage,
   ServerCreatePage,
   ServerEditPage,
@@ -34,6 +35,11 @@ export const router = createRouter({
       path: '/channel/create',
       component: ChannelCreatePage,
       name: 'channel-create',
+    },
+    {
+      path: '/channel/:id/edit',
+      component: ChannelEditPage,
+      name: 'channel-edit',
     },
   ],
 })

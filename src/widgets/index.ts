@@ -9,3 +9,4 @@ export { ServerCreateWidget } from './server-create'
 
 export { ChannelListWidget } from './channel-list'
 export { ChannelCreateWidget } from './channel-create'
+export { ChannelEditWidget } from './channel-edit'
