@@ -1,24 +1,30 @@
 <script setup lang='ts'>
 import { DefaultButton, TextInput, TextArea, ImageInput } from '@/shared';
 import { useChannelCreateFormStore } from '@/features';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { useServerStore } from '@/entities';
 
 const { processChannelPhoto } = defineProps<{ processChannelPhoto?: (image: Blob) => Promise<Blob> }>()
 const channelCreateFormStore = useChannelCreateFormStore()
-const emit = defineEmits<{ serverCreate: [] }>()
+const serverStore = useServerStore()
+const emit = defineEmits<{ channelCreate: [] }>()
 const error = ref('')
 const channelPhotoSrc = computed(() => channelCreateFormStore.form.photo ? URL.createObjectURL(channelCreateFormStore.form.photo) : undefined)
 
 async function submitChannelCreate() {
   error.value = (await channelCreateFormStore.submitForm()) || ''
   if (!error.value) {
-    emit('serverCreate')
+    emit('channelCreate')
   }
 }
 
 async function onFileLoad(file: Blob) {
   channelCreateFormStore.form.photo = processChannelPhoto ? await processChannelPhoto(file) : file
 }
+
+onMounted(() => {
+  channelCreateFormStore.form.serverId = serverStore.selectedId
+})
 </script>
 
 <template>

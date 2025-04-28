@@ -1,15 +1,17 @@
 <script setup lang='ts'>
-import { Server, ServerTile } from '@/entities';
+import { Server, ServerTile, useChannelStore } from '@/entities';
 import { useServerStore } from '@/entities';
-import { AddButton, DefaultButton } from '@/shared';
+import { DefaultButton } from '@/shared';
 import { nextTick, onMounted, onUnmounted, ref, useTemplateRef } from 'vue';
 import { useRouter } from 'vue-router';
 
 const serversStore = useServerStore()
+const channelStore = useChannelStore()
 const router = useRouter()
 const contextMenuRef = useTemplateRef('context-menu')
 const isContextMenuOpen = ref(false)
 const contextMenuTargetServer = ref<Server | null>(null)
+let updateIntervalId: number
 
 function openContextMenu(event: MouseEvent) {
   isContextMenuOpen.value = true
@@ -26,12 +28,24 @@ function onClickGlobal(event: MouseEvent) {
   isContextMenuOpen.value = false
 }
 
-onMounted(() => {
+function update() {
   serversStore.updateServers()
+
+}
+
+function selectServer(server: Server) {
+  serversStore.selectServer(server.id)
+  channelStore.updateChannels(server.id)
+}
+
+onMounted(() => {
+  update()
+  updateIntervalId = setInterval(update, 10000)
   addEventListener('click', onClickGlobal)
 })
 
 onUnmounted(() => {
+  clearInterval(updateIntervalId)
   removeEventListener('click', onClickGlobal)
 })
 
@@ -39,10 +53,9 @@ onUnmounted(() => {
 
 <template>
   <div class="server-list-widget">
-    <AddButton @click="router.push({ name: 'server-create' })" class="add-server-button"></AddButton>
     <ServerTile v-for="server in serversStore.servers" class="server-tile"
       :class="{ selected: server.id === serversStore.selectedId }" :key="server.id" :server="server"
-      @click="() => serversStore.selectServer(server.id)"
+      @click="() => selectServer(server)"
       @contextmenu.prevent="(event) => { openContextMenu(event); contextMenuTargetServer = server }">
     </ServerTile>
 
