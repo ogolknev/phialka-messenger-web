@@ -1,11 +1,11 @@
 <script setup lang='ts'>
 import { Server, ServerTile } from '@/entities';
-import { useServersStore } from '@/entities';
+import { useServerStore } from '@/entities';
 import { AddButton, DefaultButton } from '@/shared';
 import { nextTick, onMounted, onUnmounted, ref, useTemplateRef } from 'vue';
 import { useRouter } from 'vue-router';
 
-const serversStore = useServersStore()
+const serversStore = useServerStore()
 const router = useRouter()
 const contextMenuRef = useTemplateRef('context-menu')
 const isContextMenuOpen = ref(false)
@@ -39,10 +39,10 @@ onUnmounted(() => {
 
 <template>
   <div class="server-list">
-    <AddButton @click="router.push('server-create')" class="add-server-button"></AddButton>
+    <AddButton @click="router.push({ name: 'server-create' })" class="add-server-button"></AddButton>
     <ServerTile v-for="server in serversStore.servers" class="server-tile"
-      :class="{ selected: server.id === serversStore.selected?.id }" :key="server.id" :server="server"
-      @click="() => serversStore.selectServer(server)"
+      :class="{ selected: server.id === serversStore.selectedId }" :key="server.id" :server="server"
+      @click="() => serversStore.selectServer(server.id)"
       @contextmenu.prevent="(event) => { openContextMenu(event); contextMenuTargetServer = server }">
     </ServerTile>
 

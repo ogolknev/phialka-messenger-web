@@ -3,11 +3,11 @@ import { DefaultButton, TextInput, TextArea, ImageInput } from '@/shared';
 import { useServerEditFormStore } from '@/features';
 import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { useServersStore } from '@/entities';
+import { useServerStore } from '@/entities';
 
 const { processServerPhoto } = defineProps<{ processServerPhoto?: (image: Blob) => Promise<Blob> }>()
 const serverEditFormStore = useServerEditFormStore()
-const serversStore = useServersStore()
+const serversStore = useServerStore()
 const emit = defineEmits<{ serverEdit: [] }>()
 const error = ref('')
 const serverPhotoSrc = computed(() => serverEditFormStore.form.photo ? URL.createObjectURL(serverEditFormStore.form.photo) : undefined)

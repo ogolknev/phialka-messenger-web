@@ -1,6 +1,6 @@
-import type { ApiServer } from '@/shared/api/types'
+import type { ApiServer } from '@/shared'
+import { adaptApiFile } from '@/entities/uploaded-files/@x/server'
 import { Server } from '../../model/server'
-import { adaptApiFile } from '@/entities/uploaded-files'
 
 export function adaptApiServer(apiServer: ApiServer): Server {
   return new Server({

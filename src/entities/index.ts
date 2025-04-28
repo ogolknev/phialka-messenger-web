@@ -1,6 +1,6 @@
-import { Server } from './servers'
+import { Server } from './server'
 
-export { useServersStore } from './servers'
-export { ServerTile } from './servers'
-export { adaptApiServer } from './servers'
+export { useServerStore } from './server'
+export { ServerTile } from './server'
+export { adaptApiServer } from './server'
 export { Server }

@@ -3,17 +3,17 @@ import { ref } from 'vue'
 import type { Server } from './server'
 import { getServers } from '../api/get-servers'
 
-export const useServersStore = defineStore('servers', () => {
+export const useServerStore = defineStore('server', () => {
   const loading = ref(false)
   const servers = ref<Server[]>([])
-  const selected = ref<Server | null>(null)
+  const selectedId = ref('')
 
   function resetServers() {
     servers.value = []
   }
 
   function resetSelected() {
-    selected.value = null
+    selectedId.value = ''
   }
 
   async function updateServers() {
@@ -26,8 +26,8 @@ export const useServersStore = defineStore('servers', () => {
     }
   }
 
-  function selectServer(server: Server) {
-    selected.value = server
+  function selectServer(serverId: string) {
+    selectedId.value = serverId
   }
 
   function getServerById(serverId: string) {
@@ -37,7 +37,7 @@ export const useServersStore = defineStore('servers', () => {
   return {
     loading,
     servers,
-    selected,
+    selectedId,
     resetServers,
     resetSelected,
     updateServers,

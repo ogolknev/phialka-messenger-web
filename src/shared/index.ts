@@ -3,7 +3,7 @@ import { apiClient } from './api/client/client'
 
 export { apiClient }
 
-export type { ApiFile, ApiProfile } from './api'
+export type { ApiFile, ApiProfile, ApiChannel, ApiServer } from './api'
 export { HTTPError } from './api'
 
 export { dateToString } from './utils'

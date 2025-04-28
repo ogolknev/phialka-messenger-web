@@ -1,12 +1,12 @@
-import type { UploadedFile } from '@/entities/uploaded-files/@x/servers'
+import type { UploadedFile } from '@/entities/uploaded-files/@x/server'
 
 export class Server {
-  readonly id: string
-  readonly ownerId: string
-  readonly name: string
-  readonly description: string
-  readonly photo: UploadedFile | null
-  readonly createdAt: Date | null
+  id: string
+  ownerId: string
+  name: string
+  description: string
+  photo: UploadedFile | null
+  createdAt: Date | null
 
   constructor(parameters: Server) {
     this.id = parameters.id
