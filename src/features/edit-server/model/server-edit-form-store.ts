@@ -22,7 +22,6 @@ export const useServerEditFormStore = defineStore('server-edit-form', () => {
   function validateForm() {
     if (!form.serverId) return 'First choose a server'
     if (!form.name) return 'Server name required'
-    if (!form.description) return 'Server description required'
   }
 
   async function submitForm() {

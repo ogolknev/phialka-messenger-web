@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { DefaultButton, TextInput, TextArea, ImageInput } from '@/shared';
-import { useServerEditFormStore } from '@/features';
+import { useServerEditFormStore, deleteServer } from '@/features';
 import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useServerStore } from '@/entities';
@@ -12,8 +12,10 @@ const emit = defineEmits<{ serverEdit: [] }>()
 const error = ref('')
 const serverPhotoSrc = computed(() => serverEditFormStore.form.photo ? URL.createObjectURL(serverEditFormStore.form.photo) : undefined)
 const route = useRoute()
+let isPhotoEdited = false
 
 async function submitServerEdit() {
+  if (!isPhotoEdited) serverEditFormStore.form.photo = null
   error.value = (await serverEditFormStore.submitForm()) || ''
   if (!error.value) {
     emit('serverEdit')
@@ -22,6 +24,12 @@ async function submitServerEdit() {
 
 async function onFileLoad(file: Blob) {
   serverEditFormStore.form.photo = processServerPhoto ? await processServerPhoto(file) : file
+  isPhotoEdited = true
+}
+
+async function onServerDelete() {
+  await deleteServer(route.params.id as string)
+  emit('serverEdit')
 }
 
 onMounted(async () => {
@@ -44,6 +52,7 @@ onMounted(async () => {
       <div v-if="error" class="errors">{{ error }}</div>
 
       <div class="button-container">
+        <DefaultButton @click="onServerDelete">Delete</DefaultButton>
         <DefaultButton type='submit'>Save</DefaultButton>
       </div>
     </form>
@@ -65,5 +74,11 @@ onMounted(async () => {
 .photo-input {
   width: 5rem;
   aspect-ratio: 1;
+}
+
+.button-container {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: var(--gap-size-m);
 }
 </style>
