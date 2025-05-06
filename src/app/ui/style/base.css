@@ -1,0 +1,47 @@
+:root {
+  --clr-black: #030303;
+  --clr-black-light: #141414;
+  --crl-gray-dark: #222222;
+  --clr-gray: #444444;
+  --clr-gray-light: #bababa;
+  --clr-white: #fafafa;
+  --clr-accent: #ddb0f9;
+  --clr-success: #72cd92;
+  --clr-warning: #eead71;
+  --clr-danger: #fd9ec0;
+
+  --clr-border: var(--clr-gray);
+  --clr-bg-dark: var(--clr-black);
+  --clr-bg: var(--clr-black-light);
+  --clr-bg-light: var(--crl-gray-dark);
+  --clr-fg: var(--clr-white);
+  --clr-fg-dark: var(--clr-gray-light);
+  --clr-icon: var(--clr-gray-light);
+}
+
+:root {
+  --scale: 1;
+
+  --line-width-s: calc(0.094rem * var(--scale));
+  --line-width-m: calc(0.188rem * var(--scale));
+  --line-width-l: calc(0.313rem * var(--scale));
+
+  --font-size-xxs: calc(0.51rem * var(--scale));
+  --font-size-xs: calc(0.64rem * var(--scale));
+  --font-size-s: calc(0.8rem * var(--scale));
+  --font-size-m: calc(1rem * var(--scale));
+  --font-size-l: calc(1.25rem * var(--scale));
+  --font-size-xl: calc(1.56rem * var(--scale));
+  --font-size-xxl: calc(1.95rem * var(--scale));
+
+  --gap-size-xs: calc(0.51rem * var(--scale));
+  --gap-size-s: calc(0.64rem * var(--scale));
+  --gap-size-m: calc(0.8rem * var(--scale));
+  --gap-size-l: calc(1rem * var(--scale));
+  --gap-size-xl: calc(1.25rem * var(--scale));
+
+  --border-radius-xs: calc(0.125rem * var(--scale));
+  --border-radius-s: calc(0.25rem * var(--scale));
+  --border-radius-m: calc(0.5rem * var(--scale));
+  --border-radius-l: calc(1rem * var(--scale));
+}

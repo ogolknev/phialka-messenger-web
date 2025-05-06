@@ -1,0 +1,14 @@
+@import './base.css';
+@import './normalize.css';
+
+body {
+  font-family: monospace;
+  color: var(--clr-fg);
+  background-color: var(--clr-bg-dark);
+}
+
+.tile {
+  border: var(--line-width-s) solid var(--clr-border);
+  border-radius: var(--border-radius-m);
+  background-color: var(--clr-bg-light);
+}

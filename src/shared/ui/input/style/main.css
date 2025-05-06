@@ -1,0 +1,11 @@
+.input {
+  padding: var(--gap-size-s);
+  padding-inline: var(--gap-size-m);
+  font-size: var(--font-size-m);
+}
+
+.input:focus,
+.input:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+}
