@@ -1,6 +1,6 @@
-<script setup lang='ts'>
-import DefaultButton from './DefaultButton.vue';
-import { AddIcon } from '../icon';
+<script setup lang="ts">
+import DefaultButton from './DefaultButton.vue'
+import { AddIcon } from '../icon'
 </script>
 
 <template>

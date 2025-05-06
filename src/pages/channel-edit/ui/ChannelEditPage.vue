@@ -1,12 +1,11 @@
-<script setup lang='ts'>
-import { ChannelEditWidget, CropImageWidget } from '@/widgets';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+<script setup lang="ts">
+import { ChannelEditWidget, CropImageWidget } from '@/widgets'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const channelPhotoSrc = ref('')
 let resolveProcessChannelrPhoto: (value: Blob) => void
-
 
 function onChannelEdit() {
   router.back()
@@ -23,15 +22,17 @@ function onCrop(croppedPhoto: Blob) {
   resolveProcessChannelrPhoto(croppedPhoto)
   channelPhotoSrc.value = ''
 }
-
 </script>
 
 <template>
   <div class="channel-edit-page">
     <div class="form-container tile">
-      <header>Create Channel</header>
-      <ChannelEditWidget class="channel-edit-widget" @channel-edit="onChannelEdit"
-        :process-channel-photo="processChannelPhoto"></ChannelEditWidget>
+      <header>Edit Channel</header>
+      <ChannelEditWidget
+        class="channel-edit-widget"
+        @channel-edit="onChannelEdit"
+        :process-channel-photo="processChannelPhoto"
+      ></ChannelEditWidget>
     </div>
 
     <Teleport v-if="channelPhotoSrc" to="#overlay">

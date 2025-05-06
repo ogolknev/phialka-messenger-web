@@ -1,12 +1,11 @@
-<script setup lang='ts'>
-import { ServerCreateWidget, CropImageWidget } from '@/widgets';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+<script setup lang="ts">
+import { ServerCreateWidget, CropImageWidget } from '@/widgets'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const serverPhotoSrc = ref('')
 let resolveProcessServerPhoto: (value: Blob) => void
-
 
 function onServerCreate() {
   router.back()
@@ -23,15 +22,17 @@ function onCrop(croppedPhoto: Blob) {
   resolveProcessServerPhoto(croppedPhoto)
   serverPhotoSrc.value = ''
 }
-
 </script>
 
 <template>
   <div class="server-create-page">
     <div class="form-container tile">
       <header>Create Server</header>
-      <ServerCreateWidget class="server-create-widget" @server-create="onServerCreate"
-        :process-server-photo="processServerPhoto"></ServerCreateWidget>
+      <ServerCreateWidget
+        class="server-create-widget"
+        @server-create="onServerCreate"
+        :process-server-photo="processServerPhoto"
+      ></ServerCreateWidget>
     </div>
 
     <Teleport v-if="serverPhotoSrc" to="#overlay">

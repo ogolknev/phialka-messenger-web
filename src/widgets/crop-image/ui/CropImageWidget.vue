@@ -1,12 +1,12 @@
-<script setup lang='ts'>
-import { DefaultButton } from '@/shared';
-import Cropper from 'cropperjs';
-import { onMounted } from 'vue';
+<script setup lang="ts">
+import { DefaultButton } from '@/shared'
+import Cropper from 'cropperjs'
+import { onMounted } from 'vue'
 
-const { src, aspectRatio = 1 } = defineProps<{ src: string, aspectRatio?: number }>()
+const { src, aspectRatio = 1 } = defineProps<{ src: string; aspectRatio?: number }>()
 const emit = defineEmits<{ crop: [image: Blob] }>()
 
-let cropper: Cropper;
+let cropper: Cropper
 
 async function onCrop() {
   const image = cropper.getCropperImage()
@@ -16,8 +16,8 @@ async function onCrop() {
   if (!selection) throw new Error("Cropper hasn't selection")
 
   const selectionCanvas = await selection.$toCanvas({
-    width: selection.width / image.$image.width * image.$image.naturalWidth,
-    height: selection.height / image.$image.height * image.$image.naturalHeight
+    width: (selection.width / image.$image.width) * image.$image.naturalWidth,
+    height: (selection.height / image.$image.height) * image.$image.naturalHeight,
   })
   selectionCanvas?.toBlob((image) => {
     if (image) emit('crop', image)
@@ -58,7 +58,7 @@ onMounted(() => {
 
 <template>
   <div class="crop-image-widget tile modal">
-    <img id="cropper-image" :src="src">
+    <img id="cropper-image" :src="src" />
     <div class="button-container">
       <DefaultButton @click="onCrop">Save</DefaultButton>
     </div>

@@ -1,12 +1,11 @@
-<script setup lang='ts'>
-import { ServerEditWidget, CropImageWidget } from '@/widgets';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+<script setup lang="ts">
+import { ServerEditWidget, CropImageWidget } from '@/widgets'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const serverPhotoSrc = ref('')
 let resolveProcessServerPhoto: (value: Blob) => void
-
 
 function onServerEdit() {
   router.back()
@@ -23,15 +22,17 @@ function onCrop(croppedPhoto: Blob) {
   resolveProcessServerPhoto(croppedPhoto)
   serverPhotoSrc.value = ''
 }
-
 </script>
 
 <template>
   <div class="server-edit-page">
     <div class="form-container tile">
       <header>Edit Server</header>
-      <ServerEditWidget class="server-edit-widget" @server-edit="onServerEdit"
-        :process-server-photo="processServerPhoto"></ServerEditWidget>
+      <ServerEditWidget
+        class="server-edit-widget"
+        @server-edit="onServerEdit"
+        :process-server-photo="processServerPhoto"
+      ></ServerEditWidget>
     </div>
 
     <Teleport v-if="serverPhotoSrc" to="#overlay">

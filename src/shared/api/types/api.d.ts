@@ -1935,8 +1935,8 @@ export interface operations {
     };
     get_messages_from_chat_channels__channel_id__messages_get: {
         parameters: {
-            query: {
-                sequence: number;
+            query?: {
+                sequence?: number | null;
                 count?: number | null;
             };
             header?: never;

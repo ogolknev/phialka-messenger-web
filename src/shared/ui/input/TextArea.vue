@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, useTemplateRef } from 'vue'
 
-
 const {
   rows = 1,
   maxRows = 1,
@@ -24,8 +23,8 @@ function autoResize() {
   const bottomPadding = parseFloat(computedStyle.paddingBottom || '0')
   const maxHeight = lineHeight * Math.max(rows, maxRows) + topPadding + bottomPadding
 
-
-  textarea.style.height = Math.min(maxHeight, textarea.scrollHeight) + topBorderWidth + bottomBorderWidth + 'px'
+  textarea.style.height =
+    Math.min(maxHeight, textarea.scrollHeight) + topBorderWidth + bottomBorderWidth + 'px'
   textarea.scrollTop = textarea.scrollHeight
 }
 
@@ -35,8 +34,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <textarea ref="textarea" v-model="model" class="text-area input tile" :rows="rows" @input="autoResize"
-    :placeholder="placeholder"></textarea>
+  <textarea
+    ref="textarea"
+    v-model="model"
+    class="text-area input tile"
+    :rows="rows"
+    @input="autoResize"
+    :placeholder="placeholder"
+  ></textarea>
 </template>
 
 <style scoped>

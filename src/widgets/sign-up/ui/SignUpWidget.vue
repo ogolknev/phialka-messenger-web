@@ -16,13 +16,34 @@ async function submitSignUp() {
 <template>
   <div class="sign-up-widget">
     <form class="sign-up-form" @submit.prevent="submitSignUp">
-      <TextInput v-model="signUpFormStore.form.name" class="name-input" placeholder="Name"></TextInput>
+      <TextInput
+        v-model="signUpFormStore.form.name"
+        class="name-input"
+        placeholder="Name"
+      ></TextInput>
       <TextInput v-model="signUpFormStore.form.tag" class="tag-input" placeholder="Tag"></TextInput>
-      <TextArea v-model="signUpFormStore.form.description" class="description-input" :max-rows="4"
-        placeholder="Description"></TextArea>
-      <DateInput v-model="signUpFormStore.form.birthdate" class="birthdate-input" placeholder="Birthdate"></DateInput>
-      <TextInput v-model="signUpFormStore.form.username" class="username-input" placeholder="Username"></TextInput>
-      <TextInput v-model="signUpFormStore.form.password" class="password-input" type="password" placeholder="Password">
+      <TextArea
+        v-model="signUpFormStore.form.description"
+        class="description-input"
+        :max-rows="4"
+        placeholder="Description"
+      ></TextArea>
+      <DateInput
+        v-model="signUpFormStore.form.birthdate"
+        class="birthdate-input"
+        placeholder="Birthdate"
+      ></DateInput>
+      <TextInput
+        v-model="signUpFormStore.form.username"
+        class="username-input"
+        placeholder="Username"
+      ></TextInput>
+      <TextInput
+        v-model="signUpFormStore.form.password"
+        class="password-input"
+        type="password"
+        placeholder="Password"
+      >
       </TextInput>
 
       <div v-if="error" class="errors">{{ error }}</div>

@@ -1,6 +1,6 @@
-<script setup lang='ts'>
-import { useTemplateRef } from 'vue';
-import { DefaultImage } from '../image';
+<script setup lang="ts">
+import { useTemplateRef } from 'vue'
+import { DefaultImage } from '../image'
 
 const { src } = defineProps<{ src?: string }>()
 const emit = defineEmits<{ fileload: [file: Blob] }>()
@@ -14,7 +14,7 @@ function onChange(event: Event) {
 
 <template>
   <div class="image-input tile" tabindex="0" @click="() => input?.click()">
-    <input ref="input" type="file" accept="image/*" @change="onChange">
+    <input ref="input" type="file" accept="image/*" @change="onChange" />
     <DefaultImage class="image" :src="src"></DefaultImage>
   </div>
 </template>
@@ -32,7 +32,7 @@ function onChange(event: Event) {
 }
 
 .image {
-  width: 80%
+  width: 80%;
 }
 
 input {

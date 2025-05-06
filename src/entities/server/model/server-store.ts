@@ -4,7 +4,6 @@ import type { Server } from './server'
 import { getServers } from '../api/get-servers'
 
 export const useServerStore = defineStore('server', () => {
-  const loading = ref(false)
   const servers = ref<Server[]>([])
   const selectedId = ref('')
 
@@ -12,17 +11,18 @@ export const useServerStore = defineStore('server', () => {
     servers.value = []
   }
 
-  function resetSelected() {
+  function resetSelectedId() {
     selectedId.value = ''
   }
 
+  const isUpdateServersRunning = ref(false)
   async function updateServers() {
     try {
-      loading.value = true
+      isUpdateServersRunning.value = true
 
       servers.value = await getServers()
     } finally {
-      loading.value = false
+      isUpdateServersRunning.value = false
     }
   }
 
@@ -35,11 +35,11 @@ export const useServerStore = defineStore('server', () => {
   }
 
   return {
-    loading,
+    isUpdateServersRunning,
     servers,
     selectedId,
     resetServers,
-    resetSelected,
+    resetSelectedId,
     updateServers,
     selectServer,
     getServerById,

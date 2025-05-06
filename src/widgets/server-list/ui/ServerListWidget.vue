@@ -1,9 +1,9 @@
-<script setup lang='ts'>
-import { Server, ServerTile, useChannelStore } from '@/entities';
-import { useServerStore } from '@/entities';
-import { DefaultButton } from '@/shared';
-import { nextTick, onMounted, onUnmounted, ref, useTemplateRef } from 'vue';
-import { useRouter } from 'vue-router';
+<script setup lang="ts">
+import { Server, ServerTile, useChannelStore } from '@/entities'
+import { useServerStore } from '@/entities'
+import { DefaultButton } from '@/shared'
+import { nextTick, onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
+import { useRouter } from 'vue-router'
 
 const serversStore = useServerStore()
 const channelStore = useChannelStore()
@@ -30,7 +30,6 @@ function onClickGlobal(event: MouseEvent) {
 
 function update() {
   serversStore.updateServers()
-
 }
 
 function selectServer(server: Server) {
@@ -48,20 +47,31 @@ onUnmounted(() => {
   clearInterval(updateIntervalId)
   removeEventListener('click', onClickGlobal)
 })
-
 </script>
 
 <template>
   <div class="server-list-widget">
-    <ServerTile v-for="server in serversStore.servers" class="server-tile"
-      :class="{ selected: server.id === serversStore.selectedId }" :key="server.id" :server="server"
+    <ServerTile
+      v-for="server in serversStore.servers"
+      class="server-tile"
+      :class="{ selected: server.id === serversStore.selectedId }"
+      :key="server.id"
+      :server="server"
       @click="() => selectServer(server)"
-      @contextmenu.prevent="(event) => { openContextMenu(event); contextMenuTargetServer = server }">
+      @contextmenu.prevent="
+        (event) => {
+          openContextMenu(event)
+          contextMenuTargetServer = server
+        }
+      "
+    >
     </ServerTile>
 
     <Teleport v-if="isContextMenuOpen" to="#overlay">
       <div ref="context-menu" class="context-menu tile touchable">
-        <DefaultButton @click="router.push({ name: 'server-edit', params: { id: contextMenuTargetServer?.id } })">Edit
+        <DefaultButton
+          @click="router.push({ name: 'server-edit', params: { id: contextMenuTargetServer?.id } })"
+          >Edit
         </DefaultButton>
       </div>
     </Teleport>

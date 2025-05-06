@@ -1,9 +1,8 @@
-<script setup lang='ts'>
-import { DefaultThumbnail } from '@/shared';
-import type { Server } from '../model/server';
+<script setup lang="ts">
+import { DefaultThumbnail } from '@/shared'
+import type { Server } from '../model/server'
 
 const { server } = defineProps<{ server: Server }>()
-
 </script>
 
 <template>

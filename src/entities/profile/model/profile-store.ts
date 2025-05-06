@@ -4,8 +4,8 @@ import type { Profile } from './profile'
 import { getProfile } from '../api'
 
 export const useProfileStore = defineStore('profile', () => {
-  const loading = ref(false)
   const profile = reactive<Profile>({
+    id: '',
     name: '',
     tag: '',
     description: '',
@@ -14,6 +14,7 @@ export const useProfileStore = defineStore('profile', () => {
   })
 
   function resetProfile() {
+    profile.id = ''
     profile.name = ''
     profile.tag = ''
     profile.description = ''
@@ -21,24 +22,26 @@ export const useProfileStore = defineStore('profile', () => {
     profile.photo = null
   }
 
+  const isUpdateProfileRunning = ref(false)
   async function updateProfile() {
     try {
-      loading.value = true
+      isUpdateProfileRunning.value = true
 
       const fetchedProfile = await getProfile()
 
+      profile.id = fetchedProfile.id
       profile.name = fetchedProfile.name
       profile.tag = fetchedProfile.tag
       profile.description = fetchedProfile.description
       profile.birthdate = fetchedProfile.birthdate
       profile.photo = fetchedProfile.photo
     } finally {
-      loading.value = false
+      isUpdateProfileRunning.value = false
     }
   }
 
   return {
-    loading,
+    isUpdateProfileRunning,
     profile,
     resetProfile,
     updateProfile,

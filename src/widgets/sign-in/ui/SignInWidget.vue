@@ -18,8 +18,17 @@ async function submitSignIn() {
 <template>
   <div class="sign-in-widget">
     <form class="sign-in-form" @submit.prevent="submitSignIn">
-      <TextInput v-model="signInFormStore.form.username" class="username-input" placeholder="Username"></TextInput>
-      <TextInput v-model="signInFormStore.form.password" class="password-input" type="password" placeholder="Password">
+      <TextInput
+        v-model="signInFormStore.form.username"
+        class="username-input"
+        placeholder="Username"
+      ></TextInput>
+      <TextInput
+        v-model="signInFormStore.form.password"
+        class="password-input"
+        type="password"
+        placeholder="Password"
+      >
       </TextInput>
 
       <div v-if="error" class="errors">{{ error }}</div>

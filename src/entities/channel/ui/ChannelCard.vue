@@ -1,9 +1,8 @@
-<script setup lang='ts'>
-import { DefaultThumbnail } from '@/shared';
-import type { Channel } from '../model/channel';
+<script setup lang="ts">
+import { DefaultThumbnail } from '@/shared'
+import type { Channel } from '../model/channel'
 
 const { channel } = defineProps<{ channel: Channel }>()
-
 </script>
 
 <template>

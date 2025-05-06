@@ -1,15 +1,21 @@
-<script setup lang='ts'>
-import { DefaultButton, TextInput, TextArea, ImageInput } from '@/shared';
-import { useChannelCreateFormStore } from '@/features';
-import { computed, onMounted, ref } from 'vue';
-import { useServerStore } from '@/entities';
+<script setup lang="ts">
+import { DefaultButton, TextInput, TextArea, ImageInput } from '@/shared'
+import { useChannelCreateFormStore } from '@/features'
+import { computed, onMounted, ref } from 'vue'
+import { useServerStore } from '@/entities'
 
-const { processChannelPhoto } = defineProps<{ processChannelPhoto?: (image: Blob) => Promise<Blob> }>()
+const { processChannelPhoto } = defineProps<{
+  processChannelPhoto?: (image: Blob) => Promise<Blob>
+}>()
 const channelCreateFormStore = useChannelCreateFormStore()
 const serverStore = useServerStore()
 const emit = defineEmits<{ channelCreate: [] }>()
 const error = ref('')
-const channelPhotoSrc = computed(() => channelCreateFormStore.form.photo ? URL.createObjectURL(channelCreateFormStore.form.photo) : undefined)
+const channelPhotoSrc = computed(() =>
+  channelCreateFormStore.form.photo
+    ? URL.createObjectURL(channelCreateFormStore.form.photo)
+    : undefined,
+)
 
 async function submitChannelCreate() {
   error.value = (await channelCreateFormStore.submitForm()) || ''
@@ -31,14 +37,21 @@ onMounted(() => {
   <div class="channel-create-widget">
     <form class="channel-create-form" @submit.prevent="submitChannelCreate">
       <ImageInput class="photo-input" :src="channelPhotoSrc" @fileload="onFileLoad"></ImageInput>
-      <TextInput v-model="channelCreateFormStore.form.name" class="name-input" placeholder="Name"></TextInput>
-      <TextArea v-model="channelCreateFormStore.form.description" class="description-input"
-        placeholder="Description"></TextArea>
+      <TextInput
+        v-model="channelCreateFormStore.form.name"
+        class="name-input"
+        placeholder="Name"
+      ></TextInput>
+      <TextArea
+        v-model="channelCreateFormStore.form.description"
+        class="description-input"
+        placeholder="Description"
+      ></TextArea>
 
       <div v-if="error" class="errors">{{ error }}</div>
 
       <div class="button-container">
-        <DefaultButton type='submit'>Save</DefaultButton>
+        <DefaultButton type="submit">Save</DefaultButton>
       </div>
     </form>
   </div>

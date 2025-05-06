@@ -4,6 +4,7 @@ import { adaptApiFile } from '@/entities/uploaded-files'
 
 export function adaptApiProfile(apiProfile: ApiProfile): Profile {
   return {
+    id: apiProfile.user_id,
     name: apiProfile.name,
     tag: apiProfile.tag,
     description: apiProfile.description ?? '',

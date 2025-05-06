@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ServerListWidget, ChannelListWidget } from '@/widgets';
-import { AddButton } from '@/shared';
-import { useRouter } from 'vue-router';
+import { ServerListWidget, ChannelListWidget, MessageList } from '@/widgets'
+import { AddButton } from '@/shared'
+import { useRouter } from 'vue-router'
+import { MessageInput } from '@/features'
 
 const router = useRouter()
-
 </script>
 
 <template>
@@ -16,6 +16,10 @@ const router = useRouter()
     <section class="channel-list-section">
       <AddButton class="add-button" @click="router.push({ name: 'channel-create' })"></AddButton>
       <ChannelListWidget class="channel-list tile"></ChannelListWidget>
+    </section>
+    <section class="chat-section">
+      <MessageList class="message-list"></MessageList>
+      <MessageInput></MessageInput>
     </section>
   </div>
 </template>
@@ -33,6 +37,10 @@ section {
   display: flex;
   flex-flow: column nowrap;
   gap: var(--gap-size-xs);
+}
+
+.chat-section {
+  overflow-y: auto;
 }
 
 .add-button {
@@ -57,5 +65,14 @@ section {
   flex-flow: column nowrap;
   gap: var(--gap-size-s);
   overflow-y: auto;
+}
+
+.chat-section {
+  display: grid;
+  grid-template-rows: 1fr 4rem;
+}
+
+.message-list {
+  padding-inline: 10%;
 }
 </style>

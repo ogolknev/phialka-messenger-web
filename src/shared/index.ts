@@ -3,7 +3,15 @@ import { apiClient } from './api/client/client'
 
 export { apiClient }
 
-export type { ApiFile, ApiProfile, ApiChannel, ApiServer } from './api'
+export type {
+  ApiFile,
+  ApiProfile,
+  ApiChannel,
+  ApiServer,
+  ApiMessage,
+  ApiAttachment,
+  ApiUser,
+} from './api'
 export { HTTPError } from './api'
 
 export { dateToString } from './utils'
@@ -12,6 +20,7 @@ export { fileToBase64 }
 export {
   DefaultButton,
   AddButton,
+  AttachmentButton,
   TextArea,
   TextInput,
   DateInput,

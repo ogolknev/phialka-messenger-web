@@ -1,12 +1,11 @@
-<script setup lang='ts'>
-import { ChannelCreateWidget, CropImageWidget } from '@/widgets';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+<script setup lang="ts">
+import { ChannelCreateWidget, CropImageWidget } from '@/widgets'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const channelPhotoSrc = ref('')
 let resolveProcessChannelrPhoto: (value: Blob) => void
-
 
 function onChannelCreate() {
   router.back()
@@ -23,15 +22,17 @@ function onCrop(croppedPhoto: Blob) {
   resolveProcessChannelrPhoto(croppedPhoto)
   channelPhotoSrc.value = ''
 }
-
 </script>
 
 <template>
   <div class="channel-create-page">
     <div class="form-container tile">
       <header>Create Channel</header>
-      <ChannelCreateWidget class="channel-create-widget" @channel-create="onChannelCreate"
-        :process-channel-photo="processChannelPhoto"></ChannelCreateWidget>
+      <ChannelCreateWidget
+        class="channel-create-widget"
+        @channel-create="onChannelCreate"
+        :process-channel-photo="processChannelPhoto"
+      ></ChannelCreateWidget>
     </div>
 
     <Teleport v-if="channelPhotoSrc" to="#overlay">

@@ -11,8 +11,11 @@ const router = useRouter()
   <div class="main-header-widget tile">
     <DefaultButton class="menu-button">Menu</DefaultButton>
     <span class="title" @click="router.push({ name: 'messenger' })">Phialka</span>
-    <DefaultThumbnail v-if="profileStore.profile.photo?.url" class="profile-photo"
-      :src="profileStore.profile.photo?.url"></DefaultThumbnail>
+    <DefaultThumbnail
+      v-if="profileStore.profile.photo?.url"
+      class="profile-photo"
+      :src="profileStore.profile.photo?.url"
+    ></DefaultThumbnail>
     <DefaultButton v-else class="sign-in-button">Sign In</DefaultButton>
   </div>
 </template>

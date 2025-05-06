@@ -1,8 +1,8 @@
-<script setup lang='ts'>
-import { ChannelCard, useChannelStore, useServerStore, type Channel } from '@/entities';
-import { DefaultButton } from '@/shared';
-import { nextTick, onMounted, onUnmounted, ref, useTemplateRef } from 'vue';
-import { useRouter } from 'vue-router';
+<script setup lang="ts">
+import { ChannelCard, useChannelStore, useServerStore, type Channel } from '@/entities'
+import { DefaultButton } from '@/shared'
+import { nextTick, onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
+import { useRouter } from 'vue-router'
 
 const channelStore = useChannelStore()
 const serverStore = useServerStore()
@@ -41,19 +41,32 @@ onUnmounted(() => {
   clearInterval(updateIntervalId)
   removeEventListener('click', onClickGlobal)
 })
-
 </script>
 
 <template>
   <div class="channel-list-widget">
-    <ChannelCard v-for="channel in channelStore.channels" :key="channel.id" :channel="channel" class="channel-card"
+    <ChannelCard
+      v-for="channel in channelStore.channels"
+      :key="channel.id"
+      :channel="channel"
+      class="channel-card"
       :class="{ selected: channelStore.selectedId === channel.id }"
       @click="() => channelStore.selectChannel(channel.id)"
-      @contextmenu.prevent="(event) => { openContextMenu(event); contextMenuTargetChannel = channel }"></ChannelCard>
+      @contextmenu.prevent="
+        (event) => {
+          openContextMenu(event)
+          contextMenuTargetChannel = channel
+        }
+      "
+    ></ChannelCard>
 
     <Teleport v-if="isContextMenuOpen" to="#overlay">
       <div ref="context-menu" class="context-menu tile touchable">
-        <DefaultButton @click="router.push({ name: 'channel-edit', params: { id: contextMenuTargetChannel?.id } })">Edit
+        <DefaultButton
+          @click="
+            router.push({ name: 'channel-edit', params: { id: contextMenuTargetChannel?.id } })
+          "
+          >Edit
         </DefaultButton>
       </div>
     </Teleport>

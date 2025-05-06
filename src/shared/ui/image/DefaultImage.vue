@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ImageIcon } from '../icon';
+import { ImageIcon } from '../icon'
 const { src } = defineProps<{ src?: string }>()
-
 </script>
 
 <template>

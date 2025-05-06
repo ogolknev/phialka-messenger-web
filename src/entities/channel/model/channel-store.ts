@@ -4,7 +4,6 @@ import type { Channel } from './channel'
 import { getChannels } from '../api'
 
 export const useChannelStore = defineStore('channel', () => {
-  const loading = ref(false)
   const channels = ref<Channel[]>([])
   const selectedId = ref('')
 
@@ -12,17 +11,18 @@ export const useChannelStore = defineStore('channel', () => {
     channels.value = []
   }
 
-  function resetSelected() {
+  function resetSelectedId() {
     selectedId.value = ''
   }
 
+  const isUpdateChannelsRunning = ref(false)
   async function updateChannels(serverId: string) {
     try {
-      loading.value = true
+      isUpdateChannelsRunning.value = true
 
       channels.value = await getChannels({ serverId })
     } finally {
-      loading.value = false
+      isUpdateChannelsRunning.value = false
     }
   }
 
@@ -35,11 +35,11 @@ export const useChannelStore = defineStore('channel', () => {
   }
 
   return {
-    loading,
+    isUpdateChannelsRunning,
     channels,
     selectedId,
     resetChannels,
-    resetSelected,
+    resetSelectedId,
     updateChannels,
     selectChannel,
     getChannelById,
