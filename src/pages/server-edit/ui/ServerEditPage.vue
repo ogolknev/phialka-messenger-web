@@ -50,6 +50,9 @@ function onCrop(croppedPhoto: Blob) {
 
 .form-container {
   padding: var(--gap-size-m);
+  padding-inline: var(--gap-size-xl);
+  width: 80dvw;
+  max-width: 30rem;
   display: flex;
   flex-flow: column nowrap;
   gap: var(--gap-size-s);

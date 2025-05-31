@@ -26,6 +26,7 @@ async function loadOldMessages() {
 }
 
 async function loadNewMessages() {
+  if (!channelStore.selectedId) return
   const loadedMessagesCount = await channelMessagesStore.loadNewMessages(channelStore.selectedId)
   if (loadedMessagesCount) {
     console.log({ loadedMessagesCount })

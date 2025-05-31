@@ -2,9 +2,11 @@ import {
   AuthPage,
   ChannelCreatePage,
   ChannelEditPage,
+  DevPage,
   MessengerPage,
   ServerCreatePage,
   ServerEditPage,
+  ServerUsersEdit,
 } from '@/pages'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
@@ -15,6 +17,11 @@ export const router = createRouter({
       path: '',
       component: MessengerPage,
       name: 'messenger',
+    },
+    {
+      path: '/dev',
+      component: DevPage,
+      name: 'dev',
     },
     {
       path: '/auth',
@@ -30,6 +37,11 @@ export const router = createRouter({
       path: '/server/:id/edit',
       component: ServerEditPage,
       name: 'server-edit',
+    },
+    {
+      path: '/server/:id/users',
+      component: ServerUsersEdit,
+      name: 'server-users-edit',
     },
     {
       path: '/channel/create',

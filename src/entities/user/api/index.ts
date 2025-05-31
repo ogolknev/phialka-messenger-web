@@ -1,0 +1,1 @@
+export { adaptApiUser } from './adapters'

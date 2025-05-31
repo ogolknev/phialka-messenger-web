@@ -16,7 +16,9 @@ const router = useRouter()
       class="profile-photo"
       :src="profileStore.profile.photo?.url"
     ></DefaultThumbnail>
-    <DefaultButton v-else class="sign-in-button">Sign In</DefaultButton>
+    <DefaultButton v-else class="sign-in-button" @click="router.push({ name: 'auth' })"
+      >Sign In</DefaultButton
+    >
   </div>
 </template>
 

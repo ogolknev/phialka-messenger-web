@@ -12,3 +12,5 @@ export { ChannelCreateWidget } from './channel-create'
 export { ChannelEditWidget } from './channel-edit'
 
 export { MessageList } from './message-list'
+
+export * from './user-select'

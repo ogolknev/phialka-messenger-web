@@ -2,8 +2,9 @@
 import { DefaultButton, TextInput, TextArea, ImageInput } from '@/shared'
 import { useServerEditFormStore, deleteServer } from '@/features'
 import { computed, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { useServerStore } from '@/entities'
+import { useRoute, useRouter } from 'vue-router'
+import { useServerStore, type User } from '@/entities'
+import { getServerUsers } from '@/entities/server'
 
 const { processServerPhoto } = defineProps<{
   processServerPhoto?: (image: Blob) => Promise<Blob>
@@ -16,7 +17,9 @@ const serverPhotoSrc = computed(() =>
   serverEditFormStore.form.photo ? URL.createObjectURL(serverEditFormStore.form.photo) : undefined,
 )
 const route = useRoute()
+const router = useRouter()
 let isPhotoEdited = false
+const serverUsers = ref<User[]>([])
 
 async function submitServerEdit() {
   if (!isPhotoEdited) serverEditFormStore.form.photo = null
@@ -44,6 +47,7 @@ onMounted(async () => {
   serverEditFormStore.form.photo = server?.photo?.url
     ? await (await fetch(server.photo.url)).blob()
     : null
+  serverUsers.value = await getServerUsers(route.params.id as string)
 })
 </script>
 
@@ -60,9 +64,17 @@ onMounted(async () => {
         v-model="serverEditFormStore.form.description"
         class="description-input"
         placeholder="Description"
+        :rows="3"
       ></TextArea>
 
       <div v-if="error" class="errors">{{ error }}</div>
+
+      <div class="button-container">
+        <DefaultButton @click="router.push(`/server/${route.params.id}/users`)"
+          >Edit Users</DefaultButton
+        >
+        <span class="server-user-count">Users: {{ serverUsers.length }}</span>
+      </div>
 
       <div class="button-container">
         <DefaultButton @click="onServerDelete">Delete</DefaultButton>
@@ -93,5 +105,10 @@ onMounted(async () => {
   display: flex;
   flex-flow: row nowrap;
   gap: var(--gap-size-m);
+  align-items: center;
+}
+
+.server-user-count {
+  color: var(--clr-fg-dark);
 }
 </style>

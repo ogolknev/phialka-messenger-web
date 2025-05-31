@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ChannelCard, useChannelStore, useServerStore, type Channel } from '@/entities'
 import { DefaultButton } from '@/shared'
-import { nextTick, onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 const channelStore = useChannelStore()
@@ -28,8 +28,16 @@ function onClickGlobal(event: MouseEvent) {
 }
 
 function update() {
+  if (!serverStore.selectedId) return
   channelStore.updateChannels(serverStore.selectedId)
 }
+
+watch(
+  () => serverStore.selectedId,
+  () => {
+    channelStore.selectedId = ''
+  },
+)
 
 onMounted(() => {
   update()
