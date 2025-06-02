@@ -1,1 +1,0 @@
-export { MainHeaderWidget } from './ui'

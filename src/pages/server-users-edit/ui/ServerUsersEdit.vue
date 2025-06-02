@@ -24,7 +24,10 @@ async function serverUsersEdit(invited: User[]) {
   await Promise.all(
     invited.map((user) => {
       console.log(`User invited: ${user.name}`)
-      return inviteUserToServer({ serverId: route.params.id as string, userId: user.id })
+      return inviteUserToServer({
+        serverId: route.params.id as string,
+        userId: user.id,
+      })
     }),
   )
 

@@ -8,7 +8,10 @@ const content = ref('')
 const channelStore = useChannelStore()
 
 async function onSend() {
-  await sendChannelMessage({ channelId: channelStore.selectedId, body: { content: content.value } })
+  await sendChannelMessage({
+    channelId: channelStore.selectedId,
+    body: { content: content.value },
+  })
   content.value = ''
 }
 
@@ -39,7 +42,7 @@ async function onKeydown(event: KeyboardEvent) {
   <div class="message-input">
     <AttachmentButton class="attachment-button"></AttachmentButton>
     <TextArea v-model="content" class="textarea" @keydown="onKeydown"></TextArea>
-    <DefaultButton class="send-button" @click="onSend">Send</DefaultButton>
+    <DefaultButton class="send-button" @click="onSend"> Send </DefaultButton>
   </div>
 </template>
 

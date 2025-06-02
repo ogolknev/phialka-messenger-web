@@ -3,7 +3,10 @@ import { DefaultButton } from '@/shared'
 import Cropper from 'cropperjs'
 import { onMounted } from 'vue'
 
-const { src, aspectRatio = 1 } = defineProps<{ src: string; aspectRatio?: number }>()
+const { src, aspectRatio = 1 } = defineProps<{
+  src: string
+  aspectRatio?: number
+}>()
 const emit = defineEmits<{ crop: [image: Blob] }>()
 
 let cropper: Cropper

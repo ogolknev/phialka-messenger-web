@@ -67,12 +67,14 @@ onMounted(async () => {
         :rows="3"
       ></TextArea>
 
-      <div v-if="error" class="errors">{{ error }}</div>
+      <div v-if="error" class="errors">
+        {{ error }}
+      </div>
 
       <div class="button-container">
-        <DefaultButton @click="router.push(`/server/${route.params.id}/users`)"
-          >Edit Users</DefaultButton
-        >
+        <DefaultButton @click="router.push(`/server/${route.params.id}/users`)">
+          Edit Users
+        </DefaultButton>
         <span class="server-user-count">Users: {{ serverUsers.length }}</span>
       </div>
 

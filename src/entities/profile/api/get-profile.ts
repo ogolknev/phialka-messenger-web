@@ -3,7 +3,9 @@ import type { Profile } from '../model'
 import { adaptApiProfile } from './adapters'
 
 export async function getProfile(options?: { signal?: AbortSignal }): Promise<Profile> {
-  const { data, response } = await apiClient.GET('/profile', { signal: options?.signal })
+  const { data, response } = await apiClient.GET('/profile', {
+    signal: options?.signal,
+  })
   if (!response.ok) throw new HTTPError(response.statusText, response.status)
   if (!data) throw new Error("Can't fetch profile")
   return adaptApiProfile(data)

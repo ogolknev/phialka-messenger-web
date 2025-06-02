@@ -72,9 +72,13 @@ onUnmounted(() => {
       <div ref="context-menu" class="context-menu tile touchable">
         <DefaultButton
           @click="
-            router.push({ name: 'channel-edit', params: { id: contextMenuTargetChannel?.id } })
+            router.push({
+              name: 'channel-edit',
+              params: { id: contextMenuTargetChannel?.id },
+            })
           "
-          >Edit
+        >
+          Edit
         </DefaultButton>
       </div>
     </Teleport>

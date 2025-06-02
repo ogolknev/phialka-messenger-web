@@ -10,7 +10,14 @@ export async function signUp({
 }: SignUpParameters): Promise<void> {
   const birthdateString = birthdate ? dateToString(birthdate, 'yyyy-MM-dd') : undefined
   const { error } = await apiClient.POST('/profile', {
-    body: { name, tag, description, birthdate: birthdateString, username, password },
+    body: {
+      name,
+      tag,
+      description,
+      birthdate: birthdateString,
+      username,
+      password,
+    },
   })
   if (error) {
     throw new Error(JSON.stringify(error.detail))

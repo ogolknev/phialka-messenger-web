@@ -64,14 +64,19 @@ onUnmounted(() => {
           contextMenuTargetServer = server
         }
       "
-    >
-    </ServerTile>
+    ></ServerTile>
 
     <Teleport v-if="isContextMenuOpen" to="#overlay">
       <div ref="context-menu" class="context-menu tile touchable">
         <DefaultButton
-          @click="router.push({ name: 'server-edit', params: { id: contextMenuTargetServer?.id } })"
-          >Edit
+          @click="
+            router.push({
+              name: 'server-edit',
+              params: { id: contextMenuTargetServer?.id },
+            })
+          "
+        >
+          Edit
         </DefaultButton>
       </div>
     </Teleport>

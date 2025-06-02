@@ -19,7 +19,10 @@ async function createServerWithoutPhoto({ name, description }: CreateServerWitho
 async function setServerPhoto({ serverId, photo }: ServerPhotoParameters) {
   const formData = new FormData()
   formData.append('logo', photo)
-  const response = await fetch(`/api/servers/${serverId}/logo`, { method: 'PUT', body: formData })
+  const response = await fetch(`/api/servers/${serverId}/logo`, {
+    method: 'PUT',
+    body: formData,
+  })
   if (!response.ok) throw new HTTPError(response.statusText, response.status)
 }
 

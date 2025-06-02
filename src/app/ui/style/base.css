@@ -1,47 +1,75 @@
-:root {
-  --clr-black: #030303;
-  --clr-black-light: #141414;
-  --crl-gray-dark: #222222;
-  --clr-gray: #444444;
-  --clr-gray-light: #bababa;
-  --clr-white: #fafafa;
-  --clr-accent: #ddb0f9;
-  --clr-success: #72cd92;
-  --clr-warning: #eead71;
-  --clr-danger: #fd9ec0;
+@import 'tailwindcss';
 
-  --clr-border: var(--clr-gray);
-  --clr-bg-dark: var(--clr-black);
-  --clr-bg: var(--clr-black-light);
-  --clr-bg-light: var(--crl-gray-dark);
-  --clr-fg: var(--clr-white);
-  --clr-fg-dark: var(--clr-gray-light);
-  --clr-icon: var(--clr-gray-light);
-}
+@theme {
+  --color-primary-50: var(--color-violet-50);
+  --color-primary-100: var(--color-violet-100);
+  --color-primary-200: var(--color-violet-200);
+  --color-primary-300: var(--color-violet-300);
+  --color-primary-400: var(--color-violet-400);
+  --color-primary-500: var(--color-violet-500);
+  --color-primary-600: var(--color-violet-600);
+  --color-primary-700: var(--color-violet-700);
+  --color-primary-800: var(--color-violet-800);
+  --color-primary-900: var(--color-violet-900);
+  --color-primary-950: var(--color-violet-950);
 
-:root {
-  --scale: 1;
+  --color-secondary-50: var(--color-sky-50);
+  --color-secondary-100: var(--color-sky-100);
+  --color-secondary-200: var(--color-sky-200);
+  --color-secondary-300: var(--color-sky-300);
+  --color-secondary-400: var(--color-sky-400);
+  --color-secondary-500: var(--color-sky-500);
+  --color-secondary-600: var(--color-sky-600);
+  --color-secondary-700: var(--color-sky-700);
+  --color-secondary-800: var(--color-sky-800);
+  --color-secondary-900: var(--color-sky-900);
+  --color-secondary-950: var(--color-sky-950);
 
-  --line-width-s: calc(0.094rem * var(--scale));
-  --line-width-m: calc(0.188rem * var(--scale));
-  --line-width-l: calc(0.313rem * var(--scale));
+  --color-success-50: var(--color-emerald-50);
+  --color-success-100: var(--color-emerald-100);
+  --color-success-200: var(--color-emerald-200);
+  --color-success-300: var(--color-emerald-300);
+  --color-success-400: var(--color-emerald-400);
+  --color-success-500: var(--color-emerald-500);
+  --color-success-600: var(--color-emerald-600);
+  --color-success-700: var(--color-emerald-700);
+  --color-success-800: var(--color-emerald-800);
+  --color-success-900: var(--color-emerald-900);
+  --color-success-950: var(--color-emerald-950);
 
-  --font-size-xxs: calc(0.51rem * var(--scale));
-  --font-size-xs: calc(0.64rem * var(--scale));
-  --font-size-s: calc(0.8rem * var(--scale));
-  --font-size-m: calc(1rem * var(--scale));
-  --font-size-l: calc(1.25rem * var(--scale));
-  --font-size-xl: calc(1.56rem * var(--scale));
-  --font-size-xxl: calc(1.95rem * var(--scale));
+  --color-info-50: var(--color-sky-50);
+  --color-info-100: var(--color-sky-100);
+  --color-info-200: var(--color-sky-200);
+  --color-info-300: var(--color-sky-300);
+  --color-info-400: var(--color-sky-400);
+  --color-info-500: var(--color-sky-500);
+  --color-info-600: var(--color-sky-600);
+  --color-info-700: var(--color-sky-700);
+  --color-info-800: var(--color-sky-800);
+  --color-info-900: var(--color-sky-900);
+  --color-info-950: var(--color-sky-950);
 
-  --gap-size-xs: calc(0.51rem * var(--scale));
-  --gap-size-s: calc(0.64rem * var(--scale));
-  --gap-size-m: calc(0.8rem * var(--scale));
-  --gap-size-l: calc(1rem * var(--scale));
-  --gap-size-xl: calc(1.25rem * var(--scale));
+  --color-warning-50: var(--color-yellow-50);
+  --color-warning-100: var(--color-yellow-100);
+  --color-warning-200: var(--color-yellow-200);
+  --color-warning-300: var(--color-yellow-300);
+  --color-warning-400: var(--color-yellow-400);
+  --color-warning-500: var(--color-yellow-500);
+  --color-warning-600: var(--color-yellow-600);
+  --color-warning-700: var(--color-yellow-700);
+  --color-warning-800: var(--color-yellow-800);
+  --color-warning-900: var(--color-yellow-900);
+  --color-warning-950: var(--color-yellow-950);
 
-  --border-radius-xs: calc(0.125rem * var(--scale));
-  --border-radius-s: calc(0.25rem * var(--scale));
-  --border-radius-m: calc(0.5rem * var(--scale));
-  --border-radius-l: calc(1rem * var(--scale));
+  --color-error-50: var(--color-rose-50);
+  --color-error-100: var(--color-rose-100);
+  --color-error-200: var(--color-rose-200);
+  --color-error-300: var(--color-rose-300);
+  --color-error-400: var(--color-rose-400);
+  --color-error-500: var(--color-rose-500);
+  --color-error-600: var(--color-rose-600);
+  --color-error-700: var(--color-rose-700);
+  --color-error-800: var(--color-rose-800);
+  --color-error-900: var(--color-rose-900);
+  --color-error-950: var(--color-rose-950);
 }

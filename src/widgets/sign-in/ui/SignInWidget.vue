@@ -28,10 +28,11 @@ async function submitSignIn() {
         class="password-input"
         type="password"
         placeholder="Password"
-      >
-      </TextInput>
+      ></TextInput>
 
-      <div v-if="error" class="errors">{{ error }}</div>
+      <div v-if="error" class="errors">
+        {{ error }}
+      </div>
 
       <div class="button-container">
         <DefaultButton type="submit">Sign In</DefaultButton>

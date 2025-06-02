@@ -7,7 +7,11 @@ export async function createChannel({
   name,
   description,
 }: CreateChannelParameters) {
-  const channel = await createChannelWithoutPhoto({ serverId, name, description })
+  const channel = await createChannelWithoutPhoto({
+    serverId,
+    name,
+    description,
+  })
   if (photo) await setChannelPhoto({ channelId: channel.id, photo })
 }
 
@@ -28,7 +32,10 @@ async function createChannelWithoutPhoto({
 async function setChannelPhoto({ channelId, photo }: SetChannelPhotoParameters) {
   const formData = new FormData()
   formData.append('logo', photo)
-  const response = await fetch(`/api/channels/${channelId}/logo`, { method: 'PUT', body: formData })
+  const response = await fetch(`/api/channels/${channelId}/logo`, {
+    method: 'PUT',
+    body: formData,
+  })
   if (!response.ok) throw new HTTPError(response.statusText, response.status)
 }
 

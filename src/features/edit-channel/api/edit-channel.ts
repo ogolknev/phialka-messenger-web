@@ -2,7 +2,11 @@ import { adaptApiChannel } from '@/entities'
 import { apiClient, HTTPError } from '@/shared'
 
 export async function editChannel({ photo, channelId, name, description }: EditChannelParameters) {
-  const channel = await editChannelWithoutPhoto({ channelId, name, description })
+  const channel = await editChannelWithoutPhoto({
+    channelId,
+    name,
+    description,
+  })
   if (photo) await setChannelPhoto({ channelId: channel.id, photo })
 }
 
@@ -24,7 +28,10 @@ async function editChannelWithoutPhoto({
 async function setChannelPhoto({ channelId, photo }: SetChannelPhotoParameters) {
   const formData = new FormData()
   formData.append('logo', photo)
-  const response = await fetch(`/api/channels/${channelId}/logo`, { method: 'PUT', body: formData })
+  const response = await fetch(`/api/channels/${channelId}/logo`, {
+    method: 'PUT',
+    body: formData,
+  })
   if (!response.ok) throw new HTTPError(response.statusText, response.status)
 }
 

@@ -34,14 +34,16 @@ async function onSignUp(username: string, password: string) {
           :class="{ active: mode === 'sign-in' }"
           @click="mode = 'sign-in'"
           :disabled="mode === 'sign-in'"
-          >Sign In
+        >
+          Sign In
         </DefaultButton>
         <DefaultButton
           class="switch-to-sign-up"
           :class="{ active: mode === 'sign-up' }"
           @click="mode = 'sign-up'"
           :disabled="mode === 'sign-up'"
-          >Sign Up
+        >
+          Sign Up
         </DefaultButton>
       </header>
       <SignInWidget v-if="mode === 'sign-in'" @sign-in="onSignIn"></SignInWidget>

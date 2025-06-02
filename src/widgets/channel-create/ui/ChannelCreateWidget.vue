@@ -48,7 +48,9 @@ onMounted(() => {
         placeholder="Description"
       ></TextArea>
 
-      <div v-if="error" class="errors">{{ error }}</div>
+      <div v-if="error" class="errors">
+        {{ error }}
+      </div>
 
       <div class="button-container">
         <DefaultButton type="submit">Save</DefaultButton>

@@ -1,11 +1,89 @@
-.input {
-  padding: var(--gap-size-s);
-  padding-inline: var(--gap-size-m);
-  font-size: var(--font-size-m);
+@import '../../../../app/ui/style/main.css';
+
+@layer components {
+  .outline-variant {
+    @apply border-neutral-700 has-focus:outline;
+
+    &.primary-color {
+      @apply has-focus:outline-primary-500 has-focus:border-primary-500;
+    }
+    &.secondary-color {
+      @apply has-focus:outline-secondary-500 has-focus:border-secondary-500;
+    }
+    &.info-color {
+      @apply has-focus:outline-info-500 has-focus:border-info-500;
+    }
+    &.success-color {
+      @apply has-focus:outline-success-500 has-focus:border-success-500;
+    }
+    &.warning-color {
+      @apply has-focus:outline-warning-500 has-focus:border-warning-500;
+    }
+    &.error-color {
+      @apply has-focus:outline-error-500 has-focus:border-error-500;
+    }
+    &.neutral-color {
+      @apply has-focus:outline-neutral-300 has-focus:border-neutral-300;
+    }
+  }
 }
 
-.input:focus,
-.input:hover {
-  border-color: var(--clr-accent);
-  color: var(--clr-accent);
+@layer components {
+  .subtle-variant {
+    @apply bg-neutral-800/50 border-neutral-600 has-focus:outline;
+
+    &.primary-color {
+      @apply has-focus:outline-primary-500 has-focus:border-primary-500;
+    }
+    &.secondary-color {
+      @apply has-focus:outline-secondary-500 has-focus:border-secondary-500;
+    }
+    &.info-color {
+      @apply has-focus:outline-info-500 has-focus:border-info-500;
+    }
+    &.success-color {
+      @apply has-focus:outline-success-500 has-focus:border-success-500;
+    }
+    &.warning-color {
+      @apply has-focus:outline-warning-500 has-focus:border-warning-500;
+    }
+    &.error-color {
+      @apply has-focus:outline-error-500 has-focus:border-error-500;
+    }
+    &.neutral-color {
+      @apply has-focus:outline-neutral-300 has-focus:border-neutral-300;
+    }
+  }
+}
+
+@layer components {
+  .soft-variant {
+    @apply border-transparent bg-neutral-800/60 has-hover:bg-neutral-700/40 has-focus:bg-neutral-700/40;
+  }
+}
+
+@layer components {
+  .highlight {
+    &.primary-color {
+      @apply outline-primary-500 border-primary-500;
+    }
+    &.secondary-color {
+      @apply outline-secondary-500 border-secondary-500;
+    }
+    &.info-color {
+      @apply outline-info-500 border-info-500;
+    }
+    &.success-color {
+      @apply outline-success-500 border-success-500;
+    }
+    &.warning-color {
+      @apply outline-warning-500 border-warning-500;
+    }
+    &.error-color {
+      @apply outline-error-500 border-error-500;
+    }
+    &.neutral-color {
+      @apply outline-neutral-300 border-neutral-300;
+    }
+  }
 }

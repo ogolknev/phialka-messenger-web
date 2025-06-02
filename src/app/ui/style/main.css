@@ -1,14 +1,135 @@
 @import './base.css';
-@import './normalize.css';
 
-body {
-  font-family: monospace;
-  color: var(--clr-fg);
-  background-color: var(--clr-bg-dark);
+@custom-variant clr-primary (&:where([accent-color="primary"]));
+@custom-variant clr-secondary (&:where([accent-color="secondary"]));
+@custom-variant clr-info (&:where([accent-color="info"]));
+@custom-variant clr-success (&:where([accent-color="success"]));
+@custom-variant clr-warning (&:where([accent-color="warning"]));
+@custom-variant clr-error (&:where([accent-color="error"]));
+@custom-variant clr-neutral (&:where([accent-color="neutral"]));
+
+@layer base {
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
+  h4 {
+    @apply text-lg;
+  }
 }
 
-.tile {
-  border: var(--line-width-s) solid var(--clr-border);
-  border-radius: var(--border-radius-m);
-  background-color: var(--clr-bg-light);
+@layer base {
+  .card {
+    @apply border border-neutral-800 rounded;
+  }
+  .btn {
+    @apply rounded cursor-pointer border;
+
+    &.var-solid {
+      @apply border-transparent;
+
+      &.clr-primary {
+        @apply bg-primary-500 hover:bg-primary-500/80 text-neutral-800;
+      }
+      &.clr-secondary {
+        @apply bg-secondary-500 hover:bg-secondary-500/80 text-neutral-800;
+      }
+      &.clr-success {
+        @apply bg-success-500 hover:bg-success-500/80 text-neutral-800;
+      }
+      &.clr-info {
+        @apply bg-info-500 hover:bg-info-500/80 text-neutral-800;
+      }
+      &.clr-warning {
+        @apply bg-warning-500 hover:bg-warning-500/80 text-neutral-800;
+      }
+      &.clr-error {
+        @apply bg-error-500 hover:bg-error-500/80 text-neutral-800;
+      }
+      &.clr-neutral {
+        @apply bg-neutral-200 hover:bg-neutral-200/80 text-neutral-800;
+      }
+    }
+
+    &.var-outline {
+      @apply bg-transparent;
+
+      &.clr-primary {
+        @apply hover:bg-primary-500/8 border-primary-500/40 text-primary-500;
+      }
+      &.clr-secondary {
+        @apply hover:bg-secondary-500/8 border-secondary-500/40 text-secondary-500;
+      }
+      &.clr-success {
+        @apply hover:bg-success-500/8 border-success-500/40 text-success-500;
+      }
+      &.clr-info {
+        @apply hover:bg-info-500/8 border-info-500/40 text-info-500;
+      }
+      &.clr-warning {
+        @apply hover:bg-warning-500/8 border-warning-500/40 text-warning-500;
+      }
+      &.clr-error {
+        @apply hover:bg-error-500/8 border-error-500/40 text-error-500;
+      }
+      &.clr-neutral {
+        @apply hover:bg-neutral-300/5 border-neutral-300/40 text-neutral-300;
+      }
+    }
+
+    &.var-subtle {
+      &.clr-primary {
+        @apply hover:bg-primary-500/15 bg-primary-500/10 border-primary-500/40 text-primary-500;
+      }
+      &.clr-secondary {
+        @apply hover:bg-secondary-500/15 bg-secondary-500/10 border-secondary-500/40 text-secondary-500;
+      }
+      &.clr-success {
+        @apply hover:bg-success-500/15 bg-success-500/10 border-success-500/40 text-success-500;
+      }
+      &.clr-info {
+        @apply hover:bg-info-500/15 bg-info-500/10 border-info-500/40 text-info-500;
+      }
+      &.clr-warning {
+        @apply hover:bg-warning-500/15 bg-warning-500/10 border-warning-500/40 text-warning-500;
+      }
+      &.clr-error {
+        @apply hover:bg-error-500/15 bg-error-500/10 border-error-500/40 text-error-500;
+      }
+      &.clr-neutral {
+        @apply hover:bg-neutral-300/15 bg-neutral-300/8 border-neutral-300/40 text-neutral-300;
+      }
+    }
+
+    &.var-soft {
+      @apply border-transparent;
+
+      &.clr-primary {
+        @apply hover:bg-primary-500/15 bg-primary-500/10 text-primary-500;
+      }
+      &.clr-secondary {
+        @apply hover:bg-secondary-500/15 bg-secondary-500/10 text-secondary-500;
+      }
+      &.clr-info {
+        @apply hover:bg-info-500/15 bg-info-500/10 text-info-500;
+      }
+      &.clr-success {
+        @apply hover:bg-success-500/15 bg-success-500/10 text-success-500;
+      }
+      &.clr-warning {
+        @apply hover:bg-warning-500/15 bg-warning-500/10 text-warning-500;
+      }
+      &.clr-error {
+        @apply hover:bg-error-500/15 bg-error-500/10 text-error-500;
+      }
+      &.clr-neutral {
+        @apply hover:bg-neutral-300/15 bg-neutral-300/8 text-neutral-300;
+      }
+    }
+  }
 }

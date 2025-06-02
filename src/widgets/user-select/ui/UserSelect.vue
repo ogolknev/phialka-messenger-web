@@ -36,7 +36,9 @@ const users = ref<User[]>([])
 const { initSelected = [] } = defineProps<{ initSelected?: User[] }>()
 const selectedUserMap = reactive(new Map<User['id'], User>())
 const prompt = ref<string>('')
-const emit = defineEmits<{ submitSelected: [invited: User[], kicked: User[]] }>()
+const emit = defineEmits<{
+  submitSelected: [invited: User[], kicked: User[]]
+}>()
 
 function selectUser(user: User) {
   selectedUserMap.set(user.id, user)
@@ -79,7 +81,9 @@ async function search(prompt: string) {
 
   try {
     searchingAbortController = new AbortController()
-    users.value = await searchUsers(prompt, { signal: searchingAbortController.signal })
+    users.value = await searchUsers(prompt, {
+      signal: searchingAbortController.signal,
+    })
   } catch (err) {
     if (err instanceof Error) {
       if (err.name === 'AbortError') console.info('User search aborted')
