@@ -24,20 +24,26 @@
       <div
         class="card scrollbar-hidden h-full overflow-auto scroll-smooth
           bg-neutral-900 p-2">
-        <template
-          v-for="(channel, index) in channelStore.channels"
-          :key="channel.id">
-          <ChannelCard
-            class="w-full overflow-hidden"
-            :class="[
-              index === 0 ? 'rounded-t-lg' : '',
-              index === channelStore.channels.length - 1 ? 'rounded-b-lg' : '',
+        <template v-if="serverStore.selectedId">
+          <template
+            v-for="(channel, index) in channelStore.channelsMap[
+              serverStore.selectedId
             ]"
-            :channel></ChannelCard>
+            :key="channel.id">
+            <ChannelCard
+              class="w-full overflow-hidden"
+              :class="[
+                index === 0 ? 'rounded-t-lg' : '',
+                index === channelStore.channels.length - 1
+                  ? 'rounded-b-lg'
+                  : '',
+              ]"
+              :channel></ChannelCard>
 
-          <div
-            v-if="index !== channelStore.channels.length - 1"
-            class="my-2 h-[1px] bg-neutral-800"></div>
+            <div
+              v-if="index !== channelStore.channels.length - 1"
+              class="my-2 h-[1px] bg-neutral-800"></div>
+          </template>
         </template>
       </div>
 
@@ -100,7 +106,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue"
+import { onMounted, ref } from "vue"
 import {
   ChannelCard,
   MessageBubble,
@@ -173,21 +179,15 @@ async function loadOldMessages() {
   )
 }
 
-watch(
-  () => serverStore.selectedId,
-  (value) => {
-    if (value) channelStore.updateChannels(value)
-  },
-)
-
 onMounted(async () => {
   const { response } = await apiClient.GET("/auth/refresh")
   if (response.status === 403) router.push("/login")
 
-  profileStore.updateProfile()
-  serverStore.updateServers()
-  if (serverStore.selectedId)
-    channelStore.updateChannels(serverStore.selectedId)
+  await profileStore.updateProfile()
+  await serverStore.updateServers()
+  await channelStore.updateChannels(
+    serverStore.servers.map((server) => server.id),
+  )
 
   for (let i = 0; i <= 30; i++) {
     messages.value.push({

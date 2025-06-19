@@ -9,8 +9,8 @@
             contextMenuOpen = false
           }
         "
-        class="grid grid-cols-[auto_1fr] grid-rows-[auto_1fr] gap-2 rounded-lg
-          border p-2 hover:bg-neutral-800"
+        class="grid cursor-pointer grid-cols-[auto_1fr] grid-rows-[auto_1fr]
+          gap-2 rounded-lg border p-2 hover:bg-neutral-800"
         :class="[
           contextMenuOpen ? 'bg-neutral-800' : 'bg-neutral-900',
           channelStore.selectedId === channel.id

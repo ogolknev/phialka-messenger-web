@@ -1,30 +1,48 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue"
-import type { Channel } from "./channel"
 import { getChannels } from "../api"
-import { useAPI } from "@/shared"
+import { HTTPError } from "@/shared"
+import type { Channel } from "./channel"
 
 export const useChannelStore = defineStore("channel", () => {
-  const channels = ref<Channel[]>([])
+  const channelsMap = ref<{ [serverId: string]: Channel[] }>({})
+  const channels = computed(getChannelsList)
+  const loadingMap = ref<{ [serverId: string]: boolean }>({})
+  const abortControllerMap = new Map<string, AbortController | null>()
   const selectedId = ref<string | null>(null)
   const selectedChannel = computed(() => getChannelById(selectedId.value ?? ""))
 
-  function resetChannels() {
-    channels.value = []
+  function resetChannelsMap() {
+    channelsMap.value = {}
   }
 
   function resetSelectedId() {
     selectedId.value = null
   }
 
-  const getChannelsRequset = useAPI(getChannels)
-  async function updateChannels(serverId: string) {
-    const { execute, data, error } = getChannelsRequset
-    await execute({ serverId })
+  async function updateChannels(serverIds: string[]) {
+    for (const serverId of serverIds) {
+      await updateServerChannels(serverId)
+    }
+  }
 
-    if (error.value) console.warn(error.value.message)
+  async function updateServerChannels(serverId: string) {
+    try {
+      abortControllerMap.get(serverId)?.abort()
+      abortControllerMap.set(serverId, new AbortController())
+      loadingMap.value[serverId] = true
 
-    channels.value = data.value ?? []
+      channelsMap.value[serverId] = await getChannels(
+        { serverId },
+        { signal: abortControllerMap.get(serverId)!.signal },
+      )
+    } catch (err) {
+      if (err instanceof HTTPError) console.warn(err.message)
+      else throw err
+    } finally {
+      abortControllerMap.set(serverId, null)
+      loadingMap.value[serverId] = false
+    }
   }
 
   function selectChannel(channelId: string) {
@@ -35,11 +53,17 @@ export const useChannelStore = defineStore("channel", () => {
     return channels.value.find((channel) => channel.id === channelId)
   }
 
+  function getChannelsList() {
+    return Object.values(channelsMap.value).flat()
+  }
+
   return {
     channels,
+    channelsMap,
     selectedId,
     selectedChannel,
-    resetChannels,
+    loadingMap,
+    resetChannelsMap,
     resetSelectedId,
     updateChannels,
     selectChannel,
