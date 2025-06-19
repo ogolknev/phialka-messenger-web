@@ -1,2 +1,2 @@
-export { UploadedFile } from './model'
-export { adaptApiFile } from './api'
+export { UploadedFile } from "./model"
+export { adaptApiFile } from "./api"

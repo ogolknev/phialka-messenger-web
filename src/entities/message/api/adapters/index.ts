@@ -1,1 +1,1 @@
-export { adaptApiMessage } from './api-message-adapter'
+export { adaptApiMessage } from "./api-message-adapter"

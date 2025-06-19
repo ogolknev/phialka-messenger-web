@@ -1,1 +1,1 @@
-export { adaptApiUser } from './adapters'
+export { adaptApiUser } from "./adapters"

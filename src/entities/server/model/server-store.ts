@@ -1,29 +1,30 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import type { Server } from './server'
-import { getServers } from '../api/get-servers'
+import { defineStore } from "pinia"
+import { computed, ref } from "vue"
+import type { Server } from "./server"
+import { getServers } from "../api/get-servers"
+import { useAPI } from "@/shared"
 
-export const useServerStore = defineStore('server', () => {
+export const useServerStore = defineStore("server", () => {
   const servers = ref<Server[]>([])
-  const selectedId = ref('')
+  const selectedId = ref<string | null>(null)
+  const selectedServer = computed(() => getServerById(selectedId.value ?? ""))
 
   function resetServers() {
     servers.value = []
   }
 
   function resetSelectedId() {
-    selectedId.value = ''
+    selectedId.value = null
   }
 
-  const isUpdateServersRunning = ref(false)
+  const getServersRequest = useAPI(getServers)
   async function updateServers() {
-    try {
-      isUpdateServersRunning.value = true
+    const { execute, data, error } = getServersRequest
+    await execute()
 
-      servers.value = await getServers()
-    } finally {
-      isUpdateServersRunning.value = false
-    }
+    if (error.value) console.warn(error.value.message)
+
+    servers.value = data.value ?? []
   }
 
   function selectServer(serverId: string) {
@@ -35,9 +36,9 @@ export const useServerStore = defineStore('server', () => {
   }
 
   return {
-    isUpdateServersRunning,
     servers,
     selectedId,
+    selectedServer,
     resetServers,
     resetSelectedId,
     updateServers,

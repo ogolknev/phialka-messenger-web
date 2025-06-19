@@ -1,1 +1,3 @@
-export { MessengerPage } from './ui'
+import MessengerPage from "./ui/MessengerPage.vue"
+
+export { MessengerPage }

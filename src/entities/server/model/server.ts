@@ -1,4 +1,4 @@
-import type { UploadedFile } from '@/entities/uploaded-files/@x/server'
+import type { UploadedFile } from "@/entities/uploaded-files/@x/server"
 
 export class Server {
   id: string

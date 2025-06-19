@@ -1,1 +1,1 @@
-export { editChannel } from './edit-channel.ts'
+export { editChannel } from "./edit-channel.ts"

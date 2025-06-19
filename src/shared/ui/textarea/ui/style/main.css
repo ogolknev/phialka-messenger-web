@@ -1,0 +1,36 @@
+@import "../../../../../app/ui/style/main.css";
+
+@layer components {
+  .textarea {
+    &.outline-variant {
+      border-color: var(--color-neutral-600);
+
+      @variant has-focus {
+        outline: 1px solid;
+        outline-color: var(--color-accent);
+        border-color: var(--color-accent);
+      }
+    }
+
+    &.subtle-variant {
+      border-color: var(--color-neutral-600);
+      background-color: color-mix(in oklab, var(--color-neutral-600) 15%, transparent);
+
+      @variant has-focus {
+        outline: 1px solid;
+        outline-color: var(--color-accent);
+        border-color: var(--color-accent);
+        background-color: color-mix(in oklab, var(--color-accent) 15%, transparent);
+      }
+    }
+
+    &.soft-variant {
+      border-color: transparent;
+      background-color: color-mix(in oklab, var(--color-neutral-600) 15%, transparent);
+
+      @variant has-focus {
+        background-color: color-mix(in oklab, var(--color-accent) 20%, transparent);
+      }
+    }
+  }
+}

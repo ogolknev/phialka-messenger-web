@@ -1,8 +1,10 @@
-export { AuthPage } from './auth'
-export { MessengerPage } from './messenger'
-export { ServerCreatePage } from './server-create'
-export { ServerEditPage } from './server-edit'
-export { ChannelCreatePage } from './channel-create'
-export { ChannelEditPage } from './channel-edit'
-export * from './dev'
-export * from './server-users-edit'
+export * from "./dev"
+
+export * from "./login"
+export * from "./register"
+export * from "./messenger"
+
+export * from "./server-create"
+export * from "./server-edit"
+
+export * from "./channel-create"

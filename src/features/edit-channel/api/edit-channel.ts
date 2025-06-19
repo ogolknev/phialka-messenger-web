@@ -1,5 +1,5 @@
-import { adaptApiChannel } from '@/entities'
-import { apiClient, HTTPError } from '@/shared'
+import { adaptApiChannel } from "@/entities"
+import { apiClient, HTTPError } from "@/shared"
 
 export async function editChannel({ photo, channelId, name, description }: EditChannelParameters) {
   const channel = await editChannelWithoutPhoto({
@@ -15,24 +15,24 @@ async function editChannelWithoutPhoto({
   name,
   description,
 }: EditChannelWithoutPhotoParameters) {
-  const { data, response, error } = await apiClient.PATCH('/channels/{channel_id}', {
+  const { data, response, error } = await apiClient.PATCH("/channels/{channel_id}", {
     body: { title: name, description },
     params: { path: { channel_id: channelId } },
   })
-  if (!response.ok) throw new HTTPError(response.statusText, response.status)
+  if (!response.ok) throw new HTTPError(response)
   if (error) throw error
-  if (!data) throw new Error('Channel not created or not returned')
+  if (!data) throw new Error("Channel not created or not returned")
   return adaptApiChannel(data)
 }
 
 async function setChannelPhoto({ channelId, photo }: SetChannelPhotoParameters) {
   const formData = new FormData()
-  formData.append('logo', photo)
+  formData.append("logo", photo)
   const response = await fetch(`/api/channels/${channelId}/logo`, {
-    method: 'PUT',
+    method: "PUT",
     body: formData,
   })
-  if (!response.ok) throw new HTTPError(response.statusText, response.status)
+  if (!response.ok) throw new HTTPError(response)
 }
 
 interface EditChannelParameters {

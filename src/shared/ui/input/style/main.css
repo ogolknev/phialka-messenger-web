@@ -1,89 +1,40 @@
-@import '../../../../app/ui/style/main.css';
+@import "../../../../app/ui/style/main.css";
 
 @layer components {
-  .outline-variant {
-    @apply border-neutral-700 has-focus:outline;
+  .input {
+    &.outline-variant {
+      border-color: var(--color-neutral-600);
 
-    &.primary-color {
-      @apply has-focus:outline-primary-500 has-focus:border-primary-500;
+      @variant has-focus {
+        outline: 1px solid;
+        outline-color: var(--color-accent);
+        border-color: var(--color-accent);
+      }
     }
-    &.secondary-color {
-      @apply has-focus:outline-secondary-500 has-focus:border-secondary-500;
-    }
-    &.info-color {
-      @apply has-focus:outline-info-500 has-focus:border-info-500;
-    }
-    &.success-color {
-      @apply has-focus:outline-success-500 has-focus:border-success-500;
-    }
-    &.warning-color {
-      @apply has-focus:outline-warning-500 has-focus:border-warning-500;
-    }
-    &.error-color {
-      @apply has-focus:outline-error-500 has-focus:border-error-500;
-    }
-    &.neutral-color {
-      @apply has-focus:outline-neutral-300 has-focus:border-neutral-300;
-    }
-  }
-}
 
-@layer components {
-  .subtle-variant {
-    @apply bg-neutral-800/50 border-neutral-600 has-focus:outline;
+    &.subtle-variant {
+      border-color: var(--color-neutral-600);
+      background-color: color-mix(in oklab, var(--color-neutral-600) 15%, transparent);
 
-    &.primary-color {
-      @apply has-focus:outline-primary-500 has-focus:border-primary-500;
+      @variant has-focus {
+        outline: 1px solid;
+        outline-color: var(--color-accent);
+        border-color: var(--color-accent);
+        background-color: color-mix(in oklab, var(--color-accent) 15%, transparent);
+      }
     }
-    &.secondary-color {
-      @apply has-focus:outline-secondary-500 has-focus:border-secondary-500;
-    }
-    &.info-color {
-      @apply has-focus:outline-info-500 has-focus:border-info-500;
-    }
-    &.success-color {
-      @apply has-focus:outline-success-500 has-focus:border-success-500;
-    }
-    &.warning-color {
-      @apply has-focus:outline-warning-500 has-focus:border-warning-500;
-    }
-    &.error-color {
-      @apply has-focus:outline-error-500 has-focus:border-error-500;
-    }
-    &.neutral-color {
-      @apply has-focus:outline-neutral-300 has-focus:border-neutral-300;
-    }
-  }
-}
 
-@layer components {
-  .soft-variant {
-    @apply border-transparent bg-neutral-800/60 has-hover:bg-neutral-700/40 has-focus:bg-neutral-700/40;
-  }
-}
+    &.soft-variant {
+      border-color: transparent;
+      background-color: color-mix(in oklab, var(--color-neutral-600) 15%, transparent);
 
-@layer components {
-  .highlight {
-    &.primary-color {
-      @apply outline-primary-500 border-primary-500;
+      @variant has-focus {
+        background-color: color-mix(in oklab, var(--color-accent) 15%, transparent);
+      }
     }
-    &.secondary-color {
-      @apply outline-secondary-500 border-secondary-500;
-    }
-    &.info-color {
-      @apply outline-info-500 border-info-500;
-    }
-    &.success-color {
-      @apply outline-success-500 border-success-500;
-    }
-    &.warning-color {
-      @apply outline-warning-500 border-warning-500;
-    }
-    &.error-color {
-      @apply outline-error-500 border-error-500;
-    }
-    &.neutral-color {
-      @apply outline-neutral-300 border-neutral-300;
+
+    &.highlight {
+      border-color: var(--color-accent);
     }
   }
 }

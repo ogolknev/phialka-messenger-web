@@ -1,4 +1,4 @@
-import type { UploadedFile } from '@/entities/uploaded-files/@x/profile'
+import type { UploadedFile } from "@/entities/uploaded-files/@x/profile"
 
 export interface Profile {
   id: string

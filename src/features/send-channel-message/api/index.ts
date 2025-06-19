@@ -1,1 +1,1 @@
-export { sendChannelMessage } from './send-channel-message'
+export { sendChannelMessage } from "./send-channel-message"

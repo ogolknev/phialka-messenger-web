@@ -1,1 +1,1 @@
-export { adaptApiChannel } from './api-channel-adapter'
+export { adaptApiChannel } from "./api-channel-adapter"

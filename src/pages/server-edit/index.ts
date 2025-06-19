@@ -1,3 +1,3 @@
-import { ServerEditPage } from './ui'
+import ServerEditPage from "./ui/ServerEditPage.vue"
 
 export { ServerEditPage }

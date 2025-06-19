@@ -1,0 +1,54 @@
+@import "../../../../app/ui/style/main.css";
+
+@layer components {
+  .button {
+    &.solid-variant {
+      background-color: var(--color-accent);
+      color: var(--color-neutral-800);
+
+      @variant hover {
+        background-color: color-mix(in oklab, var(--color-accent) 70%, transparent);
+      }
+    }
+
+    &.outline-variant {
+      background-color: var(--color-neutral-900);
+      border-color: color-mix(in oklab, var(--color-accent) 35%, transparent);
+      color: var(--color-accent);
+
+      @variant hover {
+        background-color: color-mix(in oklab, var(--color-accent) 15%, var(--color-neutral-900));
+      }
+    }
+
+    &.subtle-variant {
+      background-color: color-mix(in oklab, var(--color-accent) 15%, var(--color-neutral-900));
+      border-color: color-mix(in oklab, var(--color-accent) 25%, transparent);
+      color: var(--color-accent);
+
+      @variant hover {
+        background-color: color-mix(in oklab, var(--color-accent) 30%, var(--color-neutral-900));
+      }
+    }
+
+    &.soft-variant {
+      background-color: color-mix(in oklab, var(--color-accent) 15%, var(--color-neutral-900));
+      border-color: transparent;
+      color: var(--color-accent);
+
+      @variant hover {
+        background-color: color-mix(in oklab, var(--color-accent) 30%, var(--color-neutral-900));
+      }
+    }
+
+    &.ghost-variant {
+      background-color: var(--color-neutral-900);
+      border-color: transparent;
+      color: var(--color-accent);
+
+      @variant hover {
+        background-color: color-mix(in oklab, var(--color-accent) 20%, var(--color-neutral-900));
+      }
+    }
+  }
+}

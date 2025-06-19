@@ -1,25 +1,13 @@
-import { defineStore } from 'pinia'
-import { reactive, ref } from 'vue'
-import type { Profile } from './profile'
-import { getProfile } from '../api'
+import { defineStore } from "pinia"
+import { ref } from "vue"
+import type { Profile } from "./profile"
+import { getProfile } from "../api"
 
-export const useProfileStore = defineStore('profile', () => {
-  const profile = reactive<Profile>({
-    id: '',
-    name: '',
-    tag: '',
-    description: '',
-    birthdate: null,
-    photo: null,
-  })
+export const useProfileStore = defineStore("profile", () => {
+  const profile = ref<Profile | null>(null)
 
   function resetProfile() {
-    profile.id = ''
-    profile.name = ''
-    profile.tag = ''
-    profile.description = ''
-    profile.birthdate = null
-    profile.photo = null
+    profile.value = null
   }
 
   const isUpdateProfileRunning = ref(false)
@@ -29,12 +17,18 @@ export const useProfileStore = defineStore('profile', () => {
 
       const fetchedProfile = await getProfile()
 
-      profile.id = fetchedProfile.id
-      profile.name = fetchedProfile.name
-      profile.tag = fetchedProfile.tag
-      profile.description = fetchedProfile.description
-      profile.birthdate = fetchedProfile.birthdate
-      profile.photo = fetchedProfile.photo
+      profile.value = {
+        id: fetchedProfile.id,
+        name: fetchedProfile.name,
+        tag: fetchedProfile.tag,
+        description: fetchedProfile.description,
+        birthdate: fetchedProfile.birthdate,
+        photo: fetchedProfile.photo,
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        console.warn("Failed receive profile:", err.message)
+      }
     } finally {
       isUpdateProfileRunning.value = false
     }

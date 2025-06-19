@@ -1,72 +1,29 @@
-<script setup lang="ts">
-import { ChannelCreateWidget, CropImageWidget } from '@/widgets'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-const channelPhotoSrc = ref('')
-let resolveProcessChannelrPhoto: (value: Blob) => void
-
-function onChannelCreate() {
-  router.back()
-}
-
-function processChannelPhoto(photo: Blob): Promise<Blob> {
-  return new Promise((resolve) => {
-    resolveProcessChannelrPhoto = resolve
-    channelPhotoSrc.value = URL.createObjectURL(photo)
-  })
-}
-
-function onCrop(croppedPhoto: Blob) {
-  resolveProcessChannelrPhoto(croppedPhoto)
-  channelPhotoSrc.value = ''
-}
-</script>
-
 <template>
-  <div class="channel-create-page">
-    <div class="form-container tile">
-      <header>Create Channel</header>
-      <ChannelCreateWidget
-        class="channel-create-widget"
-        @channel-create="onChannelCreate"
-        :process-channel-photo="processChannelPhoto"
-      ></ChannelCreateWidget>
-    </div>
-
-    <Teleport v-if="channelPhotoSrc" to="#overlay">
-      <CropImageWidget class="touchable" :src="channelPhotoSrc" @crop="onCrop"></CropImageWidget>
-    </Teleport>
+  <div class="grid size-full place-content-center">
+    <UICard class="relative min-w-80">
+      <template #header>
+        <div class="flex justify-between gap-2">
+          <span class="text-primary-500 text-2xl font-bold">
+            CREATE CHANNEL
+          </span>
+          <UIButton
+            class="absolute top-1 right-1"
+            variant="ghost"
+            color="error"
+            icon="lucide:x"
+            @click="router.back()"></UIButton>
+        </div>
+      </template>
+      <ChannelCreateForm></ChannelCreateForm>
+    </UICard>
   </div>
 </template>
 
-<style scoped>
-.channel-create-page {
-  height: 100%;
-  display: grid;
-  place-content: center;
-}
+<script setup lang="ts">
+import { ChannelCreateForm } from "@/features"
+import { UICard } from "@/shared"
+import UIButton from "@/shared/ui/button/ui/UIButton.vue"
+import { useRouter } from "vue-router"
 
-.form-container {
-  padding: var(--gap-size-m);
-  display: flex;
-  flex-flow: column nowrap;
-  gap: var(--gap-size-s);
-}
-
-header {
-  font-size: var(--font-size-m);
-}
-
-.crop-image-widget {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  aspect-ratio: 1;
-  width: 30rem;
-  max-width: 70dvh;
-  max-height: 70dvh;
-}
-</style>
+const router = useRouter()
+</script>

@@ -1,9 +1,9 @@
-import { defineStore } from 'pinia'
-import { reactive } from 'vue'
-import type { User } from './user'
-import * as api from '../api/get-user-by-id'
+import { defineStore } from "pinia"
+import { reactive } from "vue"
+import type { User } from "./user"
+import * as api from "../api/get-user-by-id"
 
-export const useUserStore = defineStore('user', () => {
+export const useUserStore = defineStore("user", () => {
   const users = reactive<Record<string, User>>({})
 
   const isGetUserByIdRunning = reactive<Record<string, boolean>>({})

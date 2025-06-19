@@ -1,15 +1,23 @@
 <template>
   <div
-    class="ui-input card flex items-center has-[input[type='file']]:cursor-pointer"
-    :class="`${variant}-variant ${color}-color`"
-    @click="fileInputRef?.click()"
-  >
-    <slot v-if="$slots.leading" name="leading"></slot>
+    class="input card flex h-11 items-center gap-2 overflow-hidden px-3
+      has-[input[type='file']]:cursor-pointer
+      has-[input[type='file']]:hover:bg-neutral-800"
+    :class="[` ${variant}-variant ${color}-color `, { highlight }]"
+    @click="fileInputRef?.click()">
+    <div v-if="$slots.leading || icon">
+      <Icon v-if="icon" :icon="icon" class="text-neutral-400"></Icon>
+      <slot name="leading"></slot>
+    </div>
 
     <template v-if="type === 'file'">
       <input ref="file-input" type="file" @change="onChange" hidden />
-      <button class="w-full p-2 text-left whitespace-nowrap truncate outline-0">
-        {{ fileName ?? "Select file" }}
+      <button
+        type="button"
+        class="min-w-0 flex-1 cursor-pointer text-neutral-400 outline-0">
+        <span class="block truncate text-left">
+          {{ fileName ?? placeholder ?? "Select file" }}
+        </span>
       </button>
     </template>
 
@@ -17,20 +25,27 @@
       v-else
       ref="input"
       :value="modelValue"
-      @input="onInput"
-      class="w-full p-2 outline-0"
-      type="text"
-      :placeholder="placeholder"
-    />
-    <slot v-if="$slots.trailing" name="trailing"></slot>
+      @input="update"
+      class="w-full outline-0"
+      :type="type === 'password' ? 'password' : 'text'"
+      :placeholder="placeholder" />
+    <div v-if="$slots.trailing || trailingIcon" class="mr-3">
+      <Icon
+        v-if="trailingIcon"
+        :icon="trailingIcon"
+        class="text-neutral-400"></Icon>
+      <slot name="trailing"></slot>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from "vue"
-import type { UIComponentColor, UIInputVariant } from "../types"
+import { onMounted, ref, useTemplateRef } from "vue"
+import type { UIComponentColor } from "@/shared"
+import type { UIInputVariant } from "./types"
 import "./style/main.css"
-import IMask, { InputMask } from "imask"
+import { Icon } from "@iconify/vue"
+import { formatDateInput } from "./lib/format-date-input"
 
 const {
   modelValue,
@@ -38,52 +53,42 @@ const {
   placeholder,
   color = "neutral",
   variant = "outline",
+  icon,
+  trailingIcon,
+  highlight,
 } = defineProps<{
   modelValue?: string
-  type?: "text" | "date" | "file"
+  type?: "text" | "date" | "file" | "password"
   placeholder?: string
   color?: UIComponentColor
   variant?: UIInputVariant
+  icon?: string
+  trailingIcon?: string
+  highlight?: boolean
 }>()
-const emit = defineEmits<{ "update:modelValue": [value: string]; change: [file: File] }>()
+const emit = defineEmits<{
+  "update:modelValue": [value: string]
+  change: [file: File]
+}>()
 
-const inputRef = useTemplateRef("input")
 const fileInputRef = useTemplateRef("file-input")
 const fileName = ref<string | null>(null)
-let inputMask: null | InputMask = null
+
+let update: (ev: Event) => void
 
 onMounted(() => {
-  if (type === "date" && inputRef.value) {
-    inputMask = IMask(inputRef.value, {
-      mask: Date,
-      min: new Date(1000, 0, 1),
-      max: new Date(),
-    })
-    inputMask.on("accept", () => {
-      emit("update:modelValue", inputMask?.value ?? "")
-    })
+  if (type === "date") {
+    update = (ev) => {
+      const target = ev.target as HTMLInputElement
+
+      target.value = formatDateInput(target.value)
+      emit("update:modelValue", target.value)
+    }
+  } else {
+    update = (ev) =>
+      emit("update:modelValue", (ev.target as HTMLInputElement).value)
   }
 })
-
-watch(
-  () => modelValue,
-  (newValue) => {
-    if (inputMask && newValue !== inputMask.value) {
-      inputMask.value = newValue ?? ""
-    }
-  },
-)
-
-onBeforeUnmount(() => {
-  inputMask?.destroy()
-})
-
-function onInput(event: Event) {
-  if (!(event.target instanceof HTMLInputElement))
-    throw new Error("Must be used on HTMLInputElement")
-
-  emit("update:modelValue", event.target.value)
-}
 
 function onChange(event: Event) {
   if (!(event.target instanceof HTMLInputElement))

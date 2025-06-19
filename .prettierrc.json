@@ -2,5 +2,15 @@
   "$schema": "https://json.schemastore.org/prettierrc",
   "semi": false,
   "singleQuote": false,
-  "printWidth": 100
+  "printWidth": 80,
+  "bracketSameLine": true,
+  "vueIndentScriptAndStyle": false,
+  "htmlWhitespaceSensitivity": "ignore",
+  "plugins": [
+    "prettier-plugin-classnames",
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-merge"
+  ],
+  "endingPosition": "absolute-with-indent",
+  "experimentalOptimization": true
 }

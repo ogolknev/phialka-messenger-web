@@ -1,29 +1,30 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import type { Channel } from './channel'
-import { getChannels } from '../api'
+import { defineStore } from "pinia"
+import { computed, ref } from "vue"
+import type { Channel } from "./channel"
+import { getChannels } from "../api"
+import { useAPI } from "@/shared"
 
-export const useChannelStore = defineStore('channel', () => {
+export const useChannelStore = defineStore("channel", () => {
   const channels = ref<Channel[]>([])
-  const selectedId = ref('')
+  const selectedId = ref<string | null>(null)
+  const selectedChannel = computed(() => getChannelById(selectedId.value ?? ""))
 
   function resetChannels() {
     channels.value = []
   }
 
   function resetSelectedId() {
-    selectedId.value = ''
+    selectedId.value = null
   }
 
-  const isUpdateChannelsRunning = ref(false)
+  const getChannelsRequset = useAPI(getChannels)
   async function updateChannels(serverId: string) {
-    try {
-      isUpdateChannelsRunning.value = true
+    const { execute, data, error } = getChannelsRequset
+    await execute({ serverId })
 
-      channels.value = await getChannels({ serverId })
-    } finally {
-      isUpdateChannelsRunning.value = false
-    }
+    if (error.value) console.warn(error.value.message)
+
+    channels.value = data.value ?? []
   }
 
   function selectChannel(channelId: string) {
@@ -35,9 +36,9 @@ export const useChannelStore = defineStore('channel', () => {
   }
 
   return {
-    isUpdateChannelsRunning,
     channels,
     selectedId,
+    selectedChannel,
     resetChannels,
     resetSelectedId,
     updateChannels,

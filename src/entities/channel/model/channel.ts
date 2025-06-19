@@ -1,4 +1,4 @@
-import type { UploadedFile } from '@/entities/uploaded-files'
+import type { UploadedFile } from "@/entities/uploaded-files"
 
 export interface Channel {
   id: string

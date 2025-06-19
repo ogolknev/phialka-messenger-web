@@ -1,6 +1,6 @@
-import { type ApiMessage } from '@/shared'
-import type { Message } from '../../model'
-import { adaptApiAttachment } from '@/entities'
+import { type ApiMessage } from "@/shared"
+import type { Message } from "../../model"
+import { adaptApiAttachment } from "@/entities"
 
 export function adaptApiMessage({
   apiMessage,

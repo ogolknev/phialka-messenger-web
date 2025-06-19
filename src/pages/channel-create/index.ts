@@ -1,1 +1,3 @@
-export { ChannelCreatePage } from './ui'
+import ChannelCreatePage from "./ui/ChannelCreatePage.vue"
+
+export { ChannelCreatePage }

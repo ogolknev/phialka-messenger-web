@@ -1,9 +1,9 @@
-import type { Attachment } from '@/entities/attachment'
-import { apiClient, HTTPError } from '@/shared'
+import type { Attachment } from "@/entities/attachment"
+import { apiClient, HTTPError } from "@/shared"
 
 export async function sendChannelMessage({ channelId, body }: SendChannelMessageParameters) {
-  if (!body.content && !body.attachments) throw new Error('Text or attachments required')
-  const { response } = await apiClient.POST('/channels/{channel_id}/sendMessage', {
+  if (!body.content && !body.attachments) throw new Error("Text or attachments required")
+  const { response } = await apiClient.POST("/channels/{channel_id}/sendMessage", {
     body: {
       content: body.content,
       reply_message_id: body.replyId,
@@ -16,7 +16,7 @@ export async function sendChannelMessage({ channelId, body }: SendChannelMessage
     },
     params: { path: { channel_id: channelId } },
   })
-  if (!response.ok) throw new HTTPError(response.statusText, response.status)
+  if (!response.ok) throw new HTTPError(response)
 }
 
 type SendChannelMessageParameters = {
@@ -24,6 +24,6 @@ type SendChannelMessageParameters = {
   body: {
     content?: string
     replyId?: string
-    attachments?: Omit<Attachment, 'messageId'>[]
+    attachments?: Omit<Attachment, "messageId">[]
   }
 }

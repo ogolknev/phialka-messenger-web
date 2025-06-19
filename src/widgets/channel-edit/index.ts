@@ -1,1 +1,0 @@
-export { ChannelEditWidget } from './ui'

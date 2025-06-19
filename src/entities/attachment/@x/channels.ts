@@ -1,1 +1,1 @@
-export { type Attachment } from '..'
+export { type Attachment } from ".."

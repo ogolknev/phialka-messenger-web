@@ -1,1 +1,1 @@
-export { adaptApiFile } from './api-file-adapter'
+export { adaptApiFile } from "./api-file-adapter"

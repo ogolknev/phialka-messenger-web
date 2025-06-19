@@ -1,56 +1,62 @@
 import {
-  AuthPage,
   ChannelCreatePage,
-  ChannelEditPage,
   DevPage,
+  LoginPage,
   MessengerPage,
+  RegisterPage,
   ServerCreatePage,
   ServerEditPage,
-  ServerUsersEdit,
-} from '@/pages'
-import { createMemoryHistory, createRouter } from 'vue-router'
-import type { NamedRouteRecordRaw } from 'vue-routes-to-types'
+} from "@/pages"
+import { createMemoryHistory, createRouter } from "vue-router"
+import type { NamedRouteRecordRaw } from "vue-routes-to-types"
 
 export const routes = [
   {
-    path: '',
+    path: "/",
     component: MessengerPage,
-    name: 'messenger',
+    name: "messenger",
   },
   {
-    path: '/dev',
+    path: "/dev",
     component: DevPage,
-    name: 'dev',
+    name: "dev",
   },
   {
-    path: '/auth',
-    component: AuthPage,
-    name: 'auth',
+    path: "/login",
+    component: LoginPage,
+    name: "login",
   },
   {
-    path: '/server/create',
-    component: ServerCreatePage,
-    name: 'server-create',
+    path: "/register",
+    component: RegisterPage,
+    name: "register",
   },
   {
-    path: '/server/:id/edit',
-    component: ServerEditPage,
-    name: 'server-edit',
-  },
-  {
-    path: '/server/:id/users',
-    component: ServerUsersEdit,
-    name: 'server-users-edit',
-  },
-  {
-    path: '/channel/create',
-    component: ChannelCreatePage,
-    name: 'channel-create',
-  },
-  {
-    path: '/channel/:id/edit',
-    component: ChannelEditPage,
-    name: 'channel-edit',
+    path: "/server",
+    children: [
+      {
+        path: "create",
+        component: ServerCreatePage,
+        name: "server-create",
+      },
+      {
+        path: ":serverId/edit",
+        component: ServerEditPage,
+        name: "server-edit",
+      },
+      {
+        path: ":serverId/channel",
+        children: [
+          {
+            path: "create",
+            component: ChannelCreatePage,
+            name: "channel-create",
+          },
+        ],
+        name: "channel",
+      },
+    ],
+    name: "server",
   },
 ] as const satisfies NamedRouteRecordRaw[]
 

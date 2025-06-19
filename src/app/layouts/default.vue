@@ -1,9 +1,9 @@
 <template>
-  <div class="layout grid h-dvh grid-rows-[3rem_1fr] p-2 gap-2 overflow-hidden">
+  <div class="grid h-dvh grid-rows-[4rem_1fr] gap-2 overflow-hidden p-2">
     <header>
       <AppHeader></AppHeader>
     </header>
-    <main class="overflow-auto">
+    <main class="overflow-hidden">
       <slot name="default"></slot>
     </main>
     <aside class="absolute">
@@ -13,5 +13,5 @@
 </template>
 
 <script setup lang="ts">
-import { AppHeader } from '@/widgets'
+import { AppHeader } from "@/widgets"
 </script>

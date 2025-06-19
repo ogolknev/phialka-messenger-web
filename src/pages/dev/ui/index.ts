@@ -1,1 +1,1 @@
-export { default as DevPage } from './DevPage.vue'
+export { default as DevPage } from "./DevPage.vue"

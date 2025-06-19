@@ -1,20 +1,19 @@
 <template>
-  <div>
-    <UISkeleton v-if="!loaded" class="w-full h-full"></UISkeleton>
+  <div class="card overflow-hidden">
+    <UISkeleton v-if="!loaded"></UISkeleton>
     <img
-      v-show="loaded"
-      class="w-full h-full card"
-      :src="props.src"
+      class="size-full object-cover"
+      :class="{ invisible: !loaded }"
+      :src="props.src ?? undefined"
       :alt="props.alt"
-      @load="loaded = true"
-    />
+      @load="loaded = true" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import UISkeleton from '../skeleton/UISkeleton.vue'
+import { ref } from "vue"
+import UISkeleton from "../skeleton/UISkeleton.vue"
 
-const props = defineProps<{ src?: string; alt?: string }>()
+const props = defineProps<{ src?: string | null; alt?: string }>()
 const loaded = ref(false)
 </script>

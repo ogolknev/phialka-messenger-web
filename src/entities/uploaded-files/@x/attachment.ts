@@ -1,1 +1,1 @@
-export { UploadedFile } from '..'
+export { UploadedFile } from ".."

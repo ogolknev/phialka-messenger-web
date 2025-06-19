@@ -1,75 +1,27 @@
-<script setup lang="ts">
-import { ServerEditWidget, CropImageWidget } from '@/widgets'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-const serverPhotoSrc = ref('')
-let resolveProcessServerPhoto: (value: Blob) => void
-
-function onServerEdit() {
-  router.back()
-}
-
-function processServerPhoto(photo: Blob): Promise<Blob> {
-  return new Promise((resolve) => {
-    resolveProcessServerPhoto = resolve
-    serverPhotoSrc.value = URL.createObjectURL(photo)
-  })
-}
-
-function onCrop(croppedPhoto: Blob) {
-  resolveProcessServerPhoto(croppedPhoto)
-  serverPhotoSrc.value = ''
-}
-</script>
-
 <template>
-  <div class="server-edit-page">
-    <div class="form-container tile">
-      <header>Edit Server</header>
-      <ServerEditWidget
-        class="server-edit-widget"
-        @server-edit="onServerEdit"
-        :process-server-photo="processServerPhoto"
-      ></ServerEditWidget>
-    </div>
+  <div class="grid size-full place-items-center">
+    <UICard class="w-full max-w-100">
+      <template #header>
+        <div class="flex justify-between">
+          <span class="text-primary-500 text-2xl font-bold">Server edit</span>
+          <UIButton
+            variant="ghost"
+            color="error"
+            icon="lucide:x"
+            @click="router.back()"></UIButton>
+        </div>
+      </template>
 
-    <Teleport v-if="serverPhotoSrc" to="#overlay">
-      <CropImageWidget class="touchable" :src="serverPhotoSrc" @crop="onCrop"></CropImageWidget>
-    </Teleport>
+      <ServerEditForm></ServerEditForm>
+    </UICard>
   </div>
 </template>
 
-<style scoped>
-.server-edit-page {
-  height: 100%;
-  display: grid;
-  place-content: center;
-}
+<script setup lang="ts">
+import { ServerEditForm } from "@/features"
+import { UICard } from "@/shared"
+import UIButton from "@/shared/ui/button/ui/UIButton.vue"
+import { useRouter } from "vue-router"
 
-.form-container {
-  padding: var(--gap-size-m);
-  padding-inline: var(--gap-size-xl);
-  width: 80dvw;
-  max-width: 30rem;
-  display: flex;
-  flex-flow: column nowrap;
-  gap: var(--gap-size-s);
-}
-
-header {
-  font-size: var(--font-size-m);
-}
-
-.crop-image-widget {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  aspect-ratio: 1;
-  width: 30rem;
-  max-width: 70dvh;
-  max-height: 70dvh;
-}
-</style>
+const router = useRouter()
+</script>

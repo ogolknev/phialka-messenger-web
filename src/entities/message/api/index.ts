@@ -1,1 +1,1 @@
-export { adaptApiMessage } from './adapters'
+export { adaptApiMessage } from "./adapters"

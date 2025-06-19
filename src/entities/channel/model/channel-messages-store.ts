@@ -1,9 +1,9 @@
-import type { Message } from '@/entities/message/@x/channel'
-import { defineStore } from 'pinia'
-import { computed, reactive } from 'vue'
-import { getChannelMessages } from '../api'
+import type { Message } from "@/entities/message/@x/channel"
+import { defineStore } from "pinia"
+import { computed, reactive } from "vue"
+import { getChannelMessages } from "../api"
 
-export const useChannelMessagesStore = defineStore('channel-messages', () => {
+export const useChannelMessagesStore = defineStore("channel-messages", () => {
   const messagesMap = reactive<{ [channelId: string]: Map<string, Message> }>({})
   const LOAD_COUNT = 30
 

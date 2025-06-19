@@ -1,6 +1,6 @@
-import type { ApiAttachment } from '@/shared'
-import type { Attachment } from '../../model'
-import { adaptApiFile } from '@/entities'
+import type { ApiAttachment } from "@/shared"
+import type { Attachment } from "../../model"
+import { adaptApiFile } from "@/entities"
 
 export function adaptApiAttachment(apiAttachment: ApiAttachment): Attachment {
   return {

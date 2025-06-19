@@ -1,12 +1,11 @@
 <template>
-  <div class="flex gap-4 items-center text-neutral-700 font-light">
-    <div class="h-px bg-neutral-800 grow-1 my-4" :class="props.ui?.lineClass"></div>
+  <div class="flex h-5 items-center gap-4 font-light text-neutral-700">
+    <div class="h-px grow-1 bg-neutral-800" :class="props.ui?.lineClass"></div>
     <slot></slot>
     <div
       v-if="$slots.default"
-      class="h-px bg-neutral-800 grow-1 my-4"
-      :class="props.ui?.lineClass"
-    ></div>
+      class="h-px grow-1 bg-neutral-800"
+      :class="props.ui?.lineClass"></div>
   </div>
 </template>
 

@@ -1,4 +1,4 @@
-import type { Attachment } from '@/entities/attachment/@x/message'
+import type { Attachment } from "@/entities/attachment/@x/message"
 
 export interface Message {
   id: string

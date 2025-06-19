@@ -1,3 +1,3 @@
 <template>
-  <div class="card bg-white/8 p-4 animate-pulse"></div>
+  <div class="card size-full animate-pulse bg-white/8"></div>
 </template>

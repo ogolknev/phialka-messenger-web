@@ -1,1 +1,3 @@
-export { ServerCreatePage } from './ui'
+import ServerCreatePage from "./ui/ServerCreatePage.vue"
+
+export { ServerCreatePage }

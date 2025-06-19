@@ -1,11 +1,11 @@
 <template>
-  <article class="card p-4 bg-neutral-900 flex flex-col">
+  <article class="card flex flex-col bg-neutral-900 px-6 py-5">
     <header v-if="$slots.header">
       <slot name="header"></slot>
       <UIDevider></UIDevider>
     </header>
     <div>
-      <slot name="default"></slot>
+      <slot></slot>
     </div>
     <footer v-if="$slots.footer">
       <UIDevider></UIDevider>
@@ -15,5 +15,5 @@
 </template>
 
 <script setup lang="ts">
-import UIDevider from '../devider/UIDevider.vue'
+import UIDevider from "../devider/UIDevider.vue"
 </script>
