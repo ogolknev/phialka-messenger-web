@@ -1,7 +1,7 @@
 import { defineStore } from "pinia"
 import { reactive } from "vue"
 import type { User } from "./user"
-import * as api from "../api/get-user-by-id"
+import api from "../api"
 
 export const useUserStore = defineStore("user", () => {
   const users = reactive<Record<string, User>>({})
@@ -18,9 +18,20 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
+  async function searchUsers(query: string) {
+    const foundUsers = await api.searchUsers(query)
+
+    console.log("searchUsers found:", foundUsers)
+    for (const user of foundUsers) {
+      users[user.id] = user
+    }
+    return foundUsers
+  }
+
   return {
     users,
     isGetUserByIdRunning,
     getUserById,
+    searchUsers,
   }
 })

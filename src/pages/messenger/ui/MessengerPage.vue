@@ -59,11 +59,16 @@
           :load-start-data="loadOldMessages"
           :load-end-data="loadNewMessages"
           :no-more-end-data="newMessagesNumber === 0">
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-2 overflow-hidden w-9/10 mx-auto">
             <template
               v-for="message in channelMessagesStore.messages[channelStore.selectedId]"
               :key="message.id">
-              <MessageBubble class="size-fit" :message></MessageBubble>
+              <MessageBubble
+                class="size-fit max-w-1/2"
+                :class="
+                  message.authorId !== profileStore.profile.id ? 'ml-auto flex-row-reverse' : ''
+                "
+                :message></MessageBubble>
             </template>
           </div>
         </UIInfiniteScroll>
@@ -87,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { onMounted, ref, watch } from "vue"
 import {
   ChannelCard,
   MessageBubble,
@@ -133,6 +138,13 @@ async function loadNewMessages() {
 async function loadOldMessages() {
   await channelMessagesStore.loadOldMessages(channelStore.selectedId)
 }
+
+watch(
+  () => channelStore.selectedId,
+  async () => {
+    await channelMessagesStore.loadMessages(channelStore.selectedId)
+  },
+)
 
 onMounted(async () => {
   const { response } = await apiClient.GET("/auth/refresh")
