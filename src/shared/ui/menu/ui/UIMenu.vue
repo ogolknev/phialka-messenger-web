@@ -17,7 +17,7 @@
           {{ entry.text }}
         </span>
       </div>
-      <div v-if="index < entries.length - 1" class="my-2 h-[1px] bg-neutral-800"></div>
+      <div v-if="index < entries.length - 1" class="my-2 h-px bg-neutral-800"></div>
     </template>
   </div>
 </template>
