@@ -1,0 +1,11 @@
+{
+    "name": "@phialka/server",
+    "scripts": {
+        "dev": "bun --watch src/index.ts"
+    },
+    "dependencies": {
+        "@phialka/shared": "workspace:*",
+        "bun": "^1.3.5",
+        "hono": "^4.11.3"
+    }
+}
